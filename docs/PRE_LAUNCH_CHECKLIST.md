@@ -1,0 +1,41 @@
+# Pre-Launch Checklist
+
+Work top to bottom. Do not launch with any **Gate** item unresolved.
+
+## Content integrity
+- [x] All approved profile content represented accurately (company narrative, problem, philosophy, vision, mission, values, differentiation, capabilities, FR™/SVP™/FRANCH™, methodology, engagement, industries, team, contact).
+- [x] No unsupported company claims invented.
+- [x] No Lorem Ipsum; no unfinished placeholder in any public section.
+- [x] No third-party (e.g. Deloitte) branding, colors, copy, name, or assets used anywhere. Final site is visually original.
+- [ ] **Gate:** Team English name spellings confirmed (`src/content/team.ts`).
+
+## Launch gates (environment)
+- [ ] **Gate:** Real official phone set (`NEXT_PUBLIC_OFFICIAL_PHONE` + `NEXT_PUBLIC_PHONE_ENABLED=true`) **or** phone intentionally disabled. Temporary `+98 21 0000 0000` never published. *(Enforced in code; verify env.)*
+- [ ] `NEXT_PUBLIC_SITE_URL` set to the production domain.
+- [ ] `NEXT_PUBLIC_SHOW_POWERED_BY_NOVARK` set intentionally.
+- [ ] At least one durable lead channel configured (webhook/DB) if hosting is serverless.
+
+## Bilingual & i18n
+- [x] `/fa` and `/en` routes work.
+- [x] Language switching preserves the current page.
+- [x] Persian RTL correct; English LTR correct.
+- [x] Forms work in both languages with localized validation.
+- [x] Metadata localized; `hreflang` (`fa-IR`, `en`, `x-default`) correct; canonical localized.
+- [x] Sitemap includes both languages.
+
+## Functionality
+- [x] Assessment scoring, preview, and recommendation work.
+- [x] Mega menus keyboard-accessible; empty categories hidden.
+- [x] Mobile navigation accessible.
+- [x] Search works (Persian normalization for ی/ک variants).
+- [ ] Submit a live test lead end-to-end into the configured channel.
+
+## Quality gates
+- [x] `npm run build` passes (72 pages).
+- [x] `npm run typecheck` passes.
+- [ ] Lighthouse on deployed URL — Perf 90+, A11y 95+, Best Practices 95+, SEO 95+.
+- [ ] Automated tests added and green (see `docs/ARCHITECTURE.md §11`).
+- [ ] Manual a11y pass: keyboard-only navigation, screen-reader language switch, focus visibility, reduced-motion.
+
+## Legal
+- [ ] Privacy / Terms / Cookies reviewed by counsel (baseline provided in `src/content/legal.ts`).

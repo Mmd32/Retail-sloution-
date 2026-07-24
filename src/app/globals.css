@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens (also mirrored in tailwind.config.ts) ─────────────────── */
+:root {
+  --color-navy: #0b1f3a;
+  --color-accent: #0aa2de;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f6f9;
+  --color-ink: #0a1526;
+  --color-ink-muted: #5b6b7f;
+  --color-line: #e3e8ef;
+
+  --container: 1240px;
+  --header-h: 4.75rem;
+}
+
+@layer base {
+  * {
+    border-color: theme('colors.line.DEFAULT');
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: theme('colors.surface.DEFAULT');
+    color: theme('colors.ink.DEFAULT');
+    font-feature-settings: 'ss01', 'cv01';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Locale-driven typography: Persian uses Vazirmatn, English uses Inter. */
+  html[lang='fa'] body {
+    font-family: theme('fontFamily.fa');
+    line-height: 1.85;
+  }
+  html[lang='en'] body {
+    font-family: theme('fontFamily.sans');
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    color: theme('colors.navy.DEFAULT');
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  html[lang='fa'] h1,
+  html[lang='fa'] h2,
+  html[lang='fa'] h3,
+  html[lang='fa'] h4 {
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: theme('colors.accent.100');
+    color: theme('colors.navy.900');
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x { padding-inline: 2rem; }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: theme('letterSpacing.eyebrow');
+    text-transform: uppercase;
+    color: theme('colors.accent.600');
+  }
+  html[lang='fa'] .eyebrow {
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+
+  /* A restrained accent rule used to open sections editorially. */
+  .rule-accent::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    background: theme('colors.accent.DEFAULT');
+    margin-block-end: 1.25rem;
+    border-radius: 2px;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s theme('transitionTimingFunction.editorial');
+  }
+  html[dir='rtl'] .link-underline { background-position: 100% 100%; }
+  .link-underline:hover { background-size: 100% 1px; }
+}
+
+/* Respect reduced-motion for all animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
