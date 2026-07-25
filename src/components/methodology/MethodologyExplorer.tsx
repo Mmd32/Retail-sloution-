@@ -48,7 +48,7 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
       >
         <div className="flex items-baseline gap-3">
           <span className="font-display text-3xl font-bold text-accent-500">0{active + 1}</span>
-          <h3 className="text-2xl font-bold text-navy">{phase.name[locale]}</h3>
+          <h3 className="text-h2 text-navy">{phase.name[locale]}</h3>
         </div>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-2">

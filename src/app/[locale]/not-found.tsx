@@ -11,7 +11,7 @@ export default function NotFound() {
     <div className="flex min-h-[60vh] items-center justify-center bg-surface-muted px-6 py-24 text-center">
       <div>
         <p className="font-display text-6xl font-bold text-accent-500">404</p>
-        <h1 className="mt-4 text-2xl font-bold text-navy">Page not found · صفحه یافت نشد</h1>
+        <h1 className="mt-4 text-h2 text-navy">Page not found · صفحه یافت نشد</h1>
         <p className="mt-3 text-ink-muted">
           The page you’re looking for doesn’t exist or has moved.
           <br />

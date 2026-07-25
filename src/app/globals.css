@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens (also mirrored in tailwind.config.ts) ─────────────────── */
+/* ─── Design tokens (mirrored in tailwind.config.ts) ───────────────────────── */
 :root {
   --color-navy: #0b1f3a;
   --color-accent: #0aa2de;
@@ -13,7 +13,13 @@
   --color-line: #e3e8ef;
 
   --container: 1240px;
-  --header-h: 4.75rem;
+
+  /* Vertical rhythm — every gap on the site comes from this short scale,
+     so spacing is systematic rather than chosen per component. */
+  --space-section: clamp(3.5rem, 2rem + 5.5vw, 6rem); /* section padding-block */
+  --space-header: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem); /* header → content */
+  --space-block: 1.5rem; /* between sibling blocks */
+  --space-tight: 0.75rem; /* eyebrow → title */
 }
 
 @layer base {
@@ -29,33 +35,46 @@
   body {
     background-color: theme('colors.surface.DEFAULT');
     color: theme('colors.ink.DEFAULT');
-    font-feature-settings: 'ss01', 'cv01';
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Locale-driven typography: Persian uses Vazirmatn, English uses Inter. */
-  html[lang='fa'] body {
-    font-family: theme('fontFamily.fa');
-    line-height: 1.85;
-  }
-  html[lang='en'] body {
+  /* Latin (English) */
+  html[lang^='en'] body {
     font-family: theme('fontFamily.sans');
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  /* Persian — larger base and looser leading; Persian script needs both.
+     Never inherits the Latin negative tracking. */
+  html[lang^='fa'] body {
+    font-family: theme('fontFamily.fa');
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    letter-spacing: 0;
   }
 
   h1, h2, h3, h4 {
     color: theme('colors.navy.DEFAULT');
     font-weight: 700;
-    letter-spacing: -0.01em;
     text-wrap: balance;
   }
-  html[lang='fa'] h1,
-  html[lang='fa'] h2,
-  html[lang='fa'] h3,
-  html[lang='fa'] h4 {
+
+  /* Persian display type: heavier weight for presence, relaxed leading so
+     ascenders/descenders don't collide, and zero tracking. */
+  html[lang^='fa'] h1,
+  html[lang^='fa'] h2,
+  html[lang^='fa'] h3,
+  html[lang^='fa'] h4 {
+    font-weight: 800;
     letter-spacing: 0;
-    line-height: 1.5;
+  }
+
+  /* Latin numerals inside Persian text stay upright and evenly spaced. */
+  html[lang^='fa'] {
+    font-variant-numeric: lining-nums;
   }
 
   :focus-visible {
@@ -81,29 +100,39 @@
     .container-x { padding-inline: 2rem; }
   }
 
+  /* Consistent section rhythm — used by every <Section>. */
+  .section-y {
+    padding-block: var(--space-section);
+  }
+  .stack-header {
+    margin-block-start: var(--space-header);
+  }
+
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: theme('letterSpacing.eyebrow');
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: theme('colors.accent.600');
   }
-  html[lang='fa'] .eyebrow {
-    letter-spacing: 0.04em;
+  html[lang^='fa'] .eyebrow {
+    letter-spacing: 0.02em;
     text-transform: none;
+    font-size: 0.8125rem;
+    font-weight: 700;
   }
 
-  /* A restrained accent rule used to open sections editorially. */
+  /* A short accent rule that opens a block. */
   .rule-accent::before {
     content: '';
     display: block;
-    width: 2.5rem;
-    height: 3px;
+    inline-size: 2.5rem;
+    block-size: 3px;
     background: theme('colors.accent.DEFAULT');
-    margin-block-end: 1.25rem;
+    margin-block-end: 1rem;
     border-radius: 2px;
   }
 
@@ -116,9 +145,66 @@
   }
   html[dir='rtl'] .link-underline { background-position: 100% 100%; }
   .link-underline:hover { background-size: 100% 1px; }
+
+  /* Placeholder frame for photography supplied later via the CMS.
+     Reads as an intentional panel, not a missing asset. */
+  .media-frame {
+    position: relative;
+    overflow: hidden;
+    background-color: theme('colors.navy.800');
+    background-image:
+      linear-gradient(theme('colors.navy.700') 1px, transparent 1px),
+      linear-gradient(90deg, theme('colors.navy.700') 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: center;
+  }
 }
 
-/* Respect reduced-motion for all animation. */
+/* ─── Persian type ramp ────────────────────────────────────────────────────
+   Persian glyphs read visually larger than Latin at an identical font-size,
+   so every display step is scaled down and given more leading — otherwise
+   headlines overpower the page and wrap awkwardly. Tracking is always zero.
+
+   These rules are deliberately UNLAYERED: Tailwind's font-size classes live in
+   @layer utilities, which outranks @layer base no matter how specific the
+   selector is. Unlayered declarations beat every layer, so this is what lets a
+   per-locale ramp override the utility scale. */
+html[lang^='fa'] .text-display {
+  font-size: clamp(1.95rem, 1.25rem + 2.9vw, 3.15rem);
+  line-height: 1.32;
+  letter-spacing: 0;
+}
+html[lang^='fa'] .text-h1 {
+  font-size: clamp(1.65rem, 1.3rem + 1.7vw, 2.35rem);
+  line-height: 1.38;
+  letter-spacing: 0;
+}
+html[lang^='fa'] .text-h2 {
+  font-size: clamp(1.4rem, 1.18rem + 1vw, 1.9rem);
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+html[lang^='fa'] .text-h3 {
+  font-size: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+html[lang^='fa'] .text-lead {
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.9;
+}
+html[lang^='fa'] .text-body  { line-height: 1.8; }
+html[lang^='fa'] .text-small { font-size: 0.9375rem; line-height: 1.75; }
+
+/* One orchestrated page-load entrance, used only in the hero. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.animate-rise {
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -128,4 +214,5 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+  .animate-rise { animation: none; opacity: 1; transform: none; }
 }

@@ -56,7 +56,7 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <h2 className="rule-accent text-2xl font-bold text-navy">{u('commonChallenges', locale)}</h2>
+            <h2 className="rule-accent text-h2 text-navy">{u('commonChallenges', locale)}</h2>
             <p className="mt-2 text-sm text-ink-faint">
               {locale === 'fa' ? 'چالش‌های رایج ممکن است شامل موارد زیر باشد:' : 'Common challenges may include:'}
             </p>
@@ -70,7 +70,7 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
             </ul>
 
             <div className="mt-12">
-              <h2 className="rule-accent text-2xl font-bold text-navy">{u('relatedSolutions', locale)}</h2>
+              <h2 className="rule-accent text-h2 text-navy">{u('relatedSolutions', locale)}</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-3">
                 {ind.relatedSolutions.map((slug) => {
                   const s = getService(slug);
@@ -81,7 +81,7 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
                       href={localePath(locale, `/solutions/${slug}`)}
                       className="rounded-lg border border-line p-5 transition-colors hover:border-accent-300"
                     >
-                      <p className="font-display text-xl font-bold text-navy">{s.abbr}</p>
+                      <p className="font-display text-h3 text-navy">{s.abbr}</p>
                       <p className="mt-1 text-sm text-ink-muted">{s.fullName[locale]}</p>
                     </Link>
                   );
@@ -128,7 +128,7 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
       </Section>
 
       <Section tone="muted">
-        <h2 className="text-2xl font-bold text-navy">{u('relatedInsights', locale)}</h2>
+        <h2 className="text-h2 text-navy">{u('relatedInsights', locale)}</h2>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {relatedInsights.map((n) => (
             <Link
@@ -137,7 +137,7 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
               className="group rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
             >
               <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{n.topic[locale]}</span>
-              <h3 className="mt-3 text-lg font-semibold text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
+              <h3 className="mt-3 text-h3 text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
               <span className="mt-3 block text-xs text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
             </Link>
           ))}

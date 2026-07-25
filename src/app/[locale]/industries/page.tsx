@@ -44,7 +44,7 @@ export default function IndustriesPage({ params }: { params: { locale: string } 
         <div className="grid gap-6 md:grid-cols-2">
           {industries.map((ind) => (
             <div key={ind.slug} className="flex flex-col rounded-lg border border-line p-7">
-              <h2 className="text-xl font-semibold text-navy">{ind.name[locale]}</h2>
+              <h2 className="text-h3 text-navy">{ind.name[locale]}</h2>
               <p className="mt-3 flex-1 leading-relaxed text-ink-muted">{ind.overview[locale]}</p>
               <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-accent-600">
                 {u('commonChallenges', locale)}

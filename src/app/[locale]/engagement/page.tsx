@@ -40,7 +40,7 @@ export default function EngagementPage({ params }: { params: { locale: string } 
                   {i + 1}
                 </span>
                 <div className="flex-1 rounded-lg border border-line bg-white p-6">
-                  <h2 className="text-xl font-semibold text-navy">{stage.name[locale]}</h2>
+                  <h2 className="text-h3 text-navy">{stage.name[locale]}</h2>
                   <p className="mt-2 leading-relaxed text-ink-muted">{stage.description[locale]}</p>
                 </div>
               </li>

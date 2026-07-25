@@ -57,7 +57,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
 
             {relatedServices.length > 0 && (
               <div className="mt-12">
-                <h2 className="rule-accent text-2xl font-bold text-navy">{u('relatedSolutions', locale)}</h2>
+                <h2 className="rule-accent text-h2 text-navy">{u('relatedSolutions', locale)}</h2>
                 <div className="mt-4 grid gap-4 sm:grid-cols-3">
                   {relatedServices.map((s) => (
                     <Link
@@ -65,7 +65,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
                       href={localePath(locale, `/solutions/${s.slug}`)}
                       className="rounded-lg border border-line p-5 transition-colors hover:border-accent-300"
                     >
-                      <p className="font-display text-xl font-bold text-navy">{s.abbr}</p>
+                      <p className="font-display text-h3 text-navy">{s.abbr}</p>
                       <p className="mt-1 text-sm text-ink-muted">{s.fullName[locale]}</p>
                     </Link>
                   ))}

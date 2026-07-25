@@ -68,7 +68,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
   if (phase === 'intro') {
     return (
       <Card>
-        <h2 className="text-2xl font-bold text-navy md:text-3xl">{assessmentMeta.title[locale]}</h2>
+        <h2 className="text-h2 text-navy">{assessmentMeta.title[locale]}</h2>
         <p className="mt-4 leading-relaxed text-ink-muted">{assessmentMeta.intro[locale]}</p>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           {dimensions.map((d) => (
@@ -109,7 +109,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <h2 className="text-xl font-bold text-navy md:text-2xl">{currentDim.name[locale]}</h2>
+        <h2 className="text-h3 text-navy md:text-2xl">{currentDim.name[locale]}</h2>
 
         <div className="mt-6 space-y-6">
           {currentDim.questions.map((q, qi) => {
@@ -170,7 +170,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
         </p>
         <div className="mt-4 flex flex-col items-center">
           <Gauge value={overall} locale={locale} />
-          <p className="mt-4 text-2xl font-bold text-navy">{level.label[locale]}</p>
+          <p className="mt-4 text-h2 text-navy">{level.label[locale]}</p>
           <p className="mt-2 max-w-md text-center text-ink-muted">{level.description[locale]}</p>
         </div>
 
@@ -211,12 +211,12 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
       <div className="flex flex-col items-center">
         <p className="text-sm font-semibold uppercase tracking-wide text-accent-600">{u('overallScore', locale)}</p>
         <Gauge value={overall} locale={locale} />
-        <p className="mt-3 text-2xl font-bold text-navy">{level.label[locale]}</p>
+        <p className="mt-3 text-h2 text-navy">{level.label[locale]}</p>
         <p className="mt-2 max-w-md text-center text-ink-muted">{level.description[locale]}</p>
       </div>
 
       <div className="mt-10">
-        <h3 className="text-lg font-semibold text-navy">{u('dimensionBreakdown', locale)}</h3>
+        <h3 className="text-h3 text-navy">{u('dimensionBreakdown', locale)}</h3>
         <div className="mt-4 space-y-3">
           {dimensions.map((d) => (
             <Bar key={d.key} label={d.name[locale]} value={scores[d.key] ?? 0} locale={locale} />
@@ -225,7 +225,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
       </div>
 
       <div className="mt-10 rounded-lg border border-accent-200 bg-accent-50 p-6">
-        <h3 className="text-lg font-semibold text-navy">{u('preliminaryRecommendation', locale)}</h3>
+        <h3 className="text-h3 text-navy">{u('preliminaryRecommendation', locale)}</h3>
         {recommendedService ? (
           <p className="mt-2 text-ink">
             {locale === 'fa'

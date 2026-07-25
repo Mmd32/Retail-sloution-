@@ -44,7 +44,7 @@ export default function TeamPage({ params }: { params: { locale: string } }) {
                 <Monogram name={m.name.en} className="aspect-[4/5] w-full" />
               )}
               <div className="p-6">
-                <h2 className="text-lg font-semibold text-navy">{m.name[locale]}</h2>
+                <h2 className="text-h3 text-navy">{m.name[locale]}</h2>
                 <p className="mt-1 text-sm text-ink-muted">{m.role[locale]}</p>
               </div>
             </div>

@@ -69,6 +69,39 @@ Corner radii are restrained (`3–10px`); shadows are used sparingly (`card`, `l
 
 > **Before launch**, extract the exact dominant brand HEX values from the approved source assets and update these tokens. The current values are the documented provisional roles.
 
+### Typography
+
+One fluid scale (`tailwind.config.ts → fontSize`) drives the whole site: `display`, `h1`, `h2`, `h3`, `lead`, `body`, `small`, `eyebrow`. Sizes interpolate with `clamp()` so there are no breakpoint jumps.
+
+**Persian runs on its own ramp.** Persian glyphs read visually larger than Latin at an identical `font-size`, so every display step is scaled down and given more leading, and tracking is always `0` (never the Latin negative tracking). These overrides live in `globals.css`.
+
+Two implementation details worth knowing before editing:
+
+1. **Selectors use `html[lang^='fa']`, not `html[lang='fa']`.** The document renders `lang="fa-IR"`, so an exact-match selector silently never fires — which previously meant Vazirmatn and the entire Persian type treatment were not applied at all. Always use the prefix match.
+2. **The Persian ramp is deliberately unlayered.** Tailwind's font-size classes live in `@layer utilities`, which outranks `@layer base` regardless of selector specificity. Unlayered declarations beat every layer, so the per-locale ramp sits outside `@layer` at the bottom of `globals.css`.
+
+Faces: **Vazirmatn** (Persian) and **Archivo** (Latin) — Archivo chosen over a default UI sans so the English side carries the same institutional weight as the Persian.
+
+### Spacing rhythm
+
+All vertical spacing comes from a short scale of CSS variables so gaps are systematic rather than picked per component:
+
+| Token | Use |
+| --- | --- |
+| `--space-section` | section `padding-block` (via `.section-y`) |
+| `--space-header` | section header → content (via `.stack-header`) |
+| `--space-block` / `--space-tight` | sibling blocks / eyebrow → title |
+
+### Motion
+
+Motion is spent in **one** place: a short CSS `rise` entrance on the hero (~0.5 s, small stagger). There is no JS animation library — `framer-motion` was removed, cutting the homepage first-load from ~133 kB to ~96 kB.
+
+Scroll-triggered reveals were removed deliberately: they started elements at `opacity: 0`, so on fast scroll (or before hydration) content read as washed out or missing. `Reveal` is now a pass-through kept only for call-site compatibility. `prefers-reduced-motion` disables the hero entrance entirely.
+
+### Imagery
+
+`MediaSlot` renders a real `<img>` when `src` is set and otherwise draws a navy system panel — an intentional design element, never a broken box and never generic stock. Photography supplied later drops in through this component (currently used on insight cards; extend to industries/about as assets arrive).
+
 ## 5. Content model
 
 Every public field is `{ fa, en }` (`Localized`). Types live in `src/content/types.ts`.

@@ -1,32 +1,21 @@
-'use client';
-
-import { motion, useReducedMotion } from 'framer-motion';
-
 /**
- * Restrained entrance animation: a small fade + rise, once, on scroll into
- * view. Honors prefers-reduced-motion by rendering static content.
+ * Previously this wrapped every card in a scroll-triggered fade that started at
+ * opacity 0. On fast scroll — and for anyone whose JS was still warming up —
+ * content read as washed out or missing, and the staggered delays made the page
+ * feel sluggish.
+ *
+ * Motion is now spent in one place only (the hero's load sequence), so this is
+ * a plain pass-through: content is always visible and immediately legible.
+ * Kept as a component so call sites don't need to change.
  */
 export function Reveal({
   children,
-  delay = 0,
   className,
 }: {
   children: React.ReactNode;
+  /** Accepted for call-site compatibility; no longer used. */
   delay?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }

@@ -74,8 +74,8 @@ export function InsightArchive({
               </span>
               <span className="text-ink-faint">{n.topic[locale]}</span>
             </div>
-            <h2 className="mt-4 text-lg font-semibold text-navy group-hover:text-accent-700">{n.title[locale]}</h2>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted line-clamp-3">{n.summary[locale]}</p>
+            <h2 className="mt-4 text-h3 text-navy group-hover:text-accent-700">{n.title[locale]}</h2>
+            <p className="mt-2 flex-1 text-small text-ink-muted line-clamp-3">{n.summary[locale]}</p>
             <div className="mt-4 flex items-center justify-between text-xs text-ink-faint">
               <span>{formatDate(n.publishedAt, locale)}</span>
               <span>{readingTimeLabel(n.readingMinutes, locale)}</span>

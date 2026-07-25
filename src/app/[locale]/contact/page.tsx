@@ -41,7 +41,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
 
           <aside className="lg:col-span-5">
             <div className="rounded-lg border border-line bg-surface-muted p-8">
-              <h2 className="text-lg font-semibold text-navy">
+              <h2 className="text-h3 text-navy">
                 {locale === 'fa' ? 'راه‌های ارتباطی' : 'Ways to reach us'}
               </h2>
               <ul className="mt-6 space-y-5 text-sm">

@@ -64,6 +64,22 @@ const config: Config = {
         fa: ['var(--font-fa)', 'Tahoma', 'sans-serif'],
         display: ['var(--font-latin)', 'system-ui', 'sans-serif'],
       },
+      /**
+       * One fluid type scale for the whole site. Sizes interpolate with the
+       * viewport so there are no jarring breakpoint jumps. Line-height and
+       * tracking are baked in for Latin; globals.css relaxes both for Persian,
+       * which needs more leading and never takes negative tracking.
+       */
+      fontSize: {
+        eyebrow: ['0.75rem', { lineHeight: '1', letterSpacing: '0.14em', fontWeight: '600' }],
+        small: ['0.875rem', { lineHeight: '1.6' }],
+        body: ['1rem', { lineHeight: '1.65' }],
+        lead: ['clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem)', { lineHeight: '1.6' }],
+        h3: ['clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem)', { lineHeight: '1.35', letterSpacing: '-0.01em' }],
+        h2: ['clamp(1.75rem, 1.35rem + 1.7vw, 2.5rem)', { lineHeight: '1.14', letterSpacing: '-0.022em' }],
+        h1: ['clamp(2.1rem, 1.5rem + 2.6vw, 3.25rem)', { lineHeight: '1.08', letterSpacing: '-0.028em' }],
+        display: ['clamp(2.6rem, 1.6rem + 4.2vw, 4.5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em' }],
+      },
       maxWidth: {
         container: '1240px',
         prose: '68ch',

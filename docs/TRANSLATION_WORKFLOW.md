@@ -13,7 +13,7 @@ Insight items carry a `status` field today (`complete | needs-review | missing`)
 | Persian (fa) | English (en) |
 | --- | --- |
 | RTL layout, logical mirroring | LTR layout |
-| Persian typography (Vazirmatn) | Inter |
+| Persian typography (Vazirmatn) | Archivo |
 | Persian punctuation & digits where contextual | Western digits |
 | Persian/Jalali date formatting | English date formatting |
 | Native Persian phrasing | Professional international consulting English |

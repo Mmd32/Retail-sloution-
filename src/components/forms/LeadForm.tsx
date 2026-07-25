@@ -93,7 +93,7 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
     return (
       <div className="rounded-lg border border-accent-200 bg-accent-50 p-8 text-center">
         <CheckCircle2 className="mx-auto h-10 w-10 text-accent-600" aria-hidden />
-        <h3 className="mt-4 text-xl font-semibold text-navy">{u('formSuccessTitle', locale)}</h3>
+        <h3 className="mt-4 text-h3 text-navy">{u('formSuccessTitle', locale)}</h3>
         <p className="mt-2 text-ink-muted">{u('formSuccessBody', locale)}</p>
       </div>
     );

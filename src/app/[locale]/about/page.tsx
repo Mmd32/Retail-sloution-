@@ -5,7 +5,7 @@ import { Section, SectionHeader, Eyebrow } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
 import { u } from '@/content/ui';
-import { vision, mission, philosophy, brand } from '@/content/site';
+import { vision, mission, philosophy, brand, coreBelief } from '@/content/site';
 import { values } from '@/content/values';
 
 export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
@@ -31,17 +31,18 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
         crumbs={[{ label: locale === 'fa' ? 'درباره ما' : 'About' }]}
         eyebrow={brand.descriptor[locale]}
         title={locale === 'fa' ? 'شریک تحول سازمانی صنعت ریتیل' : 'The transformation partner for retail organizations'}
-        intro={philosophy.body[0][locale]}
+        intro={coreBelief.support[locale]}
       />
 
-      {/* Philosophy continued */}
+      {/* Philosophy — the hero states the positioning, this states the argument. */}
       <Section>
-        <div className="mx-auto max-w-3xl">
-          <Eyebrow>{u('ourPhilosophy', locale)}</Eyebrow>
-          <div className="mt-6 space-y-6">
-            {philosophy.body.map((p, i) => (
-              <p key={i} className="text-lg leading-relaxed text-ink-muted">{p[locale]}</p>
-            ))}
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <Eyebrow>{u('ourPhilosophy', locale)}</Eyebrow>
+          </div>
+          <div className="lg:col-span-8">
+            <p className="text-h2 text-navy">{philosophy.body[0][locale]}</p>
+            <p className="text-lead mt-5 text-ink-muted">{philosophy.body[1][locale]}</p>
           </div>
         </div>
       </Section>
@@ -50,7 +51,7 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
       <Section tone="navy">
         <div className="mx-auto max-w-4xl text-center">
           <Eyebrow onDark>{u('vision', locale)}</Eyebrow>
-          <p className="mt-6 text-2xl font-semibold leading-relaxed text-white md:text-[2rem] md:leading-relaxed">
+          <p className="mt-6 text-h2 text-white">
             {vision[locale]}
           </p>
         </div>
@@ -63,7 +64,7 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
             <Eyebrow>{u('mission', locale)}</Eyebrow>
           </div>
           <div className="lg:col-span-8">
-            <p className="text-xl font-medium leading-relaxed text-navy md:text-2xl">{mission[locale]}</p>
+            <p className="text-h2 text-navy">{mission[locale]}</p>
           </div>
         </div>
       </Section>
@@ -78,7 +79,7 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
           {brand.pillars.map((p, i) => (
             <div key={i} className="rounded-lg border border-line bg-white p-6">
               <span className="font-display text-3xl font-bold text-accent-500">0{i + 1}</span>
-              <p className="mt-3 text-lg font-semibold text-navy">{p[locale]}</p>
+              <p className="mt-3 text-h3 text-navy">{p[locale]}</p>
             </div>
           ))}
         </div>
@@ -90,8 +91,8 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
         <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 lg:grid-cols-5">
           {values.map((v) => (
             <div key={v.key} className="bg-surface p-6">
-              <h3 className="text-lg font-semibold text-navy">{v.name[locale]}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">{v.description[locale]}</p>
+              <h3 className="text-h3 text-navy">{v.name[locale]}</h3>
+              <p className="mt-2 text-small text-ink-muted">{v.description[locale]}</p>
             </div>
           ))}
         </div>

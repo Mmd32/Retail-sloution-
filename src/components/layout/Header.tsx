@@ -43,7 +43,7 @@ export function Header({ locale }: { locale: Locale }) {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       {/* Utility bar */}
       <div className="hidden border-b border-line bg-navy text-navy-100 lg:block">
-        <div className="container-x flex h-9 items-center justify-between text-xs">
+        <div className="container-x flex h-8 items-center justify-between text-xs">
           <p className="text-navy-200">{locale === 'fa' ? 'ساختن سازمان‌های ماندگار در صنعت ریتیل' : 'Building Enduring Retail Organizations'}</p>
           <div className="flex items-center gap-5">
             <LanguageSwitcher locale={locale} onDark />
@@ -71,7 +71,7 @@ export function Header({ locale }: { locale: Locale }) {
 
       {/* Primary bar */}
       <div ref={navRef} className="relative border-b border-line" onMouseLeave={() => setOpenMenu(null)}>
-        <div className="container-x flex h-[4.75rem] items-center justify-between gap-6">
+        <div className="container-x flex h-16 items-center justify-between gap-6">
           <Logo locale={locale} />
 
           <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">

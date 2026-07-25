@@ -69,7 +69,7 @@ export default function InsightPage({ params }: { params: { locale: string; slug
                 <span className="text-ink-faint">{insight.topic[locale]}</span>
               </div>
               <h1 className="mt-5 text-3xl font-bold leading-tight text-navy md:text-4xl">{insight.title[locale]}</h1>
-              <p className="mt-5 text-lg leading-relaxed text-ink-muted">{insight.summary[locale]}</p>
+              <p className="mt-5 text-lead text-ink-muted">{insight.summary[locale]}</p>
               <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-ink-muted">
                 <span className="inline-flex items-center gap-1.5">
                   <User className="h-4 w-4" aria-hidden /> {insight.author[locale]}
@@ -95,7 +95,7 @@ export default function InsightPage({ params }: { params: { locale: string; slug
       </article>
 
       <Section tone="muted">
-        <h2 className="text-2xl font-bold text-navy">{u('relatedInsights', locale)}</h2>
+        <h2 className="text-h2 text-navy">{u('relatedInsights', locale)}</h2>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {related.map((n) => (
             <Link
@@ -104,7 +104,7 @@ export default function InsightPage({ params }: { params: { locale: string; slug
               className="group rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
             >
               <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{n.topic[locale]}</span>
-              <h3 className="mt-3 text-lg font-semibold text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
+              <h3 className="mt-3 text-h3 text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
             </Link>
           ))}
         </div>

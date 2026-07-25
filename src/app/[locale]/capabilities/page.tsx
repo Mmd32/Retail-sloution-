@@ -57,8 +57,8 @@ export default function CapabilitiesPage({ params }: { params: { locale: string 
                 </span>
                 <div>
                   <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{c.name[locale]}</span>
-                  <h2 className="mt-1 text-xl font-semibold text-navy group-hover:text-accent-700">{c.title[locale]}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">{c.description[locale]}</p>
+                  <h2 className="mt-1 text-h3 text-navy group-hover:text-accent-700">{c.title[locale]}</h2>
+                  <p className="mt-2 text-small text-ink-muted">{c.description[locale]}</p>
                 </div>
               </Link>
             );

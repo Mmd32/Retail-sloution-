@@ -76,7 +76,7 @@ export default function SolutionsPage({ params }: { params: { locale: string } }
               className="rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
             >
               <h3 className="font-semibold text-navy">{c.title[locale]}</h3>
-              <p className="mt-2 text-sm text-ink-muted">{c.description[locale]}</p>
+              <p className="mt-2 text-small text-ink-muted">{c.description[locale]}</p>
             </Link>
           ))}
         </div>

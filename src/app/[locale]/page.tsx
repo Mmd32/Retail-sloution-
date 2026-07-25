@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  AlertTriangle,
-  ArrowRight,
   ArrowLeft,
+  ArrowRight,
   Check,
   Compass,
   Building2,
@@ -13,22 +12,17 @@ import {
   BarChart3,
 } from 'lucide-react';
 import { isLocale, type Locale } from '@/i18n/config';
-import { localePath } from '@/lib/utils';
+import { localePath, formatDate } from '@/lib/utils';
 import { buildMetadata } from '@/lib/seo';
 import { Section, SectionHeader, Eyebrow } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
-import { Reveal } from '@/components/ui/Reveal';
 import { ArrowLink } from '@/components/ui/ArrowLink';
+import { MediaSlot } from '@/components/ui/MediaSlot';
+import { Monogram } from '@/components/ui/Monogram';
 import { HeroVisual } from '@/components/home/HeroVisual';
 import { MeetingCta } from '@/components/shared/MeetingCta';
 import { u } from '@/content/ui';
-import {
-  coreBelief,
-  industryProblem,
-  philosophy,
-  differentiation,
-  brand,
-} from '@/content/site';
+import { coreBelief, industryProblem, philosophy, differentiation, brand } from '@/content/site';
 import { services, retailTransformation } from '@/content/services';
 import { capabilities } from '@/content/capabilities';
 import { industries } from '@/content/industries';
@@ -36,8 +30,6 @@ import { phases, methodologyIntro } from '@/content/methodology';
 import { insights } from '@/content/insights';
 import { team } from '@/content/team';
 import { assessmentMeta } from '@/content/assessment';
-import { Monogram } from '@/components/ui/Monogram';
-import { formatDate } from '@/lib/utils';
 
 const capIcons = [Compass, Building2, Users, TrendingUp, Store, BarChart3];
 
@@ -65,23 +57,37 @@ export default function HomePage({ params }: { params: { locale: string } }) {
   return (
     <>
       {/* 1 — Hero */}
-      <section className="relative overflow-hidden border-b border-line bg-surface-muted">
-        <div className="container-x grid items-center gap-12 py-16 md:py-24 lg:grid-cols-12">
+      <section className="border-b border-line bg-surface-muted">
+        <div className="container-x grid items-center gap-10 py-14 md:py-20 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
-            <Eyebrow>{brand.descriptor[locale]}</Eyebrow>
-            <h1 className="mt-5 text-4xl font-bold leading-tight text-navy md:text-5xl lg:text-[3.4rem]">
+            <span className="eyebrow animate-rise">{brand.descriptor[locale]}</span>
+            <h1
+              className="text-display animate-rise mt-4 text-navy"
+              style={{ animationDelay: '60ms' }}
+            >
               {coreBelief.headline[locale]}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">
+            <p
+              className="text-lead animate-rise mt-6 max-w-xl text-ink-muted"
+              style={{ animationDelay: '110ms' }}
+            >
               {locale === 'fa'
                 ? 'ریتیل سلوشنز به برندهای ریتیل کمک می‌کند با طراحی استراتژی، سیستم‌های مدیریتی، قابلیت‌های سازمانی و سازوکارهای اجرایی، از وابستگی به افراد عبور کنند و برای رشد حرفه‌ای و مقیاس‌پذیر آماده شوند.'
                 : 'Retail Solutions helps retail brands move beyond dependency on individuals by designing strategies, management systems, organizational capabilities, and execution mechanisms required for professional and scalable growth.'}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href={localePath(locale, '/contact')} size="lg">
+            <div
+              className="animate-rise mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+              style={{ animationDelay: '150ms' }}
+            >
+              <ButtonLink href={localePath(locale, '/contact')} size="lg" className="w-full sm:w-auto">
                 {u('requestMeeting', locale)}
               </ButtonLink>
-              <ButtonLink href={localePath(locale, '/assessment')} size="lg" variant="secondary">
+              <ButtonLink
+                href={localePath(locale, '/assessment')}
+                size="lg"
+                variant="secondary"
+                className="w-full sm:w-auto"
+              >
                 {u('assessBusiness', locale)}
               </ButtonLink>
             </div>
@@ -94,45 +100,38 @@ export default function HomePage({ params }: { params: { locale: string } }) {
 
       {/* 2 — Industry problem */}
       <Section>
-        <SectionHeader
-          eyebrow={locale === 'fa' ? 'مسئله صنعت' : 'The Industry Problem'}
-          title={industryProblem.headline[locale]}
-        />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
+        <SectionHeader eyebrow={locale === 'fa' ? 'مسئله صنعت' : 'The Industry Problem'} title={industryProblem.headline[locale]} />
+        <div className="stack-header grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
           {industryProblem.problems.map((p, i) => (
-            <Reveal key={i} delay={i * 0.05} className="bg-surface p-6">
-              <AlertTriangle className="h-6 w-6 text-accent-600" aria-hidden />
-              <h3 className="mt-4 text-lg font-semibold text-navy">{p.title[locale]}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">{p.body[locale]}</p>
-            </Reveal>
+            <div key={i} className="bg-surface p-6">
+              <span className="text-small font-semibold text-accent-600">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="text-h3 mt-3 text-navy">{p.title[locale]}</h3>
+              <p className="text-small mt-2 text-ink-muted">{p.body[locale]}</p>
+            </div>
           ))}
         </div>
       </Section>
 
-      {/* 3 — From person-dependent to system-driven */}
+      {/* 3 — The core shift */}
       <Section tone="navy">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div>
+        <div className="grid items-center gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-6">
             <Eyebrow onDark>{locale === 'fa' ? 'انتقال بنیادین' : 'The Core Shift'}</Eyebrow>
-            <p className="mt-5 text-2xl font-semibold leading-snug text-white md:text-3xl">
-              {coreBelief.support[locale]}
-            </p>
+            <p className="text-h2 mt-3 text-white">{coreBelief.support[locale]}</p>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-6">
             <div className="rounded-lg border border-white/10 bg-white/5 p-6">
-              <p className="text-sm font-semibold uppercase tracking-wide text-navy-300">
-                {locale === 'fa' ? 'از' : 'From'}
-              </p>
-              <p className="mt-2 text-lg font-medium text-navy-100">
+              <p className="text-eyebrow uppercase text-navy-300">{locale === 'fa' ? 'از' : 'From'}</p>
+              <p className="text-h3 mt-2 text-navy-100">
                 {locale === 'fa' ? 'مدیریت فردمحور' : 'Person-dependent management'}
               </p>
             </div>
             <div className="rounded-lg border border-accent-500/40 bg-accent-500/10 p-6">
-              <p className="text-sm font-semibold uppercase tracking-wide text-accent-300">
-                {locale === 'fa' ? 'به' : 'To'}
-              </p>
-              <p className="mt-2 text-lg font-medium text-white">
-                {locale === 'fa' ? 'سازمان سیستم‌محور و داده‌محور' : 'A system-driven, data-driven organization'}
+              <p className="text-eyebrow uppercase text-accent-300">{locale === 'fa' ? 'به' : 'To'}</p>
+              <p className="text-h3 mt-2 text-white">
+                {locale === 'fa' ? 'سازمان سیستم‌محور و داده‌محور' : 'A system-driven organization'}
               </p>
             </div>
           </div>
@@ -141,14 +140,13 @@ export default function HomePage({ params }: { params: { locale: string } }) {
 
       {/* 4 — Philosophy */}
       <Section tone="muted">
-        <div className="mx-auto max-w-3xl">
-          <Eyebrow>{u('ourPhilosophy', locale)}</Eyebrow>
-          <div className="mt-6 space-y-6">
-            {philosophy.body.map((p, i) => (
-              <p key={i} className={i === 0 ? 'text-2xl font-medium leading-snug text-navy' : 'text-lg leading-relaxed text-ink-muted'}>
-                {p[locale]}
-              </p>
-            ))}
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <Eyebrow>{u('ourPhilosophy', locale)}</Eyebrow>
+          </div>
+          <div className="lg:col-span-8">
+            <p className="text-h2 text-navy">{philosophy.body[0][locale]}</p>
+            <p className="text-lead mt-5 text-ink-muted">{philosophy.body[1][locale]}</p>
           </div>
         </div>
       </Section>
@@ -160,23 +158,24 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           title={retailTransformation.positioning[locale]}
           intro={retailTransformation.intro[locale]}
         />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {services.map((s, i) => (
-            <Reveal key={s.slug} delay={i * 0.06}>
-              <Link
-                href={localePath(locale, `/solutions/${s.slug}`)}
-                className="group flex h-full flex-col rounded-lg border border-line bg-surface p-7 transition-colors hover:border-accent-300"
-              >
-                <span className="text-sm font-semibold uppercase tracking-wide text-accent-600">{s.eyebrow[locale]}</span>
-                <span className="mt-3 font-display text-2xl font-bold text-navy">{s.abbr}</span>
-                <span className="text-sm font-medium text-ink">{s.fullName[locale]}</span>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-muted">{s.proposition[locale]}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent-700">
-                  {u('learnMore', locale)}
-                  <Arrow className="h-4 w-4 transition-transform group-hover:translate-x-0" aria-hidden />
-                </span>
-              </Link>
-            </Reveal>
+        <div className="stack-header grid gap-5 md:grid-cols-3">
+          {services.map((s) => (
+            <Link
+              key={s.slug}
+              href={localePath(locale, `/solutions/${s.slug}`)}
+              className="group flex h-full flex-col rounded-lg border border-line bg-surface p-7 transition-colors hover:border-accent-400"
+            >
+              <span className="text-eyebrow uppercase text-accent-600">{s.eyebrow[locale]}</span>
+              <span className="mt-4 font-display text-[2rem] font-extrabold leading-none tracking-tight text-navy">
+                {s.abbr}
+              </span>
+              <span className="text-small mt-2 font-medium text-ink">{s.fullName[locale]}</span>
+              <p className="text-small mt-4 flex-1 text-ink-muted">{s.proposition[locale]}</p>
+              <span className="text-small mt-6 inline-flex items-center gap-2 font-semibold text-accent-700">
+                {u('learnMore', locale)}
+                <Arrow className="h-4 w-4" aria-hidden />
+              </span>
+            </Link>
           ))}
         </div>
       </Section>
@@ -192,20 +191,20 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               : 'The capabilities are not separate products; they are interconnected layers of a single system for moving beyond dependency on individuals.'
           }
         />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stack-header grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((c, i) => {
             const Icon = capIcons[i % capIcons.length];
             return (
               <Link
                 key={c.slug}
                 href={localePath(locale, `/capabilities/${c.slug}`)}
-                className="group bg-surface p-7 transition-colors hover:bg-surface-muted"
+                className="group bg-surface p-6 transition-colors hover:bg-accent-50"
               >
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-navy text-accent-300">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-navy text-accent-300">
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
-                <h3 className="mt-4 text-lg font-semibold text-navy group-hover:text-accent-700">{c.title[locale]}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">{c.description[locale]}</p>
+                <h3 className="text-h3 mt-4 text-navy group-hover:text-accent-700">{c.title[locale]}</h3>
+                <p className="text-small mt-2 text-ink-muted">{c.description[locale]}</p>
               </Link>
             );
           })}
@@ -218,25 +217,21 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           eyebrow={locale === 'fa' ? 'تفاوت ما' : 'What Makes Us Different'}
           title={differentiation.headline[locale]}
         />
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-lg border border-line bg-surface-muted p-8">
-            <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
-              {differentiation.traditional.label[locale]}
-            </p>
-            <h3 className="mt-3 text-xl font-semibold text-navy">{differentiation.traditional.headline[locale]}</h3>
-            <p className="mt-4 leading-relaxed text-ink-muted">{differentiation.traditional.body[locale]}</p>
+        <div className="stack-header grid gap-5 lg:grid-cols-2">
+          <div className="rounded-lg border border-line bg-surface-muted p-7">
+            <p className="text-eyebrow uppercase text-ink-muted">{differentiation.traditional.label[locale]}</p>
+            <h3 className="text-h3 mt-3 text-navy">{differentiation.traditional.headline[locale]}</h3>
+            <p className="text-small mt-4 text-ink-muted">{differentiation.traditional.body[locale]}</p>
           </div>
-          <div className="rounded-lg border-2 border-accent-300 bg-white p-8 shadow-card">
-            <p className="text-xs font-semibold uppercase tracking-wide text-accent-600">
-              {differentiation.retailSolutions.label[locale]}
-            </p>
-            <h3 className="mt-3 text-xl font-semibold text-navy">{differentiation.retailSolutions.headline[locale]}</h3>
-            <p className="mt-4 leading-relaxed text-ink-muted">{differentiation.retailSolutions.body[locale]}</p>
+          <div className="rounded-lg border-2 border-accent-400 bg-white p-7">
+            <p className="text-eyebrow uppercase text-accent-600">{differentiation.retailSolutions.label[locale]}</p>
+            <h3 className="text-h3 mt-3 text-navy">{differentiation.retailSolutions.headline[locale]}</h3>
+            <p className="text-small mt-4 text-ink-muted">{differentiation.retailSolutions.body[locale]}</p>
           </div>
         </div>
       </Section>
 
-      {/* 8 — Methodology */}
+      {/* 8 — Methodology (a genuine sequence, so it is numbered) */}
       <Section tone="navy">
         <SectionHeader
           onDark
@@ -244,12 +239,14 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           title={methodologyIntro.title[locale]}
           intro={methodologyIntro.intro[locale]}
         />
-        <ol className="mt-12 grid gap-4 md:grid-cols-5">
+        <ol className="stack-header grid gap-4 md:grid-cols-5">
           {phases.map((p, i) => (
             <li key={p.key} className="rounded-lg border border-white/10 bg-white/5 p-5">
-              <span className="text-sm font-semibold text-accent-300">0{i + 1}</span>
-              <h3 className="mt-2 text-lg font-semibold text-white">{p.name[locale]}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-navy-200 line-clamp-4">{p.objective[locale]}</p>
+              <span className="text-small font-semibold text-accent-300">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="text-h3 mt-2 text-white">{p.name[locale]}</h3>
+              <p className="text-small mt-2 text-navy-200">{p.objective[locale]}</p>
             </li>
           ))}
         </ol>
@@ -262,75 +259,89 @@ export default function HomePage({ params }: { params: { locale: string } }) {
 
       {/* 9 — Industries */}
       <Section>
-        <SectionHeader
-          eyebrow={locale === 'fa' ? 'صنایع' : 'Industries'}
-          title={locale === 'fa' ? 'تمرکز بر صنایع ریتیل' : 'Focused on retail industries'}
-        />
-        <div className="mt-10 flex flex-wrap gap-3">
-          {industries.map((i) => (
-            <Link
-              key={i.slug}
-              href={localePath(locale, `/industries/${i.slug}`)}
-              className="rounded-full border border-line px-5 py-2.5 text-sm font-medium text-navy transition-colors hover:border-accent-400 hover:text-accent-700"
-            >
-              {i.name[locale]}
-            </Link>
-          ))}
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <SectionHeader
+              eyebrow={locale === 'fa' ? 'صنایع' : 'Industries'}
+              title={locale === 'fa' ? 'تمرکز بر صنایع ریتیل' : 'Focused on retail industries'}
+            />
+          </div>
+          <div className="lg:col-span-8">
+            <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+              {industries.map((ind) => (
+                <Link
+                  key={ind.slug}
+                  href={localePath(locale, `/industries/${ind.slug}`)}
+                  className="group flex items-center justify-between gap-3 bg-surface px-5 py-4 transition-colors hover:bg-surface-muted"
+                >
+                  <span className="font-medium text-navy group-hover:text-accent-700">{ind.name[locale]}</span>
+                  <Arrow className="h-4 w-4 shrink-0 text-accent-600" aria-hidden />
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
 
       {/* 10 — Retail Growth Assessment */}
       <Section tone="muted">
-        <div className="overflow-hidden rounded-xl border border-line bg-white">
-          <div className="grid items-center gap-8 p-8 md:grid-cols-2 md:p-12">
-            <div>
-              <Eyebrow>{locale === 'fa' ? 'ابزار تشخیصی' : 'Diagnostic Tool'}</Eyebrow>
-              <h2 className="mt-4 text-2xl font-bold text-navy md:text-3xl">{assessmentMeta.title[locale]}</h2>
-              <p className="mt-4 leading-relaxed text-ink-muted">{assessmentMeta.intro[locale]}</p>
-              <div className="mt-6">
-                <ButtonLink href={localePath(locale, '/assessment')} size="lg">
-                  {u('startAssessment', locale)}
-                </ButtonLink>
-              </div>
+        <div className="grid items-center gap-8 rounded-xl border border-line bg-white p-7 md:grid-cols-2 md:p-10">
+          <div>
+            <Eyebrow>{locale === 'fa' ? 'ابزار تشخیصی' : 'Diagnostic Tool'}</Eyebrow>
+            <h2 className="text-h2 mt-3 text-navy">{assessmentMeta.title[locale]}</h2>
+            <p className="text-lead mt-4 text-ink-muted">{assessmentMeta.intro[locale]}</p>
+            <div className="mt-6">
+              <ButtonLink href={localePath(locale, '/assessment')} size="lg">
+                {u('startAssessment', locale)}
+              </ButtonLink>
             </div>
-            <ul className="grid grid-cols-2 gap-3 text-sm">
-              {[
-                locale === 'fa' ? 'وابستگی به مالک' : 'Owner dependency',
-                locale === 'fa' ? 'استانداردسازی عملیات' : 'Operational standards',
-                locale === 'fa' ? 'داده و تحلیل' : 'Data & analytics',
-                locale === 'fa' ? 'آمادگی توسعه شعب' : 'Expansion readiness',
-                locale === 'fa' ? 'آمادگی فرانچایز' : 'Franchise readiness',
-                locale === 'fa' ? 'یکپارچگی تجربه مشتری' : 'Experience consistency',
-              ].map((label) => (
-                <li key={label} className="flex items-center gap-2 rounded border border-line bg-surface-muted px-3 py-2.5 text-ink">
-                  <Check className="h-4 w-4 shrink-0 text-accent-600" aria-hidden />
-                  {label}
-                </li>
-              ))}
-            </ul>
           </div>
+          <ul className="grid grid-cols-2 gap-2.5">
+            {[
+              locale === 'fa' ? 'وابستگی به مالک' : 'Owner dependency',
+              locale === 'fa' ? 'استانداردسازی عملیات' : 'Operational standards',
+              locale === 'fa' ? 'داده و تحلیل' : 'Data & analytics',
+              locale === 'fa' ? 'آمادگی توسعه شعب' : 'Expansion readiness',
+              locale === 'fa' ? 'آمادگی فرانچایز' : 'Franchise readiness',
+              locale === 'fa' ? 'یکپارچگی تجربه مشتری' : 'Experience consistency',
+            ].map((label) => (
+              <li
+                key={label}
+                className="text-small flex items-center gap-2 rounded border border-line bg-surface-muted px-3 py-2.5 text-ink"
+              >
+                <Check className="h-4 w-4 shrink-0 text-accent-600" aria-hidden />
+                {label}
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 
       {/* 11 — Selected insights */}
       <Section>
-        <div className="flex items-end justify-between gap-4">
-          <SectionHeader eyebrow={locale === 'fa' ? 'بینش‌ها' : 'Insights'} title={locale === 'fa' ? 'بینش‌های منتخب' : 'Selected insights'} />
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <SectionHeader
+            eyebrow={locale === 'fa' ? 'بینش‌ها' : 'Insights'}
+            title={locale === 'fa' ? 'بینش‌های منتخب' : 'Selected insights'}
+          />
           <ArrowLink href={localePath(locale, '/insights')} locale={locale}>
             {u('viewAll', locale)}
           </ArrowLink>
         </div>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="stack-header grid gap-5 md:grid-cols-3">
           {featured.map((n) => (
             <Link
               key={n.slug}
               href={localePath(locale, `/insights/${n.slug}`)}
-              className="group flex h-full flex-col rounded-lg border border-line p-6 transition-colors hover:border-accent-300"
+              className="group flex h-full flex-col overflow-hidden rounded-lg border border-line transition-colors hover:border-accent-400"
             >
-              <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{n.topic[locale]}</span>
-              <h3 className="mt-3 text-lg font-semibold text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted line-clamp-3">{n.summary[locale]}</p>
-              <span className="mt-4 text-xs text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
+              <MediaSlot ratio="16/9" />
+              <div className="flex flex-1 flex-col p-6">
+                <span className="text-eyebrow uppercase text-accent-600">{n.topic[locale]}</span>
+                <h3 className="text-h3 mt-3 text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
+                <p className="text-small mt-2 flex-1 text-ink-muted line-clamp-3">{n.summary[locale]}</p>
+                <span className="text-small mt-4 text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
+              </div>
             </Link>
           ))}
         </div>
@@ -338,19 +349,22 @@ export default function HomePage({ params }: { params: { locale: string } }) {
 
       {/* 12 — Team */}
       <Section tone="muted">
-        <div className="flex items-end justify-between gap-4">
-          <SectionHeader eyebrow={locale === 'fa' ? 'تیم' : 'Team'} title={locale === 'fa' ? 'تیم ریتیل سلوشنز' : 'The Retail Solutions team'} />
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <SectionHeader
+            eyebrow={locale === 'fa' ? 'تیم' : 'Team'}
+            title={locale === 'fa' ? 'تیم ریتیل سلوشنز' : 'The Retail Solutions team'}
+          />
           <ArrowLink href={localePath(locale, '/team')} locale={locale}>
             {u('viewAll', locale)}
           </ArrowLink>
         </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="stack-header grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((m) => (
             <div key={m.slug} className="overflow-hidden rounded-lg border border-line bg-white">
               <Monogram name={m.name.en} className="aspect-[4/3] w-full" />
               <div className="p-5">
                 <h3 className="font-semibold text-navy">{m.name[locale]}</h3>
-                <p className="mt-1 text-sm text-ink-muted">{m.role[locale]}</p>
+                <p className="text-small mt-1 text-ink-muted">{m.role[locale]}</p>
               </div>
             </div>
           ))}

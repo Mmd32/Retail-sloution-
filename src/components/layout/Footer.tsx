@@ -44,7 +44,7 @@ export function Footer({ locale }: { locale: Locale }) {
       <div className="border-b border-white/10">
         <div className="container-x flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
           <div>
-            <p className="text-2xl font-bold text-white md:text-3xl">{finalCta.headline[locale]}</p>
+            <p className="text-h2 text-white md:text-3xl">{finalCta.headline[locale]}</p>
             <p className="mt-2 text-navy-200">{finalCta.support[locale]}</p>
           </div>
           <Link

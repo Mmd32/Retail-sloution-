@@ -64,24 +64,24 @@ export default function ServicePage({ params }: { params: { locale: string; slug
           <div className="lg:col-span-8">
             {/* Executive summary */}
             <Eyebrow>{u('executiveSummary', locale)}</Eyebrow>
-            <p className="mt-4 text-xl font-medium leading-relaxed text-navy">{service.summary[locale]}</p>
+            <p className="mt-4 text-lead font-medium text-navy">{service.summary[locale]}</p>
 
             {/* Challenge */}
             <div className="mt-12">
-              <h2 className="rule-accent text-2xl font-bold text-navy">{u('challenge', locale)}</h2>
+              <h2 className="rule-accent text-h2 text-navy">{u('challenge', locale)}</h2>
               <p className="mt-4 leading-relaxed text-ink-muted">{service.challenge[locale]}</p>
             </div>
 
             {/* Suitability */}
             <div className="mt-12">
-              <h2 className="rule-accent text-2xl font-bold text-navy">{u('suitability', locale)}</h2>
+              <h2 className="rule-accent text-h2 text-navy">{u('suitability', locale)}</h2>
               <p className="mt-4 leading-relaxed text-ink-muted">{service.suitability[locale]}</p>
             </div>
 
             {/* Diagnostic questions */}
             {service.diagnosticQuestions && (
               <div className="mt-12">
-                <h2 className="rule-accent text-2xl font-bold text-navy">{u('diagnosticQuestions', locale)}</h2>
+                <h2 className="rule-accent text-h2 text-navy">{u('diagnosticQuestions', locale)}</h2>
                 <ul className="mt-4 space-y-3">
                   {service.diagnosticQuestions[locale].map((q, i) => (
                     <li key={i} className="flex items-start gap-3 rounded-lg border border-line bg-surface-muted p-4">
@@ -95,7 +95,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
 
             {/* Approach */}
             <div className="mt-12">
-              <h2 className="rule-accent text-2xl font-bold text-navy">{u('approach', locale)}</h2>
+              <h2 className="rule-accent text-h2 text-navy">{u('approach', locale)}</h2>
               <ol className="mt-4 space-y-3">
                 {service.approach[locale].map((a, i) => (
                   <li key={i} className="flex items-start gap-4">
@@ -110,7 +110,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
 
             {/* Deliverables */}
             <div className="mt-12">
-              <h2 className="rule-accent text-2xl font-bold text-navy">{u('deliverables', locale)}</h2>
+              <h2 className="rule-accent text-h2 text-navy">{u('deliverables', locale)}</h2>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {service.deliverables[locale].map((d, i) => (
                   <li key={i} className="flex items-start gap-3 rounded-lg border border-line p-4">
@@ -125,7 +125,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
             <div className="mt-12 rounded-lg border border-accent-200 bg-accent-50 p-7">
               <div className="flex items-center gap-2">
                 <Target className="h-5 w-5 text-accent-700" aria-hidden />
-                <h2 className="text-xl font-bold text-navy">{u('intendedImpact', locale)}</h2>
+                <h2 className="text-h3 text-navy">{u('intendedImpact', locale)}</h2>
               </div>
               <ul className="mt-4 grid gap-2 sm:grid-cols-3">
                 {service.intendedImpact[locale].map((im, i) => (
@@ -143,7 +143,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
 
             {/* FAQ */}
             <div className="mt-12">
-              <h2 className="mb-6 text-2xl font-bold text-navy">{u('faq', locale)}</h2>
+              <h2 className="mb-6 text-h2 text-navy">{u('faq', locale)}</h2>
               <Accordion
                 items={service.faqs.map((f) => ({ question: f.question[locale], answer: f.answer[locale] }))}
               />
@@ -232,7 +232,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
       {relatedInsights.length > 0 && (
         <Section tone="muted">
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl font-bold text-navy">{u('relatedInsights', locale)}</h2>
+            <h2 className="text-h2 text-navy">{u('relatedInsights', locale)}</h2>
             <ArrowLink href={localePath(locale, '/insights')} locale={locale}>
               {u('viewAll', locale)}
             </ArrowLink>
@@ -245,8 +245,8 @@ export default function ServicePage({ params }: { params: { locale: string; slug
                 className="group rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
               >
                 <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{n.topic[locale]}</span>
-                <h3 className="mt-3 text-lg font-semibold text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
-                <p className="mt-2 text-sm text-ink-muted line-clamp-2">{n.summary[locale]}</p>
+                <h3 className="mt-3 text-h3 text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
+                <p className="mt-2 text-small text-ink-muted line-clamp-2">{n.summary[locale]}</p>
                 <span className="mt-3 block text-xs text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
               </Link>
             ))}
@@ -257,7 +257,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
       {/* Lead-generation CTA form */}
       <Section id="request">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-center text-2xl font-bold text-navy md:text-3xl">
+          <h2 className="text-center text-h2 text-navy">
             {locale === 'fa' ? `درباره‌ی ${service.abbr} با ما صحبت کنید` : `Talk to us about ${service.abbr}`}
           </h2>
           <p className="mt-3 text-center text-ink-muted">

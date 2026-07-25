@@ -18,13 +18,13 @@ export function MeetingCta({
   body?: string;
 }) {
   return (
-    <section className="bg-gradient-to-b from-surface to-surface-muted py-16 md:py-20">
+    <section className="section-y border-t border-line bg-surface">
       <div className="container-x">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold text-navy md:text-4xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-h2 text-navy">
             {title ?? (locale === 'fa' ? 'آماده‌ی گفت‌وگو درباره‌ی رشد سازمان شما هستیم' : 'Let’s talk about your organization’s growth')}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-ink-muted">
+          <p className="text-lead mx-auto mt-4 max-w-xl text-ink-muted">
             {body ??
               (locale === 'fa'
                 ? 'یک جلسه‌ی اولیه رزرو کنید تا اهداف، وضعیت و اولویت‌های کسب‌وکار شما را بشناسیم.'
