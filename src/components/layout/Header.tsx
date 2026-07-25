@@ -71,7 +71,7 @@ export function Header({ locale }: { locale: Locale }) {
 
       {/* Primary bar */}
       <div ref={navRef} className="relative border-b border-line" onMouseLeave={() => setOpenMenu(null)}>
-        <div className="container-x flex h-16 items-center justify-between gap-6">
+        <div className="container-x flex h-20 items-center justify-between gap-6">
           <Logo locale={locale} />
 
           <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
@@ -83,7 +83,7 @@ export function Header({ locale }: { locale: Locale }) {
                   <Link
                     key={link.href}
                     href={localePath(locale, link.href)}
-                    className="rounded px-3 py-2 text-sm font-medium text-navy hover:text-accent-700"
+                    className="rounded-control px-3 py-2 text-sm font-medium text-navy hover:text-functional"
                   >
                     {link.label[locale]}
                   </Link>
@@ -96,7 +96,7 @@ export function Header({ locale }: { locale: Locale }) {
                     aria-controls={`mega-${link.href.slice(1)}`}
                     onClick={() => setOpenMenu(isOpen ? null : link.href)}
                     onFocus={() => setOpenMenu(link.href)}
-                    className="inline-flex items-center gap-1 rounded px-3 py-2 text-sm font-medium text-navy hover:text-accent-700"
+                    className="inline-flex items-center gap-1 rounded-control px-3 py-2 text-sm font-medium text-navy hover:text-functional"
                   >
                     {link.label[locale]}
                     <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} aria-hidden />
@@ -109,7 +109,7 @@ export function Header({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="rounded p-2 text-navy hover:bg-surface-muted lg:hidden"
+              className="rounded-control p-2 text-navy hover:bg-surface-muted lg:hidden"
               aria-label={u('search', locale)}
             >
               <Search className="h-5 w-5" />
@@ -123,7 +123,7 @@ export function Header({ locale }: { locale: Locale }) {
             </ButtonLink>
             <button
               onClick={() => setMobileOpen(true)}
-              className="rounded p-2 text-navy hover:bg-surface-muted lg:hidden"
+              className="rounded-control p-2 text-navy hover:bg-surface-muted lg:hidden"
               aria-label={u('menu', locale)}
             >
               <Menu className="h-6 w-6" />
@@ -231,7 +231,7 @@ function MegaPanel({ id, children }: { id: string; children: React.ReactNode }) 
 }
 
 function MegaHeading({ children }: { children: React.ReactNode }) {
-  return <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-accent-600">{children}</p>;
+  return <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-functional">{children}</p>;
 }
 
 function MegaLink({
@@ -246,7 +246,7 @@ function MegaLink({
   return (
     <Link
       href={href}
-      className={`block rounded ${compact ? 'px-2 py-1.5 text-sm text-ink-muted hover:text-accent-700' : 'px-2 py-2'} hover:bg-surface-muted`}
+      className={`block rounded-control ${compact ? 'px-2 py-1.5 text-sm text-ink-muted hover:text-functional' : 'px-2 py-2'} hover:bg-surface-muted`}
     >
       {children}
     </Link>

@@ -45,10 +45,10 @@ export default function SolutionsPage({ params }: { params: { locale: string } }
             <Link
               key={s.slug}
               href={localePath(locale, `/solutions/${s.slug}`)}
-              className="group grid gap-6 rounded-lg border border-line p-8 transition-colors hover:border-accent-300 md:grid-cols-12 md:items-center"
+              className="group grid gap-6 rounded-card border border-line p-8 transition-colors hover:border-cyan-300 md:grid-cols-12 md:items-center"
             >
               <div className="md:col-span-3">
-                <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{s.eyebrow[locale]}</span>
+                <span className="text-xs font-semibold uppercase tracking-wide text-functional">{s.eyebrow[locale]}</span>
                 <p className="mt-2 font-display text-3xl font-bold text-navy">{s.abbr}</p>
                 <p className="text-sm font-medium text-ink">{s.fullName[locale]}</p>
               </div>
@@ -56,7 +56,7 @@ export default function SolutionsPage({ params }: { params: { locale: string } }
                 <p className="leading-relaxed text-ink-muted">{s.proposition[locale]}</p>
               </div>
               <div className="md:col-span-1 md:text-end">
-                <Arrow className="h-6 w-6 text-accent-600 transition-transform group-hover:translate-x-0" aria-hidden />
+                <Arrow className="h-6 w-6 text-functional transition-transform group-hover:translate-x-0" aria-hidden />
               </div>
             </Link>
           ))}
@@ -73,10 +73,10 @@ export default function SolutionsPage({ params }: { params: { locale: string } }
             <Link
               key={c.slug}
               href={localePath(locale, `/capabilities/${c.slug}`)}
-              className="rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
+              className="rounded-card border border-line bg-white p-6 transition-colors hover:border-cyan-300"
             >
               <h3 className="font-semibold text-navy">{c.title[locale]}</h3>
-              <p className="mt-2 text-small text-ink-muted">{c.description[locale]}</p>
+              <p className="mt-2 text-label text-ink-muted">{c.description[locale]}</p>
             </Link>
           ))}
         </div>

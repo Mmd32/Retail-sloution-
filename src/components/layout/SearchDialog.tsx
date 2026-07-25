@@ -75,7 +75,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
       }}
     >
       <div className="container-x pt-[8vh]">
-        <div className="mx-auto max-w-2xl overflow-hidden rounded-lg bg-white shadow-lift">
+        <div className="mx-auto max-w-2xl overflow-hidden rounded-card bg-white shadow-popover">
           <div className="flex items-center gap-3 border-b border-line px-5">
             <Search className="h-5 w-5 text-ink-muted" aria-hidden />
             <input
@@ -120,7 +120,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                     key={s.href}
                     href={localePath(locale, s.href)}
                     onClick={onClose}
-                    className="block rounded px-3 py-2 text-sm text-navy hover:bg-surface-muted"
+                    className="block rounded-control px-3 py-2 text-sm text-navy hover:bg-surface-muted"
                   >
                     {s.label[locale]}
                   </Link>
@@ -137,7 +137,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                       key={s.href}
                       href={localePath(locale, s.href)}
                       onClick={onClose}
-                      className="rounded-full bg-surface-muted px-3 py-1 text-xs text-navy hover:bg-accent-50"
+                      className="rounded-full bg-surface-muted px-3 py-1 text-xs text-navy hover:bg-callout-info"
                     >
                       {s.label[locale]}
                     </Link>
@@ -154,13 +154,13 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                   track('search_result_clicked', { type: d.type });
                   onClose();
                 }}
-                className="flex items-start justify-between gap-3 rounded px-3 py-2.5 hover:bg-surface-muted"
+                className="flex items-start justify-between gap-3 rounded-control px-3 py-2.5 hover:bg-surface-muted"
               >
                 <span>
                   <span className="block text-sm font-medium text-navy">{d.title[locale]}</span>
                   <span className="mt-0.5 block text-xs text-ink-muted line-clamp-1">{d.description[locale]}</span>
                 </span>
-                <span className="mt-0.5 shrink-0 rounded bg-surface-muted px-2 py-0.5 text-[10px] font-medium text-ink-muted">
+                <span className="mt-0.5 shrink-0 rounded-control bg-surface-muted px-2 py-0.5 text-[10px] font-medium text-ink-muted">
                   {typeLabels[d.type][locale]}
                 </span>
               </Link>

@@ -44,7 +44,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
     };
   }, []);
 
-  const item = 'block py-2 text-sm text-ink-muted hover:text-accent-700';
+  const item = 'block py-2 text-sm text-ink-muted hover:text-functional';
 
   return (
     <div className="fixed inset-0 z-[95] bg-white lg:hidden" role="dialog" aria-modal="true">
@@ -57,7 +57,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
 
       <div className="h-[calc(100vh-3.5rem)] overflow-y-auto px-5 pb-24">
         <Group title={primaryNav[1].label[locale]}>
-          <p className="pt-1 text-xs font-semibold uppercase tracking-wide text-accent-600">
+          <p className="pt-1 text-xs font-semibold uppercase tracking-wide text-functional">
             {locale === 'fa' ? 'تحول ریتیل' : 'Retail Transformation'}
           </p>
           {services.map((s) => (
@@ -65,7 +65,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
               {s.abbr} — {s.fullName[locale]}
             </Link>
           ))}
-          <p className="pt-3 text-xs font-semibold uppercase tracking-wide text-accent-600">
+          <p className="pt-3 text-xs font-semibold uppercase tracking-wide text-functional">
             {u('footerCapabilities', locale)}
           </p>
           {capabilities.map((c) => (
@@ -105,7 +105,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
           <ButtonLink href={localePath(locale, '/contact')} size="lg" onClick={onClose}>
             {u('requestMeeting', locale)}
           </ButtonLink>
-          <div className="rounded bg-surface-muted px-4 py-3">
+          <div className="rounded-control bg-surface-muted px-4 py-3">
             <LanguageSwitcher locale={locale} />
           </div>
         </div>

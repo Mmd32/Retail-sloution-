@@ -50,15 +50,15 @@ export default function CapabilitiesPage({ params }: { params: { locale: string 
               <Link
                 key={c.slug}
                 href={localePath(locale, `/capabilities/${c.slug}`)}
-                className="group flex gap-5 rounded-lg border border-line p-7 transition-colors hover:border-accent-300"
+                className="group flex gap-5 rounded-card border border-line p-7 transition-colors hover:border-cyan-300"
               >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-navy text-accent-300">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-navy text-cyan">
                   <Icon className="h-6 w-6" aria-hidden />
                 </span>
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{c.name[locale]}</span>
-                  <h2 className="mt-1 text-h3 text-navy group-hover:text-accent-700">{c.title[locale]}</h2>
-                  <p className="mt-2 text-small text-ink-muted">{c.description[locale]}</p>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-functional">{c.name[locale]}</span>
+                  <h2 className="mt-1 text-h3 text-navy group-hover:text-functional">{c.title[locale]}</h2>
+                  <p className="mt-2 text-label text-ink-muted">{c.description[locale]}</p>
                 </div>
               </Link>
             );

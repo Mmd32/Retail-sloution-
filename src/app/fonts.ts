@@ -1,26 +1,25 @@
-import { Archivo, Vazirmatn } from 'next/font/google';
+import { Inter, Vazirmatn } from 'next/font/google';
 
 /**
- * Bilingual type pairing.
+ * Design System §6.1 Font families.
  *
- * Persian — Vazirmatn: the strongest open Persian family, variable weight,
- * excellent shaping. It carries the primary language, so it sets the tone.
- *
- * Latin — Archivo: a grotesque with real editorial presence at display sizes
- * and enough width/weight range to sit beside Vazirmatn without looking
- * lighter or smaller. Chosen over the usual UI-default sans so the English
- * side has the same institutional weight as the Persian side.
+ * Latin  — Inter, per the approved system.
+ * Persian — IRANSansX is the primary Persian face, but it is a licensed font
+ *   and is not distributed here. The system names Vazirmatn as the approved
+ *   substitute, so Vazirmatn is loaded and IRANSansX is listed first in the
+ *   CSS stack: if the licensed webfont is self-hosted later it takes over with
+ *   no code change (see tailwind.config.ts → fontFamily.fa).
  */
-export const archivo = Archivo({
+export const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-latin',
 });
 
 export const vazirmatn = Vazirmatn({
   subsets: ['arabic', 'latin'],
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-fa',
 });

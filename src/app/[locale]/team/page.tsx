@@ -35,7 +35,7 @@ export default function TeamPage({ params }: { params: { locale: string } }) {
       <Section>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {members.map((m) => (
-            <div key={m.slug} className="overflow-hidden rounded-lg border border-line bg-white">
+            <div key={m.slug} className="overflow-hidden rounded-card border border-line bg-white">
               {/* Portrait: real image if provided via CMS, otherwise a monogram — never stock. */}
               {m.portrait ? (
                 // eslint-disable-next-line @next/next/no-img-element

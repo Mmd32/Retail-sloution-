@@ -29,7 +29,7 @@ export function InsightArchive({
 
   const chip = (active: boolean) =>
     `rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-      active ? 'bg-navy text-white' : 'border border-line bg-white text-ink-muted hover:border-accent-300'
+      active ? 'bg-navy text-white' : 'border border-line bg-white text-ink-muted hover:border-cyan-300'
     }`;
 
   return (
@@ -66,16 +66,16 @@ export function InsightArchive({
           <Link
             key={n.slug}
             href={localePath(locale, `/insights/${n.slug}`)}
-            className="group flex h-full flex-col rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
+            className="group flex h-full flex-col rounded-card border border-line bg-white p-6 transition-colors hover:border-cyan-300"
           >
             <div className="flex items-center gap-2 text-xs">
-              <span className="rounded bg-accent-50 px-2 py-1 font-medium text-accent-700">
+              <span className="rounded-control bg-callout-info px-2 py-1 font-medium text-functional">
                 {insightTypeLabels[n.type][locale]}
               </span>
               <span className="text-ink-faint">{n.topic[locale]}</span>
             </div>
-            <h2 className="mt-4 text-h3 text-navy group-hover:text-accent-700">{n.title[locale]}</h2>
-            <p className="mt-2 flex-1 text-small text-ink-muted line-clamp-3">{n.summary[locale]}</p>
+            <h2 className="mt-4 text-h3 text-navy group-hover:text-functional">{n.title[locale]}</h2>
+            <p className="mt-2 flex-1 text-label text-ink-muted line-clamp-3">{n.summary[locale]}</p>
             <div className="mt-4 flex items-center justify-between text-xs text-ink-faint">
               <span>{formatDate(n.publishedAt, locale)}</span>
               <span>{readingTimeLabel(n.readingMinutes, locale)}</span>
@@ -85,7 +85,7 @@ export function InsightArchive({
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-10 rounded-lg border border-line bg-surface-muted p-8 text-center text-ink-muted">
+        <p className="mt-10 rounded-card border border-line bg-surface-muted p-8 text-center text-ink-muted">
           {locale === 'fa' ? 'محتوایی برای این فیلتر یافت نشد.' : 'No content matches this filter yet.'}
         </p>
       )}

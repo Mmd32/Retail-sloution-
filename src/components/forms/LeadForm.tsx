@@ -91,8 +91,8 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
 
   if (status === 'success') {
     return (
-      <div className="rounded-lg border border-accent-200 bg-accent-50 p-8 text-center">
-        <CheckCircle2 className="mx-auto h-10 w-10 text-accent-600" aria-hidden />
+      <div className="rounded-card border border-cyan-200 bg-callout-info p-8 text-center">
+        <CheckCircle2 className="mx-auto h-10 w-10 text-functional" aria-hidden />
         <h3 className="mt-4 text-h3 text-navy">{u('formSuccessTitle', locale)}</h3>
         <p className="mt-2 text-ink-muted">{u('formSuccessBody', locale)}</p>
       </div>
@@ -106,7 +106,7 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
 
   const label = 'mb-1.5 block text-sm font-medium text-navy';
   const input =
-    'w-full rounded border border-line bg-white px-3.5 h-11 text-navy outline-none transition-colors focus:border-accent-400';
+    'w-full rounded-control border border-line bg-white px-3.5 h-11 text-navy outline-none transition-colors focus:border-cyan';
   const optional = <span className="text-ink-faint">{` ${u('optional', locale)}`}</span>;
 
   return (
@@ -181,7 +181,7 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
       </div>
 
       <div className="flex items-start gap-3">
-        <input id="consent" name="consent" type="checkbox" required className="mt-1 h-4 w-4 accent-accent-600" />
+        <input id="consent" name="consent" type="checkbox" required className="mt-1 h-4 w-4 accent-functional" />
         <label htmlFor="consent" className="text-sm text-ink-muted">{u('consent', locale)}</label>
       </div>
       {err('consent')}

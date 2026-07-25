@@ -25,11 +25,11 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
                 aria-controls={`phase-panel-${p.key}`}
                 id={`phase-tab-${p.key}`}
                 onClick={() => setActive(i)}
-                className={`w-full rounded-lg border p-4 text-start transition-colors ${
-                  isActive ? 'border-accent-400 bg-accent-50' : 'border-line bg-white hover:border-accent-200'
+                className={`w-full rounded-card border p-4 text-start transition-colors ${
+                  isActive ? 'border-cyan bg-callout-info' : 'border-line bg-white hover:border-cyan-200'
                 }`}
               >
-                <span className={`text-sm font-semibold ${isActive ? 'text-accent-700' : 'text-ink-faint'}`}>
+                <span className={`text-sm font-semibold ${isActive ? 'text-functional' : 'text-ink-faint'}`}>
                   0{i + 1}
                 </span>
                 <span className="mt-1 block font-semibold text-navy">{p.name[locale]}</span>
@@ -44,10 +44,10 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
         id={`phase-panel-${phase.key}`}
         role="tabpanel"
         aria-labelledby={`phase-tab-${phase.key}`}
-        className="mt-8 rounded-xl border border-line bg-white p-8"
+        className="mt-8 rounded-feature border border-line bg-white p-8"
       >
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-3xl font-bold text-accent-500">0{active + 1}</span>
+          <span className="font-display text-3xl font-bold text-cyan">0{active + 1}</span>
           <h3 className="text-h2 text-navy">{phase.name[locale]}</h3>
         </div>
 
@@ -76,11 +76,11 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
               </div>
             </Field>
             <Field label={u('decisionGate', locale)}>
-              <p className="rounded-lg border-s-2 border-accent-400 bg-accent-50 p-4 text-ink">{phase.gate[locale]}</p>
+              <p className="rounded-card border-s-2 border-cyan bg-callout-info p-4 text-ink">{phase.gate[locale]}</p>
             </Field>
             <Field label={u('nextPhase', locale)}>
               <p className="flex items-start gap-2 text-ink-muted">
-                <ArrowDown className="mt-1 h-4 w-4 shrink-0 text-accent-600" aria-hidden />
+                <ArrowDown className="mt-1 h-4 w-4 shrink-0 text-functional" aria-hidden />
                 {phase.connection[locale]}
               </p>
             </Field>
@@ -94,7 +94,7 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-accent-600">{label}</p>
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-functional">{label}</p>
       {children}
     </div>
   );

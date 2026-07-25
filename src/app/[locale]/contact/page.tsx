@@ -40,36 +40,36 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
           </div>
 
           <aside className="lg:col-span-5">
-            <div className="rounded-lg border border-line bg-surface-muted p-8">
+            <div className="rounded-card border border-line bg-surface-muted p-8">
               <h2 className="text-h3 text-navy">
                 {locale === 'fa' ? 'راه‌های ارتباطی' : 'Ways to reach us'}
               </h2>
               <ul className="mt-6 space-y-5 text-sm">
                 <li className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-accent-600" aria-hidden />
-                  <a href={`mailto:${contact.email}`} className="text-navy hover:text-accent-700" dir="ltr">
+                  <Mail className="h-5 w-5 text-functional" aria-hidden />
+                  <a href={`mailto:${contact.email}`} className="text-navy hover:text-functional" dir="ltr">
                     {contact.email}
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Globe className="h-5 w-5 text-accent-600" aria-hidden />
+                  <Globe className="h-5 w-5 text-functional" aria-hidden />
                   <a
                     href={`https://${contact.website}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-navy hover:text-accent-700"
+                    className="text-navy hover:text-functional"
                     dir="ltr"
                   >
                     {contact.website}
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Linkedin className="h-5 w-5 text-accent-600" aria-hidden />
+                  <Linkedin className="h-5 w-5 text-functional" aria-hidden />
                   <a
                     href={contact.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-navy hover:text-accent-700"
+                    className="text-navy hover:text-functional"
                     dir="ltr"
                   >
                     linkedin.com/company/retailsolutions
@@ -77,8 +77,8 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                 </li>
                 {contact.phoneEnabled && contact.phone ? (
                   <li className="flex items-center gap-3">
-                    <Phone className="h-5 w-5 text-accent-600" aria-hidden />
-                    <a href={`tel:${contact.phone}`} className="text-navy hover:text-accent-700" dir="ltr">
+                    <Phone className="h-5 w-5 text-functional" aria-hidden />
+                    <a href={`tel:${contact.phone}`} className="text-navy hover:text-functional" dir="ltr">
                       {contact.phone}
                     </a>
                   </li>

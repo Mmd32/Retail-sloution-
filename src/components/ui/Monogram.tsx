@@ -16,7 +16,7 @@ export function Monogram({ name, className }: { name: string; className?: string
     <div
       aria-hidden
       className={cn(
-        'flex items-center justify-center bg-navy-800 text-accent-200 font-display font-semibold select-none',
+        'flex items-center justify-center bg-navy-800 text-cyan-200 font-display font-semibold select-none',
         className,
       )}
     >

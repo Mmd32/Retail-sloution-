@@ -19,7 +19,7 @@ export function HeroVisual() {
   const c = { x: 190, y: 178 };
 
   return (
-    <div className="media-frame animate-rise rounded-lg" style={{ animationDelay: '160ms' }}>
+    <div className="media-frame animate-rise rounded-card" style={{ animationDelay: '160ms' }}>
       <svg viewBox="0 0 380 356" className="w-full" role="img" aria-hidden>
         <defs>
           <radialGradient id="rs-hub" cx="50%" cy="45%" r="60%">

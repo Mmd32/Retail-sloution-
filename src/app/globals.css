@@ -2,24 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens (mirrored in tailwind.config.ts) ───────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────────
+   Retail Solutions — Design System v1.0 tokens (§13.3)
+   Names follow the system exactly so they can be swapped for the published
+   token package without touching components.
+   ───────────────────────────────────────────────────────────────────────────── */
 :root {
-  --color-navy: #0b1f3a;
-  --color-accent: #0aa2de;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f4f6f9;
-  --color-ink: #0a1526;
-  --color-ink-muted: #5b6b7f;
-  --color-line: #e3e8ef;
+  /* Brand */
+  --rs-color-brand-cyan: #00b0f0;
+  --rs-color-brand-navy: #16213e;
+  --rs-color-neutral-fog: #f1f2f5;
+  --rs-color-neutral-white: #ffffff;
 
-  --container: 1240px;
+  /* Functional and semantic */
+  --rs-color-action-primary: #007daa;
+  --rs-color-success: #2d9d78;
+  --rs-color-warning: #f2b544;
+  --rs-color-error: #d94a56;
+  --rs-color-info: #007daa;
 
-  /* Vertical rhythm — every gap on the site comes from this short scale,
-     so spacing is systematic rather than chosen per component. */
-  --space-section: clamp(3.5rem, 2rem + 5.5vw, 6rem); /* section padding-block */
-  --space-header: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem); /* header → content */
-  --space-block: 1.5rem; /* between sibling blocks */
-  --space-tight: 0.75rem; /* eyebrow → title */
+  /* Text and surfaces */
+  --rs-color-text-primary: #16213e;
+  --rs-color-text-link: #007daa;
+  /* Small labels/eyebrows frequently sit on Fog, where Functional Blue reaches
+     only 4.14:1 — under the 4.5:1 required for 14px text (§18.1). This darker
+     shade of the same hue passes on both White (6.4:1) and Fog (5.7:1). */
+  --rs-color-text-label: #00668c;
+  --rs-color-surface-page: #ffffff;
+  --rs-color-surface-subtle: #f1f2f5;
+  --rs-color-focus-ring: #007daa;
+
+  /* Spacing (§7.4) */
+  --rs-space-1: 4px;
+  --rs-space-2: 8px;
+  --rs-space-3: 12px;
+  --rs-space-4: 16px;
+  --rs-space-6: 24px;
+  --rs-space-8: 32px;
+  --rs-space-12: 48px;
+  --rs-space-16: 64px;
+
+  /* Radius (§8.1) */
+  --rs-radius-control: 8px;
+  --rs-radius-button: 12px;
+  --rs-radius-card: 16px;
+  --rs-radius-feature: 24px;
+  --rs-radius-full: 999px;
+
+  /* Motion (§17) */
+  --rs-duration-micro: 100ms;
+  --rs-duration-standard: 180ms;
+  --rs-duration-emphasis: 240ms;
+  --rs-duration-narrative: 320ms;
+  --rs-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --rs-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Elevation (§8.2) */
+  --rs-shadow-card: 0 4px 16px rgba(22, 33, 62, 0.08);
+  --rs-shadow-popover: 0 12px 32px rgba(22, 33, 62, 0.14);
+  --rs-shadow-modal: 0 24px 64px rgba(22, 33, 62, 0.2);
+
+  /* Layout (§7.1, §7.2) */
+  --rs-container: 1200px;
+  --rs-margin-desktop: 48px;
+  --rs-margin-tablet: 32px;
+  --rs-margin-mobile: 20px;
+
+  /* Section rhythm, built from the approved spacing scale */
+  --rs-section-y: clamp(var(--rs-space-12), 3rem + 3vw, calc(var(--rs-space-16) + var(--rs-space-8)));
+  --rs-header-gap: clamp(var(--rs-space-8), 2rem + 1.5vw, var(--rs-space-12));
 }
 
 @layer base {
@@ -33,22 +84,20 @@
   }
 
   body {
-    background-color: theme('colors.surface.DEFAULT');
-    color: theme('colors.ink.DEFAULT');
+    background-color: var(--rs-color-surface-page);
+    color: var(--rs-color-text-primary);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Latin (English) */
+  /* §6.5 minimum body 16px, line-height 1.5–1.7 */
   html[lang^='en'] body {
     font-family: theme('fontFamily.sans');
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.6;
   }
 
-  /* Persian — larger base and looser leading; Persian script needs both.
-     Never inherits the Latin negative tracking. */
   html[lang^='fa'] body {
     font-family: theme('fontFamily.fa');
     font-size: 1.0625rem;
@@ -57,83 +106,83 @@
   }
 
   h1, h2, h3, h4 {
-    color: theme('colors.navy.DEFAULT');
-    font-weight: 700;
+    color: var(--rs-color-text-primary);
     text-wrap: balance;
   }
 
-  /* Persian display type: heavier weight for presence, relaxed leading so
-     ascenders/descenders don't collide, and zero tracking. */
   html[lang^='fa'] h1,
   html[lang^='fa'] h2,
   html[lang^='fa'] h3,
   html[lang^='fa'] h4 {
-    font-weight: 800;
     letter-spacing: 0;
   }
 
-  /* Latin numerals inside Persian text stay upright and evenly spaced. */
   html[lang^='fa'] {
     font-variant-numeric: lining-nums;
   }
 
+  /* §18.1 focus indicator visible on every surface */
   :focus-visible {
-    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline: 2px solid var(--rs-color-focus-ring);
     outline-offset: 2px;
     border-radius: 2px;
   }
 
   ::selection {
-    background: theme('colors.accent.100');
-    color: theme('colors.navy.900');
+    background: theme('colors.callout.info');
+    color: var(--rs-color-brand-navy);
   }
 }
 
 @layer components {
+  /* §7.1 responsive margins, §7.2 container 1200px */
   .container-x {
     width: 100%;
-    max-width: var(--container);
+    max-width: var(--rs-container);
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: var(--rs-margin-mobile);
   }
   @media (min-width: 768px) {
-    .container-x { padding-inline: 2rem; }
+    .container-x { padding-inline: var(--rs-margin-tablet); }
+  }
+  @media (min-width: 1200px) {
+    .container-x { padding-inline: var(--rs-margin-desktop); }
   }
 
-  /* Consistent section rhythm — used by every <Section>. */
-  .section-y {
-    padding-block: var(--space-section);
-  }
-  .stack-header {
-    margin-block-start: var(--space-header);
-  }
+  .section-y { padding-block: var(--rs-section-y); }
+  .stack-header { margin-block-start: var(--rs-header-gap); }
 
+  /* §6.5 reading column 45–75 characters */
+  .reading { max-width: theme('maxWidth.reading'); }
+
+  /* Label style — used for eyebrows and metadata (§6.2 Label 14/20 Medium).
+     Functional Blue, never Cyan, because Cyan fails contrast on white (§5.5). */
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    gap: var(--rs-space-2);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: theme('colors.accent.600');
+    color: var(--rs-color-text-label);
   }
   html[lang^='fa'] .eyebrow {
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
     text-transform: none;
-    font-size: 0.8125rem;
-    font-weight: 700;
+    font-weight: 600;
   }
+  .eyebrow-on-dark { color: theme('colors.cyan.DEFAULT'); }
 
-  /* A short accent rule that opens a block. */
   .rule-accent::before {
     content: '';
     display: block;
-    inline-size: 2.5rem;
+    inline-size: 40px;
     block-size: 3px;
-    background: theme('colors.accent.DEFAULT');
-    margin-block-end: 1rem;
-    border-radius: 2px;
+    background: var(--rs-color-brand-cyan);
+    margin-block-end: var(--rs-space-4);
+    border-radius: var(--rs-radius-full);
   }
 
   .link-underline {
@@ -141,13 +190,12 @@
     background-size: 0% 1px;
     background-position: 0 100%;
     background-repeat: no-repeat;
-    transition: background-size 0.3s theme('transitionTimingFunction.editorial');
+    transition: background-size var(--rs-duration-standard) var(--rs-ease-standard);
   }
   html[dir='rtl'] .link-underline { background-position: 100% 100%; }
   .link-underline:hover { background-size: 100% 1px; }
 
-  /* Placeholder frame for photography supplied later via the CMS.
-     Reads as an intentional panel, not a missing asset. */
+  /* Photography placeholder — modular, diagrammatic, calm (§11.1). */
   .media-frame {
     position: relative;
     overflow: hidden;
@@ -155,64 +203,61 @@
     background-image:
       linear-gradient(theme('colors.navy.700') 1px, transparent 1px),
       linear-gradient(90deg, theme('colors.navy.700') 1px, transparent 1px);
-    background-size: 28px 28px;
+    background-size: 32px 32px;
     background-position: center;
   }
 }
 
 /* ─── Persian type ramp ────────────────────────────────────────────────────
    Persian glyphs read visually larger than Latin at an identical font-size,
-   so every display step is scaled down and given more leading — otherwise
-   headlines overpower the page and wrap awkwardly. Tracking is always zero.
+   so each display step is scaled down and given more leading. Tracking is
+   always zero.
 
-   These rules are deliberately UNLAYERED: Tailwind's font-size classes live in
-   @layer utilities, which outranks @layer base no matter how specific the
-   selector is. Unlayered declarations beat every layer, so this is what lets a
-   per-locale ramp override the utility scale. */
+   Deliberately UNLAYERED: Tailwind font-size classes live in @layer utilities,
+   which outranks @layer base regardless of specificity. Also note the prefix
+   selector — the document renders lang="fa-IR", so html[lang='fa'] would
+   never match. */
 html[lang^='fa'] .text-display {
-  font-size: clamp(1.95rem, 1.25rem + 2.9vw, 3.15rem);
-  line-height: 1.32;
+  font-size: clamp(2rem, 1.3rem + 2.9vw, 3.25rem);
+  line-height: 1.35;
   letter-spacing: 0;
 }
 html[lang^='fa'] .text-h1 {
-  font-size: clamp(1.65rem, 1.3rem + 1.7vw, 2.35rem);
-  line-height: 1.38;
+  font-size: clamp(1.7rem, 1.35rem + 1.7vw, 2.4rem);
+  line-height: 1.4;
   letter-spacing: 0;
 }
 html[lang^='fa'] .text-h2 {
-  font-size: clamp(1.4rem, 1.18rem + 1vw, 1.9rem);
+  font-size: clamp(1.45rem, 1.2rem + 1vw, 1.95rem);
   line-height: 1.45;
   letter-spacing: 0;
 }
 html[lang^='fa'] .text-h3 {
-  font-size: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  font-size: clamp(1.15rem, 1.08rem + 0.3vw, 1.3rem);
   line-height: 1.6;
   letter-spacing: 0;
 }
-html[lang^='fa'] .text-lead {
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  line-height: 1.9;
-}
 html[lang^='fa'] .text-body  { line-height: 1.8; }
-html[lang^='fa'] .text-small { font-size: 0.9375rem; line-height: 1.75; }
+html[lang^='fa'] .text-label { font-size: 0.9375rem; line-height: 1.7; }
 
-/* One orchestrated page-load entrance, used only in the hero. */
-@keyframes rise {
-  from { opacity: 0; transform: translateY(12px); }
+/* §17 — motion explains a state change; one short hero entrance only. */
+@keyframes rs-rise {
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: none; }
 }
 .animate-rise {
-  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rs-rise var(--rs-duration-narrative) var(--rs-ease-standard) both;
 }
 
+/* §17.4 Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
   .animate-rise { animation: none; opacity: 1; transform: none; }
 }

@@ -63,7 +63,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
                     <Link
                       key={s.slug}
                       href={localePath(locale, `/solutions/${s.slug}`)}
-                      className="rounded-lg border border-line p-5 transition-colors hover:border-accent-300"
+                      className="rounded-card border border-line p-5 transition-colors hover:border-cyan-300"
                     >
                       <p className="font-display text-h3 text-navy">{s.abbr}</p>
                       <p className="mt-1 text-sm text-ink-muted">{s.fullName[locale]}</p>
@@ -75,8 +75,8 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
           </div>
 
           <aside className="lg:col-span-4">
-            <div className="rounded-lg border border-line p-6">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+            <div className="rounded-card border border-line p-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                 {u('relatedIndustries', locale)}
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -84,7 +84,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
                   <Link
                     key={i.slug}
                     href={localePath(locale, `/industries/${i.slug}`)}
-                    className="rounded-full border border-line px-3 py-1.5 text-xs text-navy hover:border-accent-400"
+                    className="rounded-full border border-line px-3 py-1.5 text-xs text-navy hover:border-cyan"
                   >
                     {i.name[locale]}
                   </Link>

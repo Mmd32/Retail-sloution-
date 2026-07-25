@@ -43,7 +43,7 @@ export function MediaSlot({
     >
       <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-900/70 to-transparent" />
       {label && (
-        <span className="relative z-10 p-4 text-small font-medium text-navy-200">{label}</span>
+        <span className="relative z-10 p-4 text-label font-medium text-navy-200">{label}</span>
       )}
     </div>
   );

@@ -27,7 +27,7 @@ export function PageHero({
             {eyebrow && <Eyebrow onDark={dark}>{eyebrow}</Eyebrow>}
             <h1 className={`text-h1 mt-3 ${dark ? 'text-white' : 'text-navy'}`}>{title}</h1>
             {intro && (
-              <p className={`text-lead mt-5 ${dark ? 'text-navy-200' : 'text-ink-muted'}`}>{intro}</p>
+              <p className={`text-body mt-5 ${dark ? 'text-navy-200' : 'text-ink-muted'}`}>{intro}</p>
             )}
           </div>
         </div>

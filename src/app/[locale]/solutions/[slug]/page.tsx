@@ -64,7 +64,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
           <div className="lg:col-span-8">
             {/* Executive summary */}
             <Eyebrow>{u('executiveSummary', locale)}</Eyebrow>
-            <p className="mt-4 text-lead font-medium text-navy">{service.summary[locale]}</p>
+            <p className="mt-4 text-body font-medium text-navy">{service.summary[locale]}</p>
 
             {/* Challenge */}
             <div className="mt-12">
@@ -84,8 +84,8 @@ export default function ServicePage({ params }: { params: { locale: string; slug
                 <h2 className="rule-accent text-h2 text-navy">{u('diagnosticQuestions', locale)}</h2>
                 <ul className="mt-4 space-y-3">
                   {service.diagnosticQuestions[locale].map((q, i) => (
-                    <li key={i} className="flex items-start gap-3 rounded-lg border border-line bg-surface-muted p-4">
-                      <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-accent-600" aria-hidden />
+                    <li key={i} className="flex items-start gap-3 rounded-card border border-line bg-surface-muted p-4">
+                      <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-functional" aria-hidden />
                       <span className="text-ink">{q}</span>
                     </li>
                   ))}
@@ -113,8 +113,8 @@ export default function ServicePage({ params }: { params: { locale: string; slug
               <h2 className="rule-accent text-h2 text-navy">{u('deliverables', locale)}</h2>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {service.deliverables[locale].map((d, i) => (
-                  <li key={i} className="flex items-start gap-3 rounded-lg border border-line p-4">
-                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent-600" aria-hidden />
+                  <li key={i} className="flex items-start gap-3 rounded-card border border-line p-4">
+                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-functional" aria-hidden />
                     <span className="text-ink">{d}</span>
                   </li>
                 ))}
@@ -122,14 +122,14 @@ export default function ServicePage({ params }: { params: { locale: string; slug
             </div>
 
             {/* Intended impact */}
-            <div className="mt-12 rounded-lg border border-accent-200 bg-accent-50 p-7">
+            <div className="mt-12 rounded-card border border-cyan-200 bg-callout-info p-7">
               <div className="flex items-center gap-2">
-                <Target className="h-5 w-5 text-accent-700" aria-hidden />
+                <Target className="h-5 w-5 text-functional" aria-hidden />
                 <h2 className="text-h3 text-navy">{u('intendedImpact', locale)}</h2>
               </div>
               <ul className="mt-4 grid gap-2 sm:grid-cols-3">
                 {service.intendedImpact[locale].map((im, i) => (
-                  <li key={i} className="rounded border border-accent-200 bg-white px-4 py-3 text-sm font-medium text-navy">
+                  <li key={i} className="rounded-control border border-cyan-200 bg-white px-4 py-3 text-sm font-medium text-navy">
                     {im}
                   </li>
                 ))}
@@ -154,8 +154,8 @@ export default function ServicePage({ params }: { params: { locale: string; slug
           <aside className="lg:col-span-4">
             <div className="sticky top-28 space-y-6">
               {/* Related capabilities */}
-              <div className="rounded-lg border border-line p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+              <div className="rounded-card border border-line p-6">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                   {u('relatedCapabilities', locale)}
                 </h3>
                 <ul className="mt-3 space-y-2">
@@ -164,7 +164,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
                     if (!c) return null;
                     return (
                       <li key={slug}>
-                        <Link href={localePath(locale, `/capabilities/${slug}`)} className="text-sm text-navy hover:text-accent-700 link-underline">
+                        <Link href={localePath(locale, `/capabilities/${slug}`)} className="text-sm text-navy hover:text-functional link-underline">
                           {c.title[locale]}
                         </Link>
                       </li>
@@ -175,8 +175,8 @@ export default function ServicePage({ params }: { params: { locale: string; slug
 
               {/* Relevant industries */}
               {service.relatedIndustries && (
-                <div className="rounded-lg border border-line p-6">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+                <div className="rounded-card border border-line p-6">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                     {u('relatedIndustries', locale)}
                   </h3>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -187,7 +187,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
                         <Link
                           key={slug}
                           href={localePath(locale, `/industries/${slug}`)}
-                          className="rounded-full border border-line px-3 py-1.5 text-xs text-navy hover:border-accent-400"
+                          className="rounded-full border border-line px-3 py-1.5 text-xs text-navy hover:border-cyan"
                         >
                           {ind.name[locale]}
                         </Link>
@@ -198,8 +198,8 @@ export default function ServicePage({ params }: { params: { locale: string; slug
               )}
 
               {/* Contact person */}
-              <div className="rounded-lg border border-line p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+              <div className="rounded-card border border-line p-6">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                   {locale === 'fa' ? 'گفت‌وگو با کارشناس' : 'Talk to a specialist'}
                 </h3>
                 <div className="mt-4 flex items-center gap-3">
@@ -212,9 +212,9 @@ export default function ServicePage({ params }: { params: { locale: string; slug
               </div>
 
               {/* Downloadable resource (gated) */}
-              <div className="rounded-lg border border-dashed border-line p-6">
+              <div className="rounded-card border border-dashed border-line p-6">
                 <div className="flex items-center gap-2 text-navy">
-                  <Download className="h-4 w-4 text-accent-600" aria-hidden />
+                  <Download className="h-4 w-4 text-functional" aria-hidden />
                   <h3 className="text-sm font-semibold">{locale === 'fa' ? 'دریافت معرفی راهکار' : 'Download solution brief'}</h3>
                 </div>
                 <p className="mt-2 text-xs text-ink-muted">
@@ -242,11 +242,11 @@ export default function ServicePage({ params }: { params: { locale: string; slug
               <Link
                 key={n.slug}
                 href={localePath(locale, `/insights/${n.slug}`)}
-                className="group rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
+                className="group rounded-card border border-line bg-white p-6 transition-colors hover:border-cyan-300"
               >
-                <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{n.topic[locale]}</span>
-                <h3 className="mt-3 text-h3 text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
-                <p className="mt-2 text-small text-ink-muted line-clamp-2">{n.summary[locale]}</p>
+                <span className="text-xs font-semibold uppercase tracking-wide text-functional">{n.topic[locale]}</span>
+                <h3 className="mt-3 text-h3 text-navy group-hover:text-functional">{n.title[locale]}</h3>
+                <p className="mt-2 text-label text-ink-muted line-clamp-2">{n.summary[locale]}</p>
                 <span className="mt-3 block text-xs text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
               </Link>
             ))}

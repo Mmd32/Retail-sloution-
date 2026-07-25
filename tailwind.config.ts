@@ -1,13 +1,10 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * Design tokens for Retail Solutions.
+ * Retail Solutions — Brand & Digital Design System v1.0
  *
- * These roles are derived from the approved brand identity:
- *  - Deep navy typography, bright cyan-blue accent, white / very light
- *    cool-gray surfaces. Values live here as the single source of truth and
- *    are also exposed as CSS custom properties in globals.css so they can be
- *    themed from a CMS later without a rebuild.
+ * Every value below is taken from the approved system. Do not introduce raw
+ * values in components; add a token here instead (see §13.4 Token governance).
  */
 const config: Config = {
   content: [
@@ -18,87 +15,142 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: {
-          DEFAULT: '#0B1F3A',
-          50: '#F2F5FA',
-          100: '#E1E8F2',
-          200: '#C2CEDF',
-          300: '#8FA3BF',
-          400: '#5E7495',
-          500: '#37507A',
-          600: '#22375C',
-          700: '#14264A',
-          800: '#0B1F3A',
-          900: '#07162B',
+        /* §5.1 Core palette */
+        cyan: {
+          DEFAULT: '#00B0F0', // Retail Cyan — signal, fills, charts, large display only
+          50: '#E6F7FE',
+          100: '#D9F5FF',
+          200: '#A8E7FC',
+          300: '#66D3F8',
+          400: '#33C2F4',
+          500: '#00B0F0',
+          600: '#009BD3',
+          700: '#0086B6',
         },
-        accent: {
-          DEFAULT: '#0AA2DE',
-          50: '#EAF8FE',
-          100: '#CBEEFB',
-          200: '#93DCF6',
-          300: '#4FC4EE',
-          400: '#1FAEE4',
-          500: '#0AA2DE',
-          600: '#0782B5',
-          700: '#08678F',
-          800: '#0B5473',
-          900: '#0E4760',
+        navy: {
+          DEFAULT: '#16213E', // Executive Navy — headings, dark surfaces, authority
+          50: '#F2F4F8',
+          100: '#DFE3EC',
+          200: '#BFC6D8',
+          300: '#8E99B4',
+          400: '#5D6B90',
+          500: '#3A4870',
+          600: '#28355A',
+          700: '#1D2A49',
+          800: '#16213E',
+          900: '#0F172C',
+        },
+        fog: '#F1F2F5', // Retail Fog — background, section separation
+
+        /* §5.3 Extended palette */
+        functional: {
+          DEFAULT: '#007DAA', // Functional Blue — links, focus, accessible emphasis
+          hover: '#00668C',
+        },
+        capability: '#18B6A4', // Capability Teal
+        decision: '#F2B544', // Decision Amber
+        human: '#E85D75', // Human Coral
+        insight: '#5B5BD6', // Insight Violet
+
+        /* §5.4 Semantic */
+        success: '#2D9D78',
+        warning: '#F2B544',
+        error: '#D94A56',
+        info: '#007DAA',
+
+        /* Callout surfaces §14.4 */
+        callout: {
+          info: '#D9F5FF',
+          attention: '#FFF5DE',
+          success: '#E8F7F1',
+          critical: '#FDECEF',
+        },
+
+        /* Text + surfaces */
+        ink: {
+          DEFAULT: '#16213E', // text.primary
+          muted: '#4C5878',
+          faint: '#7C87A3',
+        },
+        line: {
+          DEFAULT: '#E2E5EC',
+          strong: '#C9CEDA',
         },
         surface: {
           DEFAULT: '#FFFFFF',
-          muted: '#F4F6F9',
-          sunken: '#EDF1F6',
-        },
-        ink: {
-          DEFAULT: '#0A1526',
-          muted: '#5B6B7F',
-          faint: '#8C99A8',
-        },
-        line: {
-          DEFAULT: '#E3E8EF',
-          strong: '#CBD4DF',
+          muted: '#F1F2F5',
         },
       },
+
       fontFamily: {
-        sans: ['var(--font-latin)', 'system-ui', 'sans-serif'],
-        fa: ['var(--font-fa)', 'Tahoma', 'sans-serif'],
-        display: ['var(--font-latin)', 'system-ui', 'sans-serif'],
+        /* §6.1 — Inter for Latin, IRANSansX→Vazirmatn for Persian */
+        sans: ['var(--font-latin)', 'Arial', 'Helvetica', 'sans-serif'],
+        fa: ['IRANSansX', 'var(--font-fa)', 'IRANYekan', 'sans-serif'],
+        display: ['var(--font-latin)', 'Arial', 'Helvetica', 'sans-serif'],
       },
+
       /**
-       * One fluid type scale for the whole site. Sizes interpolate with the
-       * viewport so there are no jarring breakpoint jumps. Line-height and
-       * tracking are baked in for Latin; globals.css relaxes both for Persian,
-       * which needs more leading and never takes negative tracking.
+       * §6.2 / §6.3 Type scale. Desktop values with the documented mobile
+       * step-down expressed as clamp() so the ramp is continuous.
+       * Persian overrides live in globals.css.
        */
       fontSize: {
-        eyebrow: ['0.75rem', { lineHeight: '1', letterSpacing: '0.14em', fontWeight: '600' }],
-        small: ['0.875rem', { lineHeight: '1.6' }],
-        body: ['1rem', { lineHeight: '1.65' }],
-        lead: ['clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem)', { lineHeight: '1.6' }],
-        h3: ['clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem)', { lineHeight: '1.35', letterSpacing: '-0.01em' }],
-        h2: ['clamp(1.75rem, 1.35rem + 1.7vw, 2.5rem)', { lineHeight: '1.14', letterSpacing: '-0.022em' }],
-        h1: ['clamp(2.1rem, 1.5rem + 2.6vw, 3.25rem)', { lineHeight: '1.08', letterSpacing: '-0.028em' }],
-        display: ['clamp(2.6rem, 1.6rem + 4.2vw, 4.5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em' }],
+        label: ['0.875rem', { lineHeight: '1.25rem', fontWeight: '500' }], // 14/20 Medium
+        body: ['clamp(1rem, 0.9rem + 0.5vw, 1.125rem)', { lineHeight: '1.667' }], // 16→18 / 30
+        h3: ['clamp(1.375rem, 1.3rem + 0.35vw, 1.5rem)', { lineHeight: '1.333', fontWeight: '600' }], // 22→24 / 32
+        h2: ['clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem)', { lineHeight: '1.222', fontWeight: '700' }], // 28→36 / 44
+        h1: ['clamp(2.25rem, 1.85rem + 1.7vw, 3rem)', { lineHeight: '1.167', fontWeight: '700' }], // 36→48 / 56
+        display: ['clamp(2.5rem, 1.5rem + 4.2vw, 4rem)', { lineHeight: '1.125', fontWeight: '700' }], // 40→64 / 72
       },
+
+      /* §7.2 Maximum widths */
       maxWidth: {
-        container: '1240px',
-        prose: '68ch',
+        container: '1200px',
+        reading: '760px',
       },
+
+      /* §7.4 Spacing scale — 4px base */
+      spacing: {
+        1: '4px',
+        2: '8px',
+        3: '12px',
+        4: '16px',
+        6: '24px',
+        8: '32px',
+        12: '48px',
+        16: '64px',
+      },
+
+      /* §8.1 Radius */
       borderRadius: {
-        xs: '3px',
-        sm: '5px',
-        DEFAULT: '7px',
-        lg: '10px',
+        control: '8px',
+        button: '12px',
+        card: '16px',
+        feature: '24px',
+        full: '999px',
       },
+
+      /* §8.2 Elevation */
       boxShadow: {
-        card: '0 1px 2px rgba(11, 31, 58, 0.04), 0 8px 24px rgba(11, 31, 58, 0.06)',
-        lift: '0 12px 40px rgba(11, 31, 58, 0.12)',
+        card: '0 4px 16px rgba(22, 33, 62, 0.08)',
+        popover: '0 12px 32px rgba(22, 33, 62, 0.14)',
+        modal: '0 24px 64px rgba(22, 33, 62, 0.20)',
       },
-      letterSpacing: {
-        eyebrow: '0.14em',
+
+      /* §17.1 / §17.2 Motion */
+      transitionDuration: {
+        micro: '100ms',
+        standard: '180ms',
+        emphasis: '240ms',
+        narrative: '320ms',
       },
       transitionTimingFunction: {
-        editorial: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        standard: 'cubic-bezier(0.2, 0, 0, 1)',
+        exit: 'cubic-bezier(0.4, 0, 1, 1)',
+      },
+
+      letterSpacing: {
+        label: '0.08em',
       },
     },
   },

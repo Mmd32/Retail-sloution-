@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { archivo, vazirmatn } from '../fonts';
+import { inter, vazirmatn } from '../fonts';
 import '../globals.css';
 import { locales, isLocale, localeDirection, localeHtmlLang, type Locale } from '@/i18n/config';
 import { Header } from '@/components/layout/Header';
@@ -34,7 +34,7 @@ export default function LocaleLayout({
   const dir = localeDirection[locale];
 
   return (
-    <html lang={localeHtmlLang[locale]} dir={dir} className={`${archivo.variable} ${vazirmatn.variable}`}>
+    <html lang={localeHtmlLang[locale]} dir={dir} className={`${inter.variable} ${vazirmatn.variable}`}>
       <body className="min-h-screen bg-surface antialiased">
         <SkipLink label={u('skipToContent', locale)} />
         <LocaleMemory locale={locale} />

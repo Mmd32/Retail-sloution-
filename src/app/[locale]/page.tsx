@@ -68,7 +68,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               {coreBelief.headline[locale]}
             </h1>
             <p
-              className="text-lead animate-rise mt-6 max-w-xl text-ink-muted"
+              className="text-body animate-rise mt-6 max-w-xl text-ink-muted"
               style={{ animationDelay: '110ms' }}
             >
               {locale === 'fa'
@@ -101,14 +101,14 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       {/* 2 — Industry problem */}
       <Section>
         <SectionHeader eyebrow={locale === 'fa' ? 'مسئله صنعت' : 'The Industry Problem'} title={industryProblem.headline[locale]} />
-        <div className="stack-header grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
+        <div className="stack-header grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
           {industryProblem.problems.map((p, i) => (
             <div key={i} className="bg-surface p-6">
-              <span className="text-small font-semibold text-accent-600">
+              <span className="text-label font-semibold text-functional">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="text-h3 mt-3 text-navy">{p.title[locale]}</h3>
-              <p className="text-small mt-2 text-ink-muted">{p.body[locale]}</p>
+              <p className="text-label mt-2 text-ink-muted">{p.body[locale]}</p>
             </div>
           ))}
         </div>
@@ -122,14 +122,14 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             <p className="text-h2 mt-3 text-white">{coreBelief.support[locale]}</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-6">
-            <div className="rounded-lg border border-white/10 bg-white/5 p-6">
-              <p className="text-eyebrow uppercase text-navy-300">{locale === 'fa' ? 'از' : 'From'}</p>
+            <div className="rounded-card border border-white/10 bg-white/5 p-6">
+              <p className="text-label uppercase text-navy-300">{locale === 'fa' ? 'از' : 'From'}</p>
               <p className="text-h3 mt-2 text-navy-100">
                 {locale === 'fa' ? 'مدیریت فردمحور' : 'Person-dependent management'}
               </p>
             </div>
-            <div className="rounded-lg border border-accent-500/40 bg-accent-500/10 p-6">
-              <p className="text-eyebrow uppercase text-accent-300">{locale === 'fa' ? 'به' : 'To'}</p>
+            <div className="rounded-card border border-cyan/40 bg-cyan/10 p-6">
+              <p className="text-label uppercase text-cyan">{locale === 'fa' ? 'به' : 'To'}</p>
               <p className="text-h3 mt-2 text-white">
                 {locale === 'fa' ? 'سازمان سیستم‌محور و داده‌محور' : 'A system-driven organization'}
               </p>
@@ -146,7 +146,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           </div>
           <div className="lg:col-span-8">
             <p className="text-h2 text-navy">{philosophy.body[0][locale]}</p>
-            <p className="text-lead mt-5 text-ink-muted">{philosophy.body[1][locale]}</p>
+            <p className="text-body mt-5 text-ink-muted">{philosophy.body[1][locale]}</p>
           </div>
         </div>
       </Section>
@@ -163,15 +163,15 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             <Link
               key={s.slug}
               href={localePath(locale, `/solutions/${s.slug}`)}
-              className="group flex h-full flex-col rounded-lg border border-line bg-surface p-7 transition-colors hover:border-accent-400"
+              className="group flex h-full flex-col rounded-card border border-line bg-surface p-7 transition-colors hover:border-cyan"
             >
-              <span className="text-eyebrow uppercase text-accent-600">{s.eyebrow[locale]}</span>
+              <span className="text-label uppercase text-functional">{s.eyebrow[locale]}</span>
               <span className="mt-4 font-display text-[2rem] font-extrabold leading-none tracking-tight text-navy">
                 {s.abbr}
               </span>
-              <span className="text-small mt-2 font-medium text-ink">{s.fullName[locale]}</span>
-              <p className="text-small mt-4 flex-1 text-ink-muted">{s.proposition[locale]}</p>
-              <span className="text-small mt-6 inline-flex items-center gap-2 font-semibold text-accent-700">
+              <span className="text-label mt-2 font-medium text-ink">{s.fullName[locale]}</span>
+              <p className="text-label mt-4 flex-1 text-ink-muted">{s.proposition[locale]}</p>
+              <span className="text-label mt-6 inline-flex items-center gap-2 font-semibold text-functional">
                 {u('learnMore', locale)}
                 <Arrow className="h-4 w-4" aria-hidden />
               </span>
@@ -191,20 +191,20 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               : 'The capabilities are not separate products; they are interconnected layers of a single system for moving beyond dependency on individuals.'
           }
         />
-        <div className="stack-header grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stack-header grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((c, i) => {
             const Icon = capIcons[i % capIcons.length];
             return (
               <Link
                 key={c.slug}
                 href={localePath(locale, `/capabilities/${c.slug}`)}
-                className="group bg-surface p-6 transition-colors hover:bg-accent-50"
+                className="group bg-surface p-6 transition-colors hover:bg-callout-info"
               >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-navy text-accent-300">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-navy text-cyan">
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
-                <h3 className="text-h3 mt-4 text-navy group-hover:text-accent-700">{c.title[locale]}</h3>
-                <p className="text-small mt-2 text-ink-muted">{c.description[locale]}</p>
+                <h3 className="text-h3 mt-4 text-navy group-hover:text-functional">{c.title[locale]}</h3>
+                <p className="text-label mt-2 text-ink-muted">{c.description[locale]}</p>
               </Link>
             );
           })}
@@ -218,15 +218,15 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           title={differentiation.headline[locale]}
         />
         <div className="stack-header grid gap-5 lg:grid-cols-2">
-          <div className="rounded-lg border border-line bg-surface-muted p-7">
-            <p className="text-eyebrow uppercase text-ink-muted">{differentiation.traditional.label[locale]}</p>
+          <div className="rounded-card border border-line bg-surface-muted p-7">
+            <p className="text-label uppercase text-ink-muted">{differentiation.traditional.label[locale]}</p>
             <h3 className="text-h3 mt-3 text-navy">{differentiation.traditional.headline[locale]}</h3>
-            <p className="text-small mt-4 text-ink-muted">{differentiation.traditional.body[locale]}</p>
+            <p className="text-label mt-4 text-ink-muted">{differentiation.traditional.body[locale]}</p>
           </div>
-          <div className="rounded-lg border-2 border-accent-400 bg-white p-7">
-            <p className="text-eyebrow uppercase text-accent-600">{differentiation.retailSolutions.label[locale]}</p>
+          <div className="rounded-card border-2 border-cyan bg-white p-7">
+            <p className="text-label uppercase text-functional">{differentiation.retailSolutions.label[locale]}</p>
             <h3 className="text-h3 mt-3 text-navy">{differentiation.retailSolutions.headline[locale]}</h3>
-            <p className="text-small mt-4 text-ink-muted">{differentiation.retailSolutions.body[locale]}</p>
+            <p className="text-label mt-4 text-ink-muted">{differentiation.retailSolutions.body[locale]}</p>
           </div>
         </div>
       </Section>
@@ -241,12 +241,12 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         />
         <ol className="stack-header grid gap-4 md:grid-cols-5">
           {phases.map((p, i) => (
-            <li key={p.key} className="rounded-lg border border-white/10 bg-white/5 p-5">
-              <span className="text-small font-semibold text-accent-300">
+            <li key={p.key} className="rounded-card border border-white/10 bg-white/5 p-5">
+              <span className="text-label font-semibold text-cyan">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="text-h3 mt-2 text-white">{p.name[locale]}</h3>
-              <p className="text-small mt-2 text-navy-200">{p.objective[locale]}</p>
+              <p className="text-label mt-2 text-navy-200">{p.objective[locale]}</p>
             </li>
           ))}
         </ol>
@@ -267,15 +267,15 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             />
           </div>
           <div className="lg:col-span-8">
-            <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+            <div className="grid gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-2">
               {industries.map((ind) => (
                 <Link
                   key={ind.slug}
                   href={localePath(locale, `/industries/${ind.slug}`)}
                   className="group flex items-center justify-between gap-3 bg-surface px-5 py-4 transition-colors hover:bg-surface-muted"
                 >
-                  <span className="font-medium text-navy group-hover:text-accent-700">{ind.name[locale]}</span>
-                  <Arrow className="h-4 w-4 shrink-0 text-accent-600" aria-hidden />
+                  <span className="font-medium text-navy group-hover:text-functional">{ind.name[locale]}</span>
+                  <Arrow className="h-4 w-4 shrink-0 text-functional" aria-hidden />
                 </Link>
               ))}
             </div>
@@ -285,11 +285,11 @@ export default function HomePage({ params }: { params: { locale: string } }) {
 
       {/* 10 — Retail Growth Assessment */}
       <Section tone="muted">
-        <div className="grid items-center gap-8 rounded-xl border border-line bg-white p-7 md:grid-cols-2 md:p-10">
+        <div className="grid items-center gap-8 rounded-feature border border-line bg-white p-7 md:grid-cols-2 md:p-10">
           <div>
             <Eyebrow>{locale === 'fa' ? 'ابزار تشخیصی' : 'Diagnostic Tool'}</Eyebrow>
             <h2 className="text-h2 mt-3 text-navy">{assessmentMeta.title[locale]}</h2>
-            <p className="text-lead mt-4 text-ink-muted">{assessmentMeta.intro[locale]}</p>
+            <p className="text-body mt-4 text-ink-muted">{assessmentMeta.intro[locale]}</p>
             <div className="mt-6">
               <ButtonLink href={localePath(locale, '/assessment')} size="lg">
                 {u('startAssessment', locale)}
@@ -307,9 +307,9 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             ].map((label) => (
               <li
                 key={label}
-                className="text-small flex items-center gap-2 rounded border border-line bg-surface-muted px-3 py-2.5 text-ink"
+                className="text-label flex items-center gap-2 rounded-control border border-line bg-surface-muted px-3 py-2.5 text-ink"
               >
-                <Check className="h-4 w-4 shrink-0 text-accent-600" aria-hidden />
+                <Check className="h-4 w-4 shrink-0 text-functional" aria-hidden />
                 {label}
               </li>
             ))}
@@ -333,14 +333,14 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             <Link
               key={n.slug}
               href={localePath(locale, `/insights/${n.slug}`)}
-              className="group flex h-full flex-col overflow-hidden rounded-lg border border-line transition-colors hover:border-accent-400"
+              className="group flex h-full flex-col overflow-hidden rounded-card border border-line transition-colors hover:border-cyan"
             >
               <MediaSlot ratio="16/9" />
               <div className="flex flex-1 flex-col p-6">
-                <span className="text-eyebrow uppercase text-accent-600">{n.topic[locale]}</span>
-                <h3 className="text-h3 mt-3 text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
-                <p className="text-small mt-2 flex-1 text-ink-muted line-clamp-3">{n.summary[locale]}</p>
-                <span className="text-small mt-4 text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
+                <span className="text-label uppercase text-functional">{n.topic[locale]}</span>
+                <h3 className="text-h3 mt-3 text-navy group-hover:text-functional">{n.title[locale]}</h3>
+                <p className="text-label mt-2 flex-1 text-ink-muted line-clamp-3">{n.summary[locale]}</p>
+                <span className="text-label mt-4 text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
               </div>
             </Link>
           ))}
@@ -360,11 +360,11 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         </div>
         <div className="stack-header grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((m) => (
-            <div key={m.slug} className="overflow-hidden rounded-lg border border-line bg-white">
+            <div key={m.slug} className="overflow-hidden rounded-card border border-line bg-white">
               <Monogram name={m.name.en} className="aspect-[4/3] w-full" />
               <div className="p-5">
                 <h3 className="font-semibold text-navy">{m.name[locale]}</h3>
-                <p className="text-small mt-1 text-ink-muted">{m.role[locale]}</p>
+                <p className="text-label mt-1 text-ink-muted">{m.role[locale]}</p>
               </div>
             </div>
           ))}

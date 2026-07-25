@@ -24,7 +24,7 @@ export function Section({
 }
 
 export function Eyebrow({ children, onDark }: { children: React.ReactNode; onDark?: boolean }) {
-  return <span className={cn('eyebrow', onDark && 'text-accent-300')}>{children}</span>;
+  return <span className={cn('eyebrow', onDark && 'text-cyan')}>{children}</span>;
 }
 
 /**
@@ -51,7 +51,7 @@ export function SectionHeader({
       {eyebrow && <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow>}
       <h2 className={cn('text-h2 mt-3', onDark ? 'text-white' : 'text-navy')}>{title}</h2>
       {intro && (
-        <p className={cn('text-lead mt-4', onDark ? 'text-navy-200' : 'text-ink-muted')}>{intro}</p>
+        <p className={cn('text-body mt-4', onDark ? 'text-navy-200' : 'text-ink-muted')}>{intro}</p>
       )}
     </div>
   );

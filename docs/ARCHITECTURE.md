@@ -51,56 +51,59 @@ Home /[locale]
 **Shared** — `PageHero`, `MeetingCta`.
 **Feature** — `home/HeroVisual`, `methodology/MethodologyExplorer`, `insights/InsightArchive`, `assessment/AssessmentFlow`, `forms/LeadForm`.
 
-## 4. Design tokens
+## 4. Design tokens — Design System v1.0
 
-Defined in `tailwind.config.ts` and mirrored as CSS variables in `globals.css`.
+The site implements **Retail Solutions Brand & Digital Design System v1.0** (Approved baseline, 2026). Token names in `globals.css` mirror the system's own `--rs-*` names so the published token package can replace them without touching components. Do not add raw values in components — add a token (§13.4).
 
-| Role | Token | Value |
-| --- | --- | --- |
-| Primary dark | `navy` | `#0B1F3A` |
-| Primary accent | `accent` | `#0AA2DE` (controlled cyan-blue) |
-| Background | `surface` | `#FFFFFF` |
-| Secondary background | `surface.muted` | `#F4F6F9` |
-| Text | `ink` | `#0A1526` |
-| Muted text | `ink.muted` | `#5B6B7F` |
-| Borders | `line` | `#E3E8EF` |
+### Colour (§5)
 
-Corner radii are restrained (`3–10px`); shadows are used sparingly (`card`, `lift`). The accent is used deliberately, not everywhere.
+| Token | Name | HEX | Use |
+| --- | --- | --- | --- |
+| `brand.cyan` | Retail Cyan | `#00B0F0` | Signal, fills, charts, active state, large display |
+| `brand.navy` | Executive Navy | `#16213E` | Headings, dark surfaces, long-form text |
+| `neutral.fog` | Retail Fog | `#F1F2F5` | Background, section separation |
+| `action.primary` | Functional Blue | `#007DAA` | Links, focus, primary action, accessible emphasis |
+| — | Capability Teal / Decision Amber / Human Coral / Insight Violet | `#18B6A4` `#F2B544` `#E85D75` `#5B5BD6` | Category distinction and analytical context only |
+| — | Success / Warning / Error / Info | `#2D9D78` `#F2B544` `#D94A56` `#007DAA` | System feedback only |
 
-> **Before launch**, extract the exact dominant brand HEX values from the approved source assets and update these tokens. The current values are the documented provisional roles.
+Balance target 60 / 30 / 10 (light neutrals / navy / cyan + accents).
 
-### Typography
+**Critical contrast rules (§5.5):** Cyan on white is 2.48:1 and *fails* for normal text — it is a fill/signal colour only. Interactive text on light surfaces uses Functional Blue. Buttons therefore use Functional Blue + white (4.65:1); the Cyan "accent" button pairs Cyan with Navy text (6.41:1).
 
-One fluid scale (`tailwind.config.ts → fontSize`) drives the whole site: `display`, `h1`, `h2`, `h3`, `lead`, `body`, `small`, `eyebrow`. Sizes interpolate with `clamp()` so there are no breakpoint jumps.
+> **One documented refinement:** eyebrows/labels are 14px and often sit on Fog, where Functional Blue reaches only 4.14:1 — under the 4.5:1 AA floor. `--rs-color-text-label` (`#00668C`, same hue, darker) is used for them: 6.4:1 on White, 5.7:1 on Fog. Body links keep the system's `#007DAA`.
 
-**Persian runs on its own ramp.** Persian glyphs read visually larger than Latin at an identical `font-size`, so every display step is scaled down and given more leading, and tracking is always `0` (never the Latin negative tracking). These overrides live in `globals.css`.
+### Typography (§6)
 
-Two implementation details worth knowing before editing:
+Faces: **Inter** (Latin) and **IRANSansX → Vazirmatn** (Persian). IRANSansX is licensed and not redistributed here; it is listed first in the CSS stack, so self-hosting it later requires no code change.
 
-1. **Selectors use `html[lang^='fa']`, not `html[lang='fa']`.** The document renders `lang="fa-IR"`, so an exact-match selector silently never fires — which previously meant Vazirmatn and the entire Persian type treatment were not applied at all. Always use the prefix match.
-2. **The Persian ramp is deliberately unlayered.** Tailwind's font-size classes live in `@layer utilities`, which outranks `@layer base` regardless of selector specificity. Unlayered declarations beat every layer, so the per-locale ramp sits outside `@layer` at the bottom of `globals.css`.
+Scale (desktop → mobile, expressed as `clamp()`): Display 64→40, H1 48→36, H2 36→28, H3 24→22, Body 18→16, Label 14. Minimum body 16px, line-height 1.5–1.7, reading column 45–75 characters (`.reading`).
 
-Faces: **Vazirmatn** (Persian) and **Archivo** (Latin) — Archivo chosen over a default UI sans so the English side carries the same institutional weight as the Persian.
+**Persian runs on its own ramp** — Persian glyphs read larger than Latin at an identical size, so each display step is scaled down and given more leading, with tracking always `0`. Two implementation details:
 
-### Spacing rhythm
+1. Selectors use `html[lang^='fa']`, **not** `html[lang='fa']`. The document renders `lang="fa-IR"`, so an exact match silently never fires — which previously meant Vazirmatn and the whole Persian treatment were inert.
+2. The Persian ramp is deliberately **unlayered**. Tailwind font-size classes live in `@layer utilities`, which outranks `@layer base` regardless of specificity; unlayered declarations beat every layer.
 
-All vertical spacing comes from a short scale of CSS variables so gaps are systematic rather than picked per component:
+Long-form text is never centred in either language (§6.4).
 
-| Token | Use |
-| --- | --- |
-| `--space-section` | section `padding-block` (via `.section-y`) |
-| `--space-header` | section header → content (via `.stack-header`) |
-| `--space-block` / `--space-tight` | sibling blocks / eyebrow → title |
+### Layout, radius, elevation, motion
 
-### Motion
+- Container **1200px**; margins 48 / 32 / 20 (desktop / tablet / mobile); 12-8-4 column grid (§7.1–7.2).
+- Spacing on a 4px scale: 4, 8, 12, 16, 24, 32, 48, 64 (§7.4). Section rhythm derives from it via `.section-y` / `.stack-header`.
+- Radius: control 8 · button 12 · card 16 · feature 24 · full 999 (§8.1).
+- Elevation: card / popover / modal shadows exactly as §8.2. Shadow is never decoration.
+- Motion: micro 100ms · standard 180ms · emphasis 240ms · narrative 320ms, with the system's two easing curves (§17). Motion is spent in one place — a single hero entrance. There is no JS animation library; `framer-motion` was removed, cutting homepage first-load from ~133 kB to ~96 kB. Scroll-triggered reveals were removed because they started at `opacity: 0` and read as missing content on fast scroll. `prefers-reduced-motion` disables the entrance.
 
-Motion is spent in **one** place: a short CSS `rise` entrance on the hero (~0.5 s, small stagger). There is no JS animation library — `framer-motion` was removed, cutting the homepage first-load from ~133 kB to ~96 kB.
+### Logo (§4)
 
-Scroll-triggered reveals were removed deliberately: they started elements at `opacity: 0`, so on fast scroll (or before hydration) content read as washed out or missing. `Reveal` is now a pass-through kept only for call-site compatibility. `prefers-reduced-motion` disables the hero entrance entirely.
+`components/layout/Logo.tsx` exposes `LogoMark` (full lockup) and `LogoGlyph` (mark-only), with the approved variants `primary` / `reverse` / `brandField`.
 
-### Imagery
+> ⚠ **Handoff items.**
+> 1. The mark is a faithful **reproduction**, built so every colour variant renders and scales. The system requires production from the vector master (§4.6) — drop in `public/brand/retail-solutions.svg` and swap the component internals; the variant API can stay.
+> 2. The supplied lockup is stacked (≈1.2:1). At the §4.5 minimum of **120px wide** it is ~98px tall, which does not fit a conventional header bar. The header currently renders it at 56px tall (~68px wide), below that minimum. Resolve by obtaining a **horizontal lockup** from the brand owner, or by accepting a taller header.
 
-`MediaSlot` renders a real `<img>` when `src` is set and otherwise draws a navy system panel — an intentional design element, never a broken box and never generic stock. Photography supplied later drops in through this component (currently used on insight cards; extend to industries/about as assets arrive).
+### Imagery (§10)
+
+`MediaSlot` renders a real `<img>` when given a `src` and otherwise draws a navy system panel — an intentional element, never a broken box and never generic stock. Photography supplied later drops in through this component.
 
 ## 5. Content model
 

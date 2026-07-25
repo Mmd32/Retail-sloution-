@@ -42,7 +42,7 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
           </div>
           <div className="lg:col-span-8">
             <p className="text-h2 text-navy">{philosophy.body[0][locale]}</p>
-            <p className="text-lead mt-5 text-ink-muted">{philosophy.body[1][locale]}</p>
+            <p className="text-body mt-5 text-ink-muted">{philosophy.body[1][locale]}</p>
           </div>
         </div>
       </Section>
@@ -77,8 +77,8 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
         />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {brand.pillars.map((p, i) => (
-            <div key={i} className="rounded-lg border border-line bg-white p-6">
-              <span className="font-display text-3xl font-bold text-accent-500">0{i + 1}</span>
+            <div key={i} className="rounded-card border border-line bg-white p-6">
+              <span className="font-display text-3xl font-bold text-cyan">0{i + 1}</span>
               <p className="mt-3 text-h3 text-navy">{p[locale]}</p>
             </div>
           ))}
@@ -88,11 +88,11 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
       {/* Values */}
       <Section>
         <SectionHeader eyebrow={u('values', locale)} title={locale === 'fa' ? 'ارزش‌های ما' : 'Our values'} />
-        <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-5">
           {values.map((v) => (
             <div key={v.key} className="bg-surface p-6">
               <h3 className="text-h3 text-navy">{v.name[locale]}</h3>
-              <p className="mt-2 text-small text-ink-muted">{v.description[locale]}</p>
+              <p className="mt-2 text-label text-ink-muted">{v.description[locale]}</p>
             </div>
           ))}
         </div>

@@ -12,7 +12,7 @@ import { Logo } from './Logo';
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="mb-4 text-xs font-semibold uppercase tracking-wide text-accent-300">{title}</h3>
+      <h3 className="mb-4 text-xs font-semibold uppercase tracking-wide text-cyan">{title}</h3>
       <ul className="space-y-2.5 text-sm">{children}</ul>
     </div>
   );
@@ -49,7 +49,7 @@ export function Footer({ locale }: { locale: Locale }) {
           </div>
           <Link
             href={localePath(locale, '/contact')}
-            className="inline-flex h-12 items-center rounded bg-accent-500 px-7 font-semibold text-white transition-colors hover:bg-accent-400"
+            className="inline-flex h-12 items-center rounded-control bg-functional px-7 font-semibold text-white transition-colors hover:bg-functional-hover"
           >
             {u('requestMeeting', locale)}
           </Link>

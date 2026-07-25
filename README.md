@@ -14,12 +14,12 @@ A production-ready, fully bilingual (Persian / English) corporate website for **
 | --- | --- |
 | Framework | Next.js 14 (App Router) |
 | Language | TypeScript (strict) |
-| Styling | Tailwind CSS + CSS logical properties (RTL/LTR) |
+| Styling | Tailwind CSS mapped to Design System v1.0 tokens + CSS logical properties (RTL/LTR) |
 | Motion | CSS-only, one hero entrance; reduced-motion respected (no JS animation library) |
 | i18n | Locale-segmented routing `/[locale]`, shared bilingual content model |
 | Validation | Zod (server) + native + React state (client) |
 | Icons | lucide-react |
-| Fonts | Vazirmatn (fa) + Archivo (en) via `next/font`, one fluid per-locale type scale |
+| Fonts | Inter (en) + IRANSansX→Vazirmatn (fa) via `next/font`, per-locale fluid type scale |
 | Lead storage | Integration-abstraction layer with local JSON fallback |
 
 ## Quick start

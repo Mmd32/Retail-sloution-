@@ -37,5 +37,14 @@ Work top to bottom. Do not launch with any **Gate** item unresolved.
 - [ ] Automated tests added and green (see `docs/ARCHITECTURE.md §11`).
 - [ ] Manual a11y pass: keyboard-only navigation, screen-reader language switch, focus visibility, reduced-motion.
 
+## Brand / Design System v1.0
+- [x] Colours, typography, spacing, radius, elevation and motion mapped to the approved system tokens.
+- [x] Cyan never used for small text on light surfaces; Functional Blue used for interactive text (§5.5/§5.6).
+- [x] Long-form text not centred in either language (§6.4).
+- [ ] **Gate:** replace the reproduced logo with the **vector master** SVG (§4.6).
+- [ ] **Gate:** obtain a **horizontal logo lockup** — the stacked lockup cannot meet the 120px-wide minimum (§4.5) in a standard header; it currently renders ~68px wide.
+- [ ] Self-host **IRANSansX** if licensed (already first in the CSS stack; Vazirmatn is the approved fallback).
+- [ ] Release checklist §21.6 signed off (brand name/logo, colour pairing, tokens, responsive, RTL+LTR, keyboard/focus, contrast, 200% zoom, empty/loading/error/success states).
+
 ## Legal
 - [ ] Privacy / Terms / Cookies reviewed by counsel (baseline provided in `src/content/legal.ts`).

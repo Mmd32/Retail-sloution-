@@ -22,7 +22,7 @@ export function Breadcrumbs({ locale, items }: { locale: Locale; items: Crumb[] 
             return (
               <li key={i} className="flex items-center gap-1">
                 {item.path && !isLast ? (
-                  <Link href={localePath(locale, item.path)} className="hover:text-accent-700 link-underline">
+                  <Link href={localePath(locale, item.path)} className="hover:text-functional link-underline">
                     {item.label}
                   </Link>
                 ) : (

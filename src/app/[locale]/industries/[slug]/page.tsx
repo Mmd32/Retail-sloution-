@@ -62,8 +62,8 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
             </p>
             <ul className="mt-4 space-y-3">
               {ind.challenges[locale].map((c, i) => (
-                <li key={i} className="flex items-start gap-3 rounded-lg border border-line bg-surface-muted p-4">
-                  <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-accent-600" aria-hidden />
+                <li key={i} className="flex items-start gap-3 rounded-card border border-line bg-surface-muted p-4">
+                  <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-functional" aria-hidden />
                   <span className="text-ink">{c}</span>
                 </li>
               ))}
@@ -79,7 +79,7 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
                     <Link
                       key={slug}
                       href={localePath(locale, `/solutions/${slug}`)}
-                      className="rounded-lg border border-line p-5 transition-colors hover:border-accent-300"
+                      className="rounded-card border border-line p-5 transition-colors hover:border-cyan-300"
                     >
                       <p className="font-display text-h3 text-navy">{s.abbr}</p>
                       <p className="mt-1 text-sm text-ink-muted">{s.fullName[locale]}</p>
@@ -92,8 +92,8 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
 
           <aside className="lg:col-span-4">
             <div className="sticky top-28 space-y-6">
-              <div className="rounded-lg border border-line p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+              <div className="rounded-card border border-line p-6">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                   {u('relatedCapabilities', locale)}
                 </h3>
                 <ul className="mt-3 space-y-2">
@@ -102,7 +102,7 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
                     if (!c) return null;
                     return (
                       <li key={slug}>
-                        <Link href={localePath(locale, `/capabilities/${slug}`)} className="text-sm text-navy hover:text-accent-700 link-underline">
+                        <Link href={localePath(locale, `/capabilities/${slug}`)} className="text-sm text-navy hover:text-functional link-underline">
                           {c.title[locale]}
                         </Link>
                       </li>
@@ -110,8 +110,8 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
                   })}
                 </ul>
               </div>
-              <div className="rounded-lg border border-line p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+              <div className="rounded-card border border-line p-6">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                   {locale === 'fa' ? 'گفت‌وگو با کارشناس' : 'Talk to a specialist'}
                 </h3>
                 <div className="mt-4 flex items-center gap-3">
@@ -134,10 +134,10 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
             <Link
               key={n.slug}
               href={localePath(locale, `/insights/${n.slug}`)}
-              className="group rounded-lg border border-line bg-white p-6 transition-colors hover:border-accent-300"
+              className="group rounded-card border border-line bg-white p-6 transition-colors hover:border-cyan-300"
             >
-              <span className="text-xs font-semibold uppercase tracking-wide text-accent-600">{n.topic[locale]}</span>
-              <h3 className="mt-3 text-h3 text-navy group-hover:text-accent-700">{n.title[locale]}</h3>
+              <span className="text-xs font-semibold uppercase tracking-wide text-functional">{n.topic[locale]}</span>
+              <h3 className="mt-3 text-h3 text-navy group-hover:text-functional">{n.title[locale]}</h3>
               <span className="mt-3 block text-xs text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
             </Link>
           ))}
