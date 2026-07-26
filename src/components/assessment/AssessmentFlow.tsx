@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, RotateCcw, Lock } from 'lucide-react';
 import type { Locale } from '@/i18n/config';
@@ -19,6 +19,7 @@ import { u } from '@/content/ui';
 import { track } from '@/lib/analytics';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { LeadForm } from '@/components/forms/LeadForm';
+import { ASSESSMENT_SEED_KEY } from '@/components/home/AssessmentTeaser';
 
 type Phase = 'intro' | 'questions' | 'preview' | 'result';
 
@@ -26,6 +27,28 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
   const [phase, setPhase] = useState<Phase>('intro');
   const [dimIndex, setDimIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
+
+  /* Pick up answers given on the homepage teaser so the visitor is not asked
+     the same questions twice (§14). Read once on mount and cleared, so a later
+     visit to this page starts clean. Any storage failure is non-fatal — the
+     assessment simply begins from the intro. */
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(ASSESSMENT_SEED_KEY);
+      if (!raw) return;
+      sessionStorage.removeItem(ASSESSMENT_SEED_KEY);
+      const seed = JSON.parse(raw) as Record<string, number>;
+      const valid = Object.entries(seed).filter(
+        ([, v]) => typeof v === 'number' && v >= 0 && v <= 4,
+      );
+      if (!valid.length) return;
+      setAnswers(Object.fromEntries(valid));
+      setPhase('questions');
+      track('assessment_resumed_from_home', { seeded: valid.length });
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   const Fwd = locale === 'fa' ? ArrowLeft : ArrowRight;
   const Back = locale === 'fa' ? ArrowRight : ArrowLeft;

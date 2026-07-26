@@ -1,12 +1,19 @@
 import type { Locale } from '@/i18n/config';
 import { localePath } from '@/lib/utils';
 import { ButtonLink } from '@/components/ui/Button';
-import { u } from '@/content/ui';
+import { ArrowLink } from '@/components/ui/ArrowLink';
+import { SystemDiagram } from '@/components/visual/SystemDiagram';
 
 /**
- * Lead-generation CTA band. Reused at the foot of the homepage and on
- * service / industry / capability pages. `context` lets a page pass a tailored
- * line without duplicating the whole component.
+ * Final CTA band (§17).
+ *
+ * One primary action. The secondary is a text link rather than a second button
+ * — the previous version showed two equally weighted buttons, which forced a
+ * choice at exactly the moment the visitor should have only one obvious step.
+ *
+ * The Retail OS diagram returns here at low contrast as a backdrop, closing the
+ * page with the same figure it opened on. It is static: no ambient animation,
+ * nothing that keeps moving while someone is trying to read the CTA.
  */
 export function MeetingCta({
   locale,
@@ -18,28 +25,44 @@ export function MeetingCta({
   body?: string;
 }) {
   return (
-    <section className="section-y border-t border-line bg-surface">
-      <div className="container-x">
-        {/* §6.4 — long-form text is never centred, in either language. */}
-        <div className="grid items-end gap-8 lg:grid-cols-12">
+    <section className="rs-blueprint relative overflow-hidden border-t border-navy-700 bg-navy">
+      {/* Backdrop figure — decorative, hidden from assistive tech, and clipped
+          so it can never introduce horizontal overflow. */}
+      <div
+        className="pointer-events-none absolute -end-24 top-1/2 hidden w-[30rem] -translate-y-1/2 opacity-[0.13] lg:block"
+        aria-hidden
+      >
+        <SystemDiagram locale={locale} ambient labelled={false} />
+      </div>
+
+      <div className="container-x section-y relative">
+        <div className="grid items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <h2 className="text-h2 text-navy">
-              {title ?? (locale === 'fa' ? 'آماده‌ی گفت‌وگو درباره‌ی رشد سازمان شما هستیم' : 'Let’s talk about your organization’s growth')}
+            <h2 className="text-h2 max-w-[22ch] text-white">
+              {title ??
+                (locale === 'fa'
+                  ? 'آماده‌اید رشد سازمانتان را از افراد به سیستم منتقل کنید؟'
+                  : 'Ready to move your growth from people to a system?')}
             </h2>
-            <p className="text-body reading mt-4 text-ink-muted">
+            <p className="text-body mt-5 max-w-reading text-navy-200">
               {body ??
                 (locale === 'fa'
-                  ? 'یک جلسه‌ی اولیه رزرو کنید تا اهداف، وضعیت و اولویت‌های کسب‌وکار شما را بشناسیم.'
-                  : 'Book an initial meeting so we can understand your objectives, current situation, and priorities.')}
+                  ? 'در یک جلسه تشخیصی، وضعیت فعلی، موانع رشد و مسیر مناسب همکاری را بررسی می‌کنیم.'
+                  : 'In one diagnostic meeting we review where you are, what is blocking growth, and the right way to work together.')}
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
-            <ButtonLink href={localePath(locale, '/contact')} size="lg">
-              {u('requestMeeting', locale)}
+
+          <div className="flex flex-col items-start gap-5 lg:col-span-5 lg:items-end">
+            <ButtonLink
+              href={localePath(locale, '/contact')}
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              {locale === 'fa' ? 'درخواست جلسه تشخیصی' : 'Request a diagnostic meeting'}
             </ButtonLink>
-            <ButtonLink href={localePath(locale, '/assessment')} size="lg" variant="secondary">
-              {u('assessBusiness', locale)}
-            </ButtonLink>
+            <ArrowLink href={localePath(locale, '/assessment')} locale={locale} onDark>
+              {locale === 'fa' ? 'شروع ارزیابی آمادگی رشد' : 'Start the growth readiness assessment'}
+            </ArrowLink>
           </div>
         </div>
       </div>

@@ -249,7 +249,54 @@ html[lang^='fa'] .text-label { font-size: 0.9375rem; line-height: 1.7; }
   animation: rs-rise var(--rs-duration-narrative) var(--rs-ease-standard) both;
 }
 
-/* §17.4 Reduced motion */
+/* ── Motion system (§19) ──────────────────────────────────────────────────
+   One easing curve for everything that arrives, four duration tiers matched
+   to what is moving. Reveal is opt-in per element and driven by a data
+   attribute the IntersectionObserver flips, so nothing depends on JS to
+   become readable: the un-revealed state is only a small offset, and the
+   no-JS / reduced-motion fallback below pins it to the final state. */
+:root {
+  --rs-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rs-d-micro: 180ms;
+  --rs-d-standard: 280ms;
+  --rs-d-reveal: 560ms;
+  --rs-d-diagram: 800ms;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--rs-d-reveal) var(--rs-ease),
+    transform var(--rs-d-reveal) var(--rs-ease);
+  transition-delay: var(--rs-reveal-delay, 0ms);
+}
+[data-reveal='in'] { opacity: 1; transform: none; }
+
+/* Line-drawing for the system diagrams. */
+@keyframes rs-draw { to { stroke-dashoffset: 0; } }
+.rs-draw {
+  stroke-dasharray: var(--rs-len, 400);
+  stroke-dashoffset: var(--rs-len, 400);
+  animation: rs-draw var(--rs-d-diagram) var(--rs-ease) forwards;
+  animation-delay: var(--rs-draw-delay, 0ms);
+}
+
+/* Blueprint grid — the shared substrate of the visual language (§20). */
+.rs-blueprint {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.rs-blueprint-light {
+  background-image:
+    linear-gradient(to right, rgba(22, 33, 62, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 33, 62, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* §17.4 / §19 Reduced motion — the site must be fully usable without motion. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -260,4 +307,6 @@ html[lang^='fa'] .text-label { font-size: 0.9375rem; line-height: 1.7; }
     transition-duration: 0.01ms !important;
   }
   .animate-rise { animation: none; opacity: 1; transform: none; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .rs-draw { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
 }

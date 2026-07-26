@@ -70,7 +70,10 @@ const config: Config = {
         ink: {
           DEFAULT: '#16213E', // text.primary
           muted: '#4C5878',
-          faint: '#7C87A3',
+          /* Was #7C87A3, which measured 3.59:1 on white — below WCAG AA for
+             normal text (§25). Darkened to clear 4.5:1 on both white (5.06)
+             and Fog (4.52), the two surfaces it actually appears on. */
+          faint: '#646E8C',
         },
         line: {
           DEFAULT: '#E2E5EC',
@@ -137,16 +140,34 @@ const config: Config = {
         modal: '0 24px 64px rgba(22, 33, 62, 0.20)',
       },
 
-      /* §17.1 / §17.2 Motion */
+      /* §17 Motion. Four tiers, matched to what is moving:
+         micro = state feedback, standard = a card or menu, reveal = a section
+         entering, diagram = an explanatory drawing that has to be followed. */
       transitionDuration: {
-        micro: '100ms',
-        standard: '180ms',
-        emphasis: '240ms',
+        micro: '180ms',
+        standard: '280ms',
+        emphasis: '360ms',
+        reveal: '560ms',
+        diagram: '800ms',
+        /* kept so existing call sites keep compiling */
         narrative: '320ms',
       },
       transitionTimingFunction: {
-        standard: 'cubic-bezier(0.2, 0, 0, 1)',
+        /* Decelerating; motion arrives rather than snaps. */
+        standard: 'cubic-bezier(0.22, 1, 0.36, 1)',
         exit: 'cubic-bezier(0.4, 0, 1, 1)',
+      },
+      keyframes: {
+        'rs-rise': {
+          from: { opacity: '0', transform: 'translateY(12px)' },
+          to: { opacity: '1', transform: 'none' },
+        },
+        'rs-fade': { from: { opacity: '0' }, to: { opacity: '1' } },
+        'rs-draw': { from: { strokeDashoffset: '1' }, to: { strokeDashoffset: '0' } },
+      },
+      animation: {
+        'rs-rise': 'rs-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both',
+        'rs-fade': 'rs-fade 360ms cubic-bezier(0.22, 1, 0.36, 1) both',
       },
 
       letterSpacing: {

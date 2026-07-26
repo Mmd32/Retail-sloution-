@@ -15,6 +15,9 @@ export type AnalyticsEvent =
   | 'assessment_started'
   | 'assessment_step_completed'
   | 'assessment_completed'
+  /* Homepage teaser → full assessment handoff (§14) */
+  | 'assessment_continued'
+  | 'assessment_resumed_from_home'
   | 'service_page_viewed'
   | 'company_profile_downloaded'
   | 'insight_downloaded'

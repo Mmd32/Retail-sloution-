@@ -26,7 +26,7 @@ export function ArrowLink({
     <Link
       href={href}
       className={cn(
-        'group inline-flex items-center gap-2 text-sm font-semibold transition-colors',
+        'group inline-flex min-h-[44px] items-center gap-2 text-body font-semibold transition-colors duration-standard ease-standard lg:min-h-[24px]',
         onDark ? 'text-cyan hover:text-white' : 'text-functional hover:text-navy',
         className,
       )}

@@ -3,17 +3,30 @@ import { Linkedin, Mail, Phone } from 'lucide-react';
 import type { Locale } from '@/i18n/config';
 import { localePath } from '@/lib/utils';
 import { services } from '@/content/services';
-import { capabilities } from '@/content/capabilities';
+import { solutionDomains, companyLinks } from '@/content/navigation';
 import { industries } from '@/content/industries';
-import { contact, brand, finalCta, poweredByNovark } from '@/content/site';
+import { contact, brand, poweredByNovark } from '@/content/site';
 import { u } from '@/content/ui';
 import { Logo } from './Logo';
+import { LanguageSwitcher } from './LanguageSwitcher';
+
+/**
+ * Footer (§18).
+ *
+ * Reduced from six narrow columns of small text to four readable ones, and the
+ * duplicate CTA band is gone: every page already ends with MeetingCta directly
+ * above this, so a second call to action here competed with the first rather
+ * than reinforcing it.
+ *
+ * This is also where the links demoted from the header land — methodology,
+ * engagement, team, contact — so the primary nav can stay at five items.
+ */
 
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="mb-4 text-xs font-semibold uppercase tracking-wide text-cyan">{title}</h3>
-      <ul className="space-y-2.5 text-sm">{children}</ul>
+      <h3 className="mb-4 text-xs font-semibold uppercase tracking-label text-cyan">{title}</h3>
+      <ul className="space-y-1 text-label">{children}</ul>
     </div>
   );
 }
@@ -21,7 +34,10 @@ function Column({ title, children }: { title: string; children: React.ReactNode 
 function FLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link href={href} className="text-navy-200 transition-colors hover:text-white">
+      <Link
+        href={href}
+        className="flex min-h-[44px] items-center text-navy-200 transition-colors duration-micro ease-standard hover:text-white lg:min-h-[30px]"
+      >
         {children}
       </Link>
     </li>
@@ -30,116 +46,130 @@ function FLink({ href, children }: { href: string; children: React.ReactNode }) 
 
 export function Footer({ locale }: { locale: Locale }) {
   const year = new Date().getFullYear();
-  const aboutLinks = [
-    { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
-    { href: '/methodology', label: { fa: 'متدولوژی', en: 'Methodology' } },
-    { href: '/team', label: { fa: 'تیم', en: 'Team' } },
-    { href: '/insights', label: { fa: 'بینش‌ها', en: 'Insights' } },
-    { href: '/contact', label: { fa: 'تماس با ما', en: 'Contact' } },
-  ];
+  const contactLink =
+    'inline-flex min-h-[44px] items-center gap-2 text-navy-200 transition-colors duration-micro ease-standard hover:text-white lg:min-h-[30px]';
 
   return (
-    <footer className="bg-navy text-navy-100">
-      {/* Final statement band */}
-      <div className="border-b border-white/10">
-        <div className="container-x flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
-          <div>
-            <p className="text-h2 text-white md:text-3xl">{finalCta.headline[locale]}</p>
-            <p className="mt-2 text-navy-200">{finalCta.support[locale]}</p>
-          </div>
-          <Link
-            href={localePath(locale, '/contact')}
-            className="inline-flex h-12 items-center rounded-control bg-functional px-7 font-semibold text-white transition-colors hover:bg-functional-hover"
-          >
-            {u('requestMeeting', locale)}
-          </Link>
-        </div>
-      </div>
-
+    <footer className="border-t border-white/10 bg-navy text-navy-100">
       <div className="container-x py-14">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-6">
-          <div className="col-span-2 md:col-span-3 lg:col-span-1">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          {/* Brand */}
+          <div className="lg:col-span-4 lg:pe-10">
             <Logo locale={locale} onDark />
-            <p className="mt-4 max-w-xs text-sm text-navy-200">{brand.descriptor[locale]}</p>
+            <p className="text-label mt-5 max-w-xs text-navy-200">{brand.descriptor[locale]}</p>
+            <p className="text-label mt-4 max-w-xs text-navy-300">
+              {locale === 'fa'
+                ? 'طراحی و پیاده‌سازی سیستم‌های مدیریتی و اجرایی برای برندهای ریتیل.'
+                : 'Designing and implementing management and execution systems for retail brands.'}
+            </p>
+            <div className="mt-6 inline-flex rounded-control border border-white/15 px-3 py-1.5">
+              <LanguageSwitcher locale={locale} onDark />
+            </div>
           </div>
 
-          <Column title={u('footerSolutions', locale)}>
-            {services.map((s) => (
-              <FLink key={s.slug} href={localePath(locale, `/solutions/${s.slug}`)}>
-                {s.abbr}
-              </FLink>
-            ))}
-          </Column>
+          <div className="lg:col-span-2">
+            <Column title={u('footerSolutions', locale)}>
+              {solutionDomains.map((d) => (
+                <FLink key={d.href} href={localePath(locale, d.href)}>
+                  {d.label[locale]}
+                </FLink>
+              ))}
+              {services.map((s) => (
+                <FLink key={s.slug} href={localePath(locale, `/solutions/${s.slug}`)}>
+                  {s.abbr}
+                </FLink>
+              ))}
+            </Column>
+          </div>
 
-          <Column title={u('footerCapabilities', locale)}>
-            {capabilities.map((c) => (
-              <FLink key={c.slug} href={localePath(locale, `/capabilities/${c.slug}`)}>
-                {c.name[locale]}
-              </FLink>
-            ))}
-          </Column>
+          <div className="lg:col-span-2">
+            <Column title={u('footerIndustries', locale)}>
+              {industries.map((i) => (
+                <FLink key={i.slug} href={localePath(locale, `/industries/${i.slug}`)}>
+                  {i.name[locale]}
+                </FLink>
+              ))}
+            </Column>
+          </div>
 
-          <Column title={u('footerIndustries', locale)}>
-            {industries.map((i) => (
-              <FLink key={i.slug} href={localePath(locale, `/industries/${i.slug}`)}>
-                {i.name[locale]}
+          <div className="lg:col-span-2">
+            <Column title={u('footerAbout', locale)}>
+              {companyLinks.map((l) => (
+                <FLink key={l.href} href={localePath(locale, l.href)}>
+                  {l.label[locale]}
+                </FLink>
+              ))}
+              <FLink href={localePath(locale, '/case-studies')}>
+                {locale === 'fa' ? 'نتایج' : 'Results'}
               </FLink>
-            ))}
-          </Column>
-
-          <Column title={u('footerAbout', locale)}>
-            {aboutLinks.map((l) => (
-              <FLink key={l.href} href={localePath(locale, l.href)}>
-                {l.label[locale]}
+              <FLink href={localePath(locale, '/insights')}>
+                {locale === 'fa' ? 'بینش‌ها' : 'Insights'}
               </FLink>
-            ))}
-          </Column>
+            </Column>
+          </div>
 
-          <Column title={locale === 'fa' ? 'ارتباط' : 'Contact'}>
-            <li>
-              <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 text-navy-200 hover:text-white">
-                <Mail className="h-4 w-4" aria-hidden /> {contact.email}
-              </a>
-            </li>
-            <li>
-              <a
-                href={contact.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-navy-200 hover:text-white"
-              >
-                <Linkedin className="h-4 w-4" aria-hidden /> LinkedIn
-              </a>
-            </li>
-            {/* Phone only rendered when a real number is set AND enabled. */}
-            {contact.phoneEnabled && contact.phone && (
+          <div className="lg:col-span-2">
+            <Column title={locale === 'fa' ? 'ارتباط' : 'Contact'}>
               <li>
-                <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-2 text-navy-200 hover:text-white">
-                  <Phone className="h-4 w-4" aria-hidden /> {contact.phone}
+                <a href={`mailto:${contact.email}`} className={contactLink}>
+                  <Mail className="h-4 w-4 shrink-0" aria-hidden />
+                  <span className="break-all">{contact.email}</span>
                 </a>
               </li>
-            )}
-          </Column>
+              <li>
+                <a
+                  href={contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={contactLink}
+                >
+                  <Linkedin className="h-4 w-4 shrink-0" aria-hidden /> LinkedIn
+                </a>
+              </li>
+              {/* Rendered only when a real number is configured AND enabled. */}
+              {contact.phoneEnabled && contact.phone && (
+                <li>
+                  <a href={`tel:${contact.phone}`} className={contactLink}>
+                    <Phone className="h-4 w-4 shrink-0" aria-hidden /> {contact.phone}
+                  </a>
+                </li>
+              )}
+              <li className="pt-3">
+                <Link
+                  href={localePath(locale, '/contact')}
+                  className="inline-flex min-h-[44px] items-center rounded-control bg-functional px-5 font-semibold text-white transition-colors duration-micro ease-standard hover:bg-functional-hover"
+                >
+                  {u('requestMeeting', locale)}
+                </Link>
+              </li>
+            </Column>
+          </div>
         </div>
       </div>
 
       {/* Legal bar */}
       <div className="border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-4 py-6 text-xs text-navy-300 md:flex-row">
+        <div className="container-x flex flex-col items-center justify-between gap-2 py-6 text-xs text-navy-300 md:flex-row">
           <p>
             © {year} {brand.name}. {u('allRightsReserved', locale)}
           </p>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href={localePath(locale, '/legal/privacy')} className="hover:text-white">
-              {u('legalPrivacy', locale)}
-            </Link>
-            <Link href={localePath(locale, '/legal/terms')} className="hover:text-white">
-              {u('legalTerms', locale)}
-            </Link>
-            <Link href={localePath(locale, '/legal/cookies')} className="hover:text-white">
-              {u('legalCookies', locale)}
-            </Link>
-            {poweredByNovark.show && <span className="text-navy-400">{poweredByNovark.label[locale]}</span>}
+          <div className="flex flex-wrap items-center justify-center gap-x-5">
+            {[
+              { href: '/legal/privacy', label: u('legalPrivacy', locale) },
+              { href: '/legal/terms', label: u('legalTerms', locale) },
+              { href: '/legal/cookies', label: u('legalCookies', locale) },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={localePath(locale, l.href)}
+                className="inline-flex min-h-[44px] items-center transition-colors duration-micro ease-standard hover:text-white lg:min-h-[24px]"
+              >
+                {l.label}
+              </Link>
+            ))}
+            {poweredByNovark.show && (
+              <span className="text-navy-300">{poweredByNovark.label[locale]}</span>
+            )}
           </div>
         </div>
       </div>

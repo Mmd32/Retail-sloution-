@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
+import { InsightCard } from '@/components/insights/InsightCard';
 import type { Locale } from '@/i18n/config';
 import { insights, insightTypeLabels, getActiveTopics } from '@/content/insights';
 import { localePath, formatDate, readingTimeLabel } from '@/lib/utils';
@@ -28,7 +28,7 @@ export function InsightArchive({
   );
 
   const chip = (active: boolean) =>
-    `rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+    `inline-flex min-h-[44px] items-center rounded-full px-5 text-label font-medium transition-colors duration-standard ease-standard ${
       active ? 'bg-navy text-white' : 'border border-line bg-white text-ink-muted hover:border-cyan-300'
     }`;
 
@@ -63,24 +63,7 @@ export function InsightArchive({
 
       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filtered.map((n) => (
-          <Link
-            key={n.slug}
-            href={localePath(locale, `/insights/${n.slug}`)}
-            className="group flex h-full flex-col rounded-card border border-line bg-white p-6 transition-colors hover:border-cyan-300"
-          >
-            <div className="flex items-center gap-2 text-xs">
-              <span className="rounded-control bg-callout-info px-2 py-1 font-medium text-functional">
-                {insightTypeLabels[n.type][locale]}
-              </span>
-              <span className="text-ink-faint">{n.topic[locale]}</span>
-            </div>
-            <h2 className="mt-4 text-h3 text-navy group-hover:text-functional">{n.title[locale]}</h2>
-            <p className="mt-2 flex-1 text-label text-ink-muted line-clamp-3">{n.summary[locale]}</p>
-            <div className="mt-4 flex items-center justify-between text-xs text-ink-faint">
-              <span>{formatDate(n.publishedAt, locale)}</span>
-              <span>{readingTimeLabel(n.readingMinutes, locale)}</span>
-            </div>
-          </Link>
+          <InsightCard key={n.slug} insight={n} locale={locale} />
         ))}
       </div>
 

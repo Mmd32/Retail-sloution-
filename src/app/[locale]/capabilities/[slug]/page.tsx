@@ -84,7 +84,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
                   <Link
                     key={i.slug}
                     href={localePath(locale, `/industries/${i.slug}`)}
-                    className="rounded-full border border-line px-3 py-1.5 text-xs text-navy hover:border-cyan"
+                    className="inline-flex min-h-[44px] items-center rounded-full border border-line px-4 text-label text-navy hover:border-cyan"
                   >
                     {i.name[locale]}
                   </Link>

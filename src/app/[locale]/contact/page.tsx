@@ -47,7 +47,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
               <ul className="mt-6 space-y-5 text-sm">
                 <li className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-functional" aria-hidden />
-                  <a href={`mailto:${contact.email}`} className="text-navy hover:text-functional" dir="ltr">
+                  <a href={`mailto:${contact.email}`} className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]" dir="ltr">
                     {contact.email}
                   </a>
                 </li>
@@ -57,7 +57,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                     href={`https://${contact.website}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-navy hover:text-functional"
+                    className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
                     dir="ltr"
                   >
                     {contact.website}
@@ -69,7 +69,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                     href={contact.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-navy hover:text-functional"
+                    className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
                     dir="ltr"
                   >
                     linkedin.com/company/retailsolutions
@@ -78,7 +78,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                 {contact.phoneEnabled && contact.phone ? (
                   <li className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-functional" aria-hidden />
-                    <a href={`tel:${contact.phone}`} className="text-navy hover:text-functional" dir="ltr">
+                    <a href={`tel:${contact.phone}`} className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]" dir="ltr">
                       {contact.phone}
                     </a>
                   </li>

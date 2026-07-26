@@ -94,7 +94,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
           <div className="flex flex-wrap gap-2 border-b border-line px-5 py-3">
             <button
               onClick={() => setFilter(null)}
-              className={`rounded-full px-3 py-1 text-xs font-medium ${filter === null ? 'bg-navy text-white' : 'bg-surface-muted text-ink-muted hover:text-navy'}`}
+              className={`inline-flex min-h-[44px] items-center rounded-full px-4 text-label font-medium ${filter === null ? 'bg-navy text-white' : 'bg-surface-muted text-ink-muted hover:text-navy'}`}
             >
               {locale === 'fa' ? 'همه' : 'All'}
             </button>
@@ -102,7 +102,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`rounded-full px-3 py-1 text-xs font-medium ${filter === f ? 'bg-navy text-white' : 'bg-surface-muted text-ink-muted hover:text-navy'}`}
+                className={`inline-flex min-h-[44px] items-center rounded-full px-4 text-label font-medium ${filter === f ? 'bg-navy text-white' : 'bg-surface-muted text-ink-muted hover:text-navy'}`}
               >
                 {typeLabels[f][locale]}
               </button>
@@ -137,7 +137,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                       key={s.href}
                       href={localePath(locale, s.href)}
                       onClick={onClose}
-                      className="rounded-full bg-surface-muted px-3 py-1 text-xs text-navy hover:bg-callout-info"
+                      className="inline-flex min-h-[44px] items-center rounded-full bg-surface-muted px-4 text-label text-navy hover:bg-callout-info"
                     >
                       {s.label[locale]}
                     </Link>

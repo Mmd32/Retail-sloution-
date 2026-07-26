@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 /**
@@ -23,15 +24,19 @@ export function MediaSlot({
   label?: string;
 }) {
   if (src) {
+    /* next/image with `fill` inside an aspect-ratio box: the space is reserved
+       before the file loads, so supplying photography later cannot introduce
+       layout shift (CLS). Formats/sizing are handled by the image pipeline. */
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={src}
-        alt={alt ?? ''}
-        loading="lazy"
-        className={cn('w-full object-cover', className)}
-        style={{ aspectRatio: ratio }}
-      />
+      <div className={cn('relative w-full overflow-hidden', className)} style={{ aspectRatio: ratio }}>
+        <Image
+          src={src}
+          alt={alt ?? ''}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+        />
+      </div>
     );
   }
 

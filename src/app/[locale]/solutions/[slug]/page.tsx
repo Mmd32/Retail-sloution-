@@ -187,7 +187,7 @@ export default function ServicePage({ params }: { params: { locale: string; slug
                         <Link
                           key={slug}
                           href={localePath(locale, `/industries/${slug}`)}
-                          className="rounded-full border border-line px-3 py-1.5 text-xs text-navy hover:border-cyan"
+                          className="inline-flex min-h-[44px] items-center rounded-full border border-line px-4 text-label text-navy hover:border-cyan"
                         >
                           {ind.name[locale]}
                         </Link>

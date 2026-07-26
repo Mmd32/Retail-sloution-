@@ -93,6 +93,15 @@ export interface TeamMember {
   role: Localized;
   /** Portrait is intentionally optional — see CMS note: never show stock. */
   portrait?: string;
+  /**
+   * The fields below are optional and render only when supplied (§16). They
+   * exist so the CMS has a defined shape to fill; nothing here may be invented
+   * — no fabricated expertise, tenure, or achievements.
+   */
+  expertise?: Localized;
+  /** One verified, attributable career highlight. */
+  highlight?: Localized;
+  linkedin?: string;
   active: boolean;
   order: number;
 }

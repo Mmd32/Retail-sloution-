@@ -35,8 +35,8 @@ export function LanguageSwitcher({
       aria-label={`${u('language', locale)}: ${localeLabel[target].native}`}
       className={
         onDark
-          ? 'inline-flex items-center gap-1.5 text-sm font-medium text-navy-100 transition-colors hover:text-white'
-          : 'inline-flex items-center gap-1.5 text-sm font-medium text-navy transition-colors hover:text-functional'
+          ? 'inline-flex min-h-[44px] lg:min-h-[24px] items-center gap-1.5 text-sm font-medium text-navy-100 transition-colors hover:text-white'
+          : 'inline-flex min-h-[44px] lg:min-h-[24px] items-center gap-1.5 text-sm font-medium text-navy transition-colors hover:text-functional'
       }
     >
       <Globe className="h-4 w-4" aria-hidden />

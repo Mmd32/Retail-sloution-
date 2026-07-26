@@ -99,14 +99,43 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
     );
   }
 
+  /**
+   * Field error. Rendered directly below its input, announced via role="alert",
+   * and wired to the input through aria-describedby / aria-invalid so screen
+   * readers get the message rather than a visual-only cue.
+   */
   const err = (name: string) =>
     errors[name] ? (
-      <p className="mt-1 text-xs text-red-600">{u(errorKeyMap[errors[name]] ?? 'required', locale)}</p>
+      <p id={`${name}-error`} role="alert" className="mt-1 text-label text-error">
+        {u(errorKeyMap[errors[name]] ?? 'required', locale)}
+      </p>
     ) : null;
 
-  const label = 'mb-1.5 block text-sm font-medium text-navy';
+  /** Props that link an input to its error message. */
+  const a11y = (name: string) =>
+    errors[name]
+      ? ({ 'aria-invalid': true, 'aria-describedby': `${name}-error` } as const)
+      : {};
+
+  /** Validate on blur (not only on submit) so problems surface early. */
+  function validateField(e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+    const { name, value, required } = e.target as HTMLInputElement;
+    let key: string | null = null;
+    if (required && !value.trim()) key = 'required';
+    else if (name === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) key = 'invalidEmail';
+    else if (name === 'mobile' && value && !/^[+]?[\d\s()-]{7,20}$/.test(value)) key = 'invalidPhone';
+
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (key) next[name] = key;
+      else delete next[name];
+      return next;
+    });
+  }
+
+  const label = 'mb-1.5 block text-label text-navy';
   const input =
-    'w-full rounded-control border border-line bg-white px-3.5 h-11 text-navy outline-none transition-colors focus:border-cyan';
+    'w-full rounded-control border border-line bg-white px-3.5 h-12 text-navy outline-none transition-colors duration-standard ease-standard focus:border-cyan';
   const optional = <span className="text-ink-faint">{` ${u('optional', locale)}`}</span>;
 
   return (
@@ -122,31 +151,31 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
       <div className={compact ? 'space-y-5' : 'grid gap-5 sm:grid-cols-2'}>
         <div>
           <label htmlFor="fullName" className={label}>{u('fullName', locale)}</label>
-          <input id="fullName" name="fullName" required className={input} autoComplete="name" />
+          <input id="fullName" name="fullName" onBlur={validateField} {...a11y("fullName")} required className={input} autoComplete="name" />
           {err('fullName')}
         </div>
         <div>
           <label htmlFor="company" className={label}>{u('companyBrand', locale)}</label>
-          <input id="company" name="company" required className={input} autoComplete="organization" />
+          <input id="company" name="company" onBlur={validateField} {...a11y("company")} required className={input} autoComplete="organization" />
           {err('company')}
         </div>
         <div>
           <label htmlFor="jobTitle" className={label}>{u('jobTitle', locale)}{optional}</label>
-          <input id="jobTitle" name="jobTitle" className={input} autoComplete="organization-title" />
+          <input id="jobTitle" name="jobTitle" onBlur={validateField} {...a11y("jobTitle")} className={input} autoComplete="organization-title" />
         </div>
         <div>
           <label htmlFor="mobile" className={label}>{u('mobile', locale)}</label>
-          <input id="mobile" name="mobile" required inputMode="tel" dir="ltr" className={input} autoComplete="tel" />
+          <input id="mobile" name="mobile" onBlur={validateField} {...a11y("mobile")} required inputMode="tel" dir="ltr" className={input} autoComplete="tel" />
           {err('mobile')}
         </div>
         <div>
           <label htmlFor="email" className={label}>{u('email', locale)}</label>
-          <input id="email" name="email" required type="email" dir="ltr" className={input} autoComplete="email" />
+          <input id="email" name="email" onBlur={validateField} {...a11y("email")} required type="email" dir="ltr" className={input} autoComplete="email" />
           {err('email')}
         </div>
         <div>
           <label htmlFor="industry" className={label}>{u('industry', locale)}{optional}</label>
-          <select id="industry" name="industry" className={input} defaultValue="">
+          <select id="industry" name="industry" onBlur={validateField} {...a11y("industry")} className={input} defaultValue="">
             <option value="">{u('selectPlaceholder', locale)}</option>
             {industries.map((i) => (
               <option key={i.slug} value={i.name.en}>{i.name[locale]}</option>
@@ -155,15 +184,15 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
         </div>
         <div>
           <label htmlFor="branches" className={label}>{u('branches', locale)}{optional}</label>
-          <input id="branches" name="branches" inputMode="numeric" className={input} />
+          <input id="branches" name="branches" onBlur={validateField} {...a11y("branches")} inputMode="numeric" className={input} />
         </div>
         <div>
           <label htmlFor="city" className={label}>{u('city', locale)}{optional}</label>
-          <input id="city" name="city" className={input} autoComplete="address-level2" />
+          <input id="city" name="city" onBlur={validateField} {...a11y("city")} className={input} autoComplete="address-level2" />
         </div>
         <div>
           <label htmlFor="preferredContactMethod" className={label}>{u('preferredContactMethod', locale)}{optional}</label>
-          <select id="preferredContactMethod" name="preferredContactMethod" className={input} defaultValue="phone">
+          <select id="preferredContactMethod" name="preferredContactMethod" onBlur={validateField} {...a11y("preferredContactMethod")} className={input} defaultValue="phone">
             <option value="phone">{u('contactMethodPhone', locale)}</option>
             <option value="whatsapp">{u('contactMethodWhatsapp', locale)}</option>
             <option value="email">{u('contactMethodEmail', locale)}</option>
@@ -171,13 +200,13 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
         </div>
         <div>
           <label htmlFor="preferredContactTime" className={label}>{u('preferredContactTime', locale)}{optional}</label>
-          <input id="preferredContactTime" name="preferredContactTime" className={input} />
+          <input id="preferredContactTime" name="preferredContactTime" onBlur={validateField} {...a11y("preferredContactTime")} className={input} />
         </div>
       </div>
 
       <div>
         <label htmlFor="primaryChallenge" className={label}>{u('primaryChallenge', locale)}{optional}</label>
-        <textarea id="primaryChallenge" name="primaryChallenge" rows={4} className={`${input} h-auto py-3`} />
+        <textarea id="primaryChallenge" name="primaryChallenge" onBlur={validateField} {...a11y("primaryChallenge")} rows={4} className={`${input} h-auto py-3`} />
       </div>
 
       <div className="flex items-start gap-3">
