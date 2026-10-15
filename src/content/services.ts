@@ -97,7 +97,7 @@ export const services: Service[] = [
       ],
     },
     relatedCapabilities: ['operations', 'people', 'analytics', 'store-development'],
-    relatedIndustries: ['fashion', 'beauty', 'f-and-b', 'electronics'],
+    relatedIndustries: ['fashion', 'beauty', 'watches-jewelry', 'electronics'],
     faqs: [
       {
         question: {
@@ -219,7 +219,7 @@ export const services: Service[] = [
       ],
     },
     relatedCapabilities: ['expansion', 'strategy', 'analytics', 'store-development'],
-    relatedIndustries: ['fashion', 'f-and-b', 'homeware', 'fmcg'],
+    relatedIndustries: ['fashion', 'bags-shoes', 'sports', 'fmcg'],
     faqs: [
       {
         question: {
@@ -339,7 +339,7 @@ export const services: Service[] = [
       ],
     },
     relatedCapabilities: ['strategy', 'operations', 'expansion', 'analytics'],
-    relatedIndustries: ['f-and-b', 'fashion', 'fmcg'],
+    relatedIndustries: ['fashion', 'bags-shoes', 'fmcg'],
     faqs: [
       {
         question: {

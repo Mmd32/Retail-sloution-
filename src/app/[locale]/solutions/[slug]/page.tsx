@@ -11,12 +11,10 @@ import { MeetingCta } from '@/components/shared/MeetingCta';
 import { Accordion } from '@/components/ui/Accordion';
 import { LeadForm } from '@/components/forms/LeadForm';
 import { ArrowLink } from '@/components/ui/ArrowLink';
-import { Monogram } from '@/components/ui/Monogram';
 import { services, getService } from '@/content/services';
 import { getCapability } from '@/content/capabilities';
 import { getIndustry } from '@/content/industries';
 import { insights } from '@/content/insights';
-import { team } from '@/content/team';
 import { u } from '@/content/ui';
 
 export function generateStaticParams() {
@@ -44,7 +42,6 @@ export default function ServicePage({ params }: { params: { locale: string; slug
   // Prefer insights whose topic matches this solution's theme, then fill up to 3.
   const themed = insights.filter((i) => i.topic.en === service.eyebrow.en);
   const relatedInsights = [...themed, ...insights.filter((i) => !themed.includes(i))].slice(0, 3);
-  const contactPerson = team[0];
 
   return (
     <>
@@ -202,13 +199,17 @@ export default function ServicePage({ params }: { params: { locale: string; slug
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                   {locale === 'fa' ? 'گفت‌وگو با کارشناس' : 'Talk to a specialist'}
                 </h3>
-                <div className="mt-4 flex items-center gap-3">
-                  <Monogram name={contactPerson.name.en} className="h-12 w-12 rounded-full" />
-                  <div>
-                    <p className="font-medium text-navy">{contactPerson.name[locale]}</p>
-                    <p className="text-xs text-ink-muted">{contactPerson.role[locale]}</p>
-                  </div>
-                </div>
+                <p className="text-label mt-3 text-ink-muted">
+                  {locale === 'fa'
+                    ? 'برای بررسی شرایط برندتان با کارشناسان ریتیل سلوشنز در تماس باشید.'
+                    : 'Get in touch with a Retail Solutions specialist to discuss your brand.'}
+                </p>
+                <Link
+                  href={localePath(locale, '/contact')}
+                  className="mt-4 inline-flex min-h-[44px] items-center text-label font-semibold text-functional hover:text-navy lg:min-h-[24px]"
+                >
+                  {u('requestMeeting', locale)}
+                </Link>
               </div>
 
               {/* Downloadable resource (gated) */}

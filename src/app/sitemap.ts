@@ -18,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/methodology',
     '/engagement',
     '/insights',
-    '/team',
     '/contact',
     '/assessment',
   ];

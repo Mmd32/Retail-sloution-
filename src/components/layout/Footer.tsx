@@ -22,6 +22,11 @@ import { LanguageSwitcher } from './LanguageSwitcher';
  * engagement, team, contact — so the primary nav can stay at five items.
  */
 
+/** Footer-specific wording for a few solution links. */
+const footerLabels: Record<string, { fa: string; en: string }> = {
+  '/capabilities/strategy': { fa: 'استراتژی فروش و بازاریابی', en: 'Sales & Marketing Strategy' },
+};
+
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
@@ -73,7 +78,7 @@ export function Footer({ locale }: { locale: Locale }) {
             <Column title={u('footerSolutions', locale)}>
               {solutionDomains.map((d) => (
                 <FLink key={d.href} href={localePath(locale, d.href)}>
-                  {d.label[locale]}
+                  {(footerLabels[d.href] ?? d.label)[locale]}
                 </FLink>
               ))}
               {services.map((s) => (

@@ -12,8 +12,6 @@ import { industries, getIndustry } from '@/content/industries';
 import { getService } from '@/content/services';
 import { getCapability } from '@/content/capabilities';
 import { insights } from '@/content/insights';
-import { team } from '@/content/team';
-import { Monogram } from '@/components/ui/Monogram';
 import { u } from '@/content/ui';
 
 export function generateStaticParams() {
@@ -38,7 +36,6 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
   if (!ind) notFound();
 
   const relatedInsights = insights.slice(0, 3);
-  const contactPerson = team[2] ?? team[0];
 
   return (
     <>
@@ -114,13 +111,17 @@ export default function IndustryPage({ params }: { params: { locale: string; slu
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-functional">
                   {locale === 'fa' ? 'گفت‌وگو با کارشناس' : 'Talk to a specialist'}
                 </h3>
-                <div className="mt-4 flex items-center gap-3">
-                  <Monogram name={contactPerson.name.en} className="h-12 w-12 rounded-full" />
-                  <div>
-                    <p className="font-medium text-navy">{contactPerson.name[locale]}</p>
-                    <p className="text-xs text-ink-muted">{contactPerson.role[locale]}</p>
-                  </div>
-                </div>
+                <p className="text-label mt-3 text-ink-muted">
+                  {locale === 'fa'
+                    ? 'برای بررسی شرایط برندتان با کارشناسان ریتیل سلوشنز در تماس باشید.'
+                    : 'Get in touch with a Retail Solutions specialist to discuss your brand.'}
+                </p>
+                <Link
+                  href={localePath(locale, '/contact')}
+                  className="mt-4 inline-flex min-h-[44px] items-center text-label font-semibold text-functional hover:text-navy lg:min-h-[24px]"
+                >
+                  {u('requestMeeting', locale)}
+                </Link>
               </div>
             </div>
           </aside>

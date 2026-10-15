@@ -18,8 +18,8 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
     title: locale === 'fa' ? 'صنایع' : 'Industries',
     description:
       locale === 'fa'
-        ? 'تمرکز ریتیل سلوشنز بر صنایع کلیدی ریتیل: پوشاک، کافه و رستوران، آرایشی و زیبایی، مبلمان و لوازم منزل، کالاهای تندگردش و لوازم الکترونیک.'
-        : 'Retail Solutions’ focus on key retail industries: fashion, F&B, beauty, homeware, FMCG, and electronics.',
+        ? 'تمرکز ریتیل سلوشنز بر صنایع کلیدی ریتیل: پوشاک، کیف و کفش، ساعت و جواهرات، FMCG، آرایشی، بهداشتی و زیبایی، الکترونیک و ورزشی.'
+        : 'Retail Solutions’ focus on key retail industries: apparel, bags & footwear, watches & jewelry, FMCG, beauty & personal care, electronics, and sporting goods.',
   });
 }
 

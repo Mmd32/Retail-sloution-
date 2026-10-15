@@ -4,9 +4,8 @@ import { services } from '@/content/services';
 import { capabilities } from '@/content/capabilities';
 import { industries } from '@/content/industries';
 import { insights } from '@/content/insights';
-import { team } from '@/content/team';
 
-export type SearchType = 'service' | 'capability' | 'industry' | 'insight' | 'team' | 'page';
+export type SearchType = 'service' | 'capability' | 'industry' | 'insight' | 'page';
 
 export interface SearchDoc {
   type: SearchType;
@@ -105,18 +104,6 @@ function build(): SearchDoc[] {
       haystack: {
         fa: [n.title.fa, n.summary.fa, n.topic.fa, ...n.body.map((b) => b.fa)].join(' '),
         en: [n.title.en, n.summary.en, n.topic.en, ...n.body.map((b) => b.en)].join(' '),
-      },
-    });
-  }
-  for (const m of team) {
-    docs.push({
-      type: 'team',
-      href: `/team`,
-      title: m.name,
-      description: m.role,
-      haystack: {
-        fa: [m.name.fa, m.role.fa].join(' '),
-        en: [m.name.en, m.role.en].join(' '),
       },
     });
   }

@@ -14,11 +14,10 @@ const typeLabels: Record<SearchType, Record<Locale, string>> = {
   capability: { fa: 'تخصص', en: 'Capability' },
   industry: { fa: 'صنعت', en: 'Industry' },
   insight: { fa: 'بینش', en: 'Insight' },
-  team: { fa: 'تیم', en: 'Team' },
   page: { fa: 'صفحه', en: 'Page' },
 };
 
-const filters: SearchType[] = ['service', 'capability', 'industry', 'insight', 'team', 'page'];
+const filters: SearchType[] = ['service', 'capability', 'industry', 'insight', 'page'];
 
 const suggestions: { label: Record<Locale, string>; href: string }[] = [
   { label: { fa: 'راهکار SVP™', en: 'SVP™ solution' }, href: '/solutions/svp' },

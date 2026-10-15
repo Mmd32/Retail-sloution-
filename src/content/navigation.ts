@@ -101,7 +101,6 @@ export const solutionsExtraLinks: NavLink[] = [
 /** Links demoted from the header to the footer (§2, §18). */
 export const companyLinks: NavLink[] = [
   { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
-  { href: '/team', label: { fa: 'تیم', en: 'Team' } },
   { href: '/methodology', label: { fa: 'متدولوژی', en: 'Methodology' } },
   { href: '/engagement', label: { fa: 'مدل همکاری', en: 'Engagement Model' } },
   { href: '/contact', label: { fa: 'تماس', en: 'Contact' } },
