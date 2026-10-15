@@ -49,8 +49,8 @@ export const caseStudies: CaseStudy[] = [
     industry: { fa: 'پوشاک', en: 'Apparel' },
     domain: 'expansion',
     challenge: {
-      fa: 'توسعه شعب کاملاً وابسته به قضاوت شخصی مؤسس بود.',
-      en: 'Branch expansion depended entirely on the founder’s personal judgment.',
+      fa: 'تصمیم‌های توسعه شعب بر تجربه ارزشمند مؤسس تکیه داشت و چارچوب مکتوبی برای تکرار آن وجود نداشت.',
+      en: 'Branch expansion relied on the founder’s valuable experience, with no written framework to make it repeatable.',
     },
     before: {
       fa: 'هر تصمیم توسعه به یک جلسه و یک نظر شخصی گره خورده بود. معیار مکتوبی برای رد یا تأیید یک موقعیت وجود نداشت و تجربه شعب قبلی جایی ثبت نمی‌شد.',
@@ -81,8 +81,8 @@ export const caseStudies: CaseStudy[] = [
     industry: { fa: 'غذا و نوشیدنی', en: 'Food & beverage' },
     domain: 'operations',
     challenge: {
-      fa: 'کیفیت اجرا و تجربه مشتری میان شعب یکسان نبود.',
-      en: 'Execution quality and customer experience were not consistent across branches.',
+      fa: 'برند می‌خواست کیفیت اجرا و تجربه مشتری در همه شعب یکسان باشد.',
+      en: 'The brand wanted the same execution quality and customer experience in every branch.',
     },
     before: {
       fa: 'هر شعبه روش کار خودش را داشت. آموزش شفاهی بود، استاندارد مکتوبی وجود نداشت و کیفیت به مدیر شعبه گره خورده بود.',
@@ -113,8 +113,8 @@ export const caseStudies: CaseStudy[] = [
     industry: { fa: 'لوازم خانگی', en: 'Home goods' },
     domain: 'analytics',
     challenge: {
-      fa: 'تصمیم‌های مدیریتی بر شهود متکی بود، نه بر داده.',
-      en: 'Management decisions rested on intuition rather than data.',
+      fa: 'تجربه مدیران پشتوانه اصلی تصمیم‌ها بود و داده منظمی در کنار آن قرار نداشت.',
+      en: 'Managers’ experience was the main basis for decisions, without regular data alongside it.',
     },
     before: {
       fa: 'داده در سیستم‌های پراکنده وجود داشت اما به شاخص تبدیل نمی‌شد. گزارش‌ها موردی و غیرقابل مقایسه بودند.',
@@ -150,12 +150,12 @@ export const allCaseStudiesAreSamples = caseStudies.every((c) => c.status === 's
 export const caseStudiesMeta = {
   eyebrow: { fa: 'نتایج', en: 'Results' } as Localized,
   title: {
-    fa: 'مسئله، مداخله، سیستم، نتیجه.',
-    en: 'The problem, the intervention, the system, the result.',
+    fa: 'چالش، رویکرد، سیستم، نتیجه.',
+    en: 'The challenge, the approach, the system, the result.',
   } as Localized,
   intro: {
-    fa: 'هر پروژه با یک مسئله ساختاری شروع می‌شود و با یک سیستم قابل اجرا در سازمان پایان می‌یابد. نتایج را به شکل کیفی و دقیق توصیف می‌کنیم.',
-    en: 'Every engagement starts with a structural problem and ends with a system the organization can run. We describe outcomes precisely and qualitatively.',
+    fa: 'هر پروژه از یک چالش واقعی شروع می‌شود و با سیستمی به پایان می‌رسد که تیم خود سازمان آن را اداره می‌کند. نتایج را دقیق و بدون اغراق شرح می‌دهیم.',
+    en: 'Every engagement starts from a real challenge and ends with a system the client’s own team runs. We describe outcomes precisely, without exaggeration.',
   } as Localized,
   sampleNotice: {
     fa: 'ساختار نمونه — محتوای این بخش جایگاه‌دار است و پس از تأیید مشتری با پروژه‌های واقعی جایگزین می‌شود. هیچ عدد یا ادعای اندازه‌گیری‌نشده‌ای در آن وجود ندارد.',

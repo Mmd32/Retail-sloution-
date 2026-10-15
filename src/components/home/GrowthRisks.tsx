@@ -13,23 +13,23 @@ import { Reveal } from '@/components/ui/Reveal';
  * Reveal staggers by 70ms across the row and is disabled under reduced motion.
  */
 
-/** The consequence of each risk, in the same order as `industryProblem`. */
-const consequences: { fa: string; en: string }[] = [
+/** How we solve each challenge, in the same order as `industryProblem`. */
+const solutions: { fa: string; en: string }[] = [
   {
-    fa: 'سازمان نمی‌تواند بدون حضور آن فرد تصمیم بگیرد یا رشد کند.',
-    en: 'The organization cannot decide or grow without that person present.',
+    fa: 'ساختار تصمیم‌گیری و تفویض اختیار را طراحی می‌کنیم تا کسب‌وکار بدون حضور دائم شما هم درست اداره شود.',
+    en: 'We design decision rights and delegation so the business runs well without you in every room.',
   },
   {
-    fa: 'تجربه برند در هر شعبه متفاوت می‌شود و قابل تضمین نیست.',
-    en: 'The brand experience differs by branch and cannot be guaranteed.',
+    fa: 'استاندارد عملیات، چک‌لیست ارزیابی و مسیر آموزش را تدوین می‌کنیم تا هر شعبه همان تجربه را ارائه دهد.',
+    en: 'We write operating standards, evaluation checklists and training paths so every branch delivers the same experience.',
   },
   {
-    fa: 'هر شعبه جدید فشار و آشفتگی را بیشتر می‌کند، نه ظرفیت را.',
-    en: 'Each new branch adds strain and disorder rather than capacity.',
+    fa: 'پیش از هر مرحله توسعه، ساختار، فرآیند و تیم لازم را آماده می‌کنیم تا شعبه جدید ظرفیت اضافه کند، نه فشار.',
+    en: 'Before each expansion step we put the structure, processes and team in place, so a new branch adds capacity, not pressure.',
   },
   {
-    fa: 'خطاهای پرهزینه دیر شناسایی می‌شوند و تکرار می‌شوند.',
-    en: 'Costly mistakes are spotted late and then repeated.',
+    fa: 'شاخص‌های کلیدی، داشبورد مدیریتی و مدل اعتبارسنجی شعبه را راه‌اندازی می‌کنیم تا تصمیم‌ها پشتوانه عددی داشته باشند.',
+    en: 'We set up KPIs, a management dashboard and a branch validation model, so decisions rest on numbers.',
   },
 ];
 
@@ -51,9 +51,9 @@ export function GrowthRisks({ locale }: { locale: Locale }) {
             <p className="text-label mt-2 text-ink-muted">{p.body[locale]}</p>
             <p className="text-label mt-4 border-t border-line pt-4 text-navy">
               <span className="font-semibold text-functional">
-                {locale === 'fa' ? 'نتیجه: ' : 'Consequence: '}
+                {locale === 'fa' ? 'راه‌حل ما: ' : 'Our solution: '}
               </span>
-              {consequences[i]?.[locale]}
+              {solutions[i]?.[locale]}
             </p>
           </div>
         </Reveal>

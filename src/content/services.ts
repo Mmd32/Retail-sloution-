@@ -9,12 +9,12 @@ export const retailTransformation = {
   eyebrow: { fa: 'معماری راهکار', en: 'Solution Architecture' } as Localized,
   title: { fa: 'تحول ریتیل', en: 'Retail Transformation' } as Localized,
   positioning: {
-    fa: 'راهکارهای توسعه به فروشگاه‌داری مدرن',
-    en: 'Solutions for modern retail development',
+    fa: 'راهکارهایی برای مرحله بعدی رشد برند شما',
+    en: 'Solutions for your brand’s next stage of growth',
   } as Localized,
   intro: {
-    fa: 'تحول ریتیل، چارچوب یکپارچه‌ای است که قابلیت‌های سازمانی و راهکارهای ساختاریافته‌ی ریتیل سلوشنز را به هم متصل می‌کند. سه راهکار زیر، مسیرهای اصلی و تعریف‌شده‌ی این معماری هستند؛ اما دامنه‌ی همکاری به آن‌ها محدود نمی‌شود.',
-    en: 'Retail Transformation is the integrated framework that connects Retail Solutions’ organizational capabilities with its structured retail products. The three solutions below are the main defined paths within this architecture — but engagements are not limited to them.',
+    fa: 'تحول ریتیل چارچوبی است که قابلیت‌های سازمانی و راهکارهای ریتیل سلوشنز را کنار هم قرار می‌دهد. سه راهکار زیر مسیرهای اصلی همکاری ما هستند و بسته به نیاز برند شما تنظیم و گسترده می‌شوند.',
+    en: 'Retail Transformation brings Retail Solutions’ organizational capabilities and structured retail products together. The three solutions below are our main paths of work, shaped and extended to fit what your brand needs.',
   } as Localized,
 };
 

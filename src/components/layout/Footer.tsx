@@ -52,9 +52,11 @@ export function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="border-t border-white/10 bg-navy text-navy-100">
       <div className="container-x py-14">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          {/* Brand */}
-          <div className="lg:col-span-4 lg:pe-10">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-8">
+          {/* Brand — placed last so it sits at the far end of the row (the
+              left edge in Persian, the right in English); the link columns
+              lead from the reading side. On small screens it stays on top. */}
+          <div className="col-span-2 order-first lg:order-last lg:col-span-3 lg:border-s lg:border-white/10 lg:ps-10">
             <Logo locale={locale} onDark className="h-24 w-[117px]" />
             <p className="text-label mt-5 max-w-xs text-navy-200">{brand.descriptor[locale]}</p>
             <p className="text-label mt-4 max-w-xs text-navy-300">
@@ -108,12 +110,12 @@ export function Footer({ locale }: { locale: Locale }) {
             </Column>
           </div>
 
-          <div className="lg:col-span-2">
+          <div className="col-span-2 sm:col-span-1 lg:col-span-3">
             <Column title={locale === 'fa' ? 'ارتباط' : 'Contact'}>
               <li>
                 <a href={`mailto:${contact.email}`} className={contactLink}>
                   <Mail className="h-4 w-4 shrink-0" aria-hidden />
-                  <span className="break-all">{contact.email}</span>
+                  <span dir="ltr" className="whitespace-nowrap">{contact.email}</span>
                 </a>
               </li>
               <li>

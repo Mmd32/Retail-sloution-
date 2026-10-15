@@ -63,7 +63,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       {/* 3 — Growth risks (card grid #1 of 3) */}
       <Section>
         <SectionHeader
-          eyebrow={locale === 'fa' ? 'مسئله صنعت' : 'The Industry Problem'}
+          eyebrow={locale === 'fa' ? 'چالش‌های مرحله رشد' : 'Growth-Stage Challenges'}
           title={industryProblem.headline[locale]}
         />
         <GrowthRisks locale={locale} />
@@ -73,16 +73,16 @@ export default function HomePage({ params }: { params: { locale: string } }) {
              interactive. */}
       <Section>
         <SectionHeader
-          eyebrow={locale === 'fa' ? 'انتقال بنیادین' : 'The Core Shift'}
+          eyebrow={locale === 'fa' ? 'مسیر تحول' : 'The Shift'}
           title={
             locale === 'fa'
-              ? 'رشد شما به افراد وابسته است یا به سیستم؟'
-              : 'Does your growth depend on people, or on a system?'
+              ? 'از سازمان وابسته به افراد، تا سازمان متکی بر سیستم'
+              : 'From depending on people to running on a system'
           }
           intro={
             locale === 'fa'
-              ? 'همین سازمان، دو بار ترسیم شده است. تفاوت در تعداد افراد نیست؛ در ساختار اتصال‌هاست.'
-              : 'The same organization, drawn twice. The difference is not headcount — it is the structure of the connections.'
+              ? 'نیروها همان‌اند؛ تفاوت در این است که تصمیم‌ها، دانش و کیفیت به چند نفر وابسته باشد یا به سیستمی که همه از آن پیروی می‌کنند. ما این مسیر را همراه شما طی می‌کنیم.'
+              : 'The people stay the same. The difference is whether decisions, knowledge and quality depend on a few individuals or on a system everyone follows. We take that path with you.'
           }
         />
         <div className="stack-header">

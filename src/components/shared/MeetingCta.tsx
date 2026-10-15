@@ -41,14 +41,14 @@ export function MeetingCta({
             <h2 className="text-h2 max-w-[22ch] text-white">
               {title ??
                 (locale === 'fa'
-                  ? 'آماده‌اید رشد سازمانتان را از افراد به سیستم منتقل کنید؟'
-                  : 'Ready to move your growth from people to a system?')}
+                  ? 'درباره مرحله بعدی رشد برندتان گفت‌وگو کنیم.'
+                  : 'Let’s talk about your brand’s next stage of growth.')}
             </h2>
             <p className="text-body mt-5 max-w-reading text-navy-200">
               {body ??
                 (locale === 'fa'
-                  ? 'در یک جلسه تشخیصی، وضعیت فعلی، موانع رشد و مسیر مناسب همکاری را بررسی می‌کنیم.'
-                  : 'In one diagnostic meeting we review where you are, what is blocking growth, and the right way to work together.')}
+                  ? 'در یک جلسه تشخیصی، با هم وضعیت فعلی، فرصت‌ها و مسیر مناسب همکاری را مرور می‌کنیم.'
+                  : 'In one diagnostic meeting we walk through where you are, the opportunities ahead, and the right way to work together.')}
             </p>
           </div>
 

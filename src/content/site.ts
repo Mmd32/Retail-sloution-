@@ -61,36 +61,36 @@ export const coreBelief = {
 
 export const industryProblem = {
   headline: {
-    fa: 'رشد بدون سیستم، بزرگ‌ترین ریسک در صنعت ریتیل است.',
-    en: 'Growth without systems is one of the greatest risks in retail.',
+    fa: 'این چالش‌ها را می‌شناسیم و برای هرکدام راه‌حل داریم.',
+    en: 'We know these challenges — and we have a way through each of them.',
   } as Localized,
   problems: [
     {
-      title: { fa: 'وابستگی به مالک', en: 'Owner dependency' } as Localized,
+      title: { fa: 'تصمیم‌ها منتظر حضور مالک است', en: 'Decisions wait on the owner' } as Localized,
       body: {
-        fa: 'بخش مهمی از تصمیم‌گیری، حل مسئله، ارتباطات و اجرای کسب‌وکار به حضور مستقیم مالک یا چند فرد کلیدی وابسته است.',
-        en: 'Critical decisions, relationships, problem-solving, and execution remain dependent on the owner or a limited number of key individuals.',
+        fa: 'برند با تجربه و پیگیری شما به اینجا رسیده است؛ اما حالا بسیاری از تصمیم‌ها و کارهای روزمره هنوز به حضور مالک یا چند مدیر کلیدی وابسته است.',
+        en: 'Your brand got here on your experience and drive. Now many decisions and daily tasks still depend on the owner or a few key managers.',
       } as Localized,
     },
     {
-      title: { fa: 'نبود استاندارد', en: 'Lack of standards' } as Localized,
+      title: { fa: 'کیفیت شعب یکسان نیست', en: 'Branches deliver uneven quality' } as Localized,
       body: {
-        fa: 'فرآیندها، کیفیت اجرا و تجربه مشتری در شعب، تیم‌ها و موقعیت‌های مختلف به شکل یکسان و قابل تکرار اجرا نمی‌شوند.',
-        en: 'Processes, service quality, and customer experience are not executed consistently across stores, teams, and situations.',
+        fa: 'با اضافه شدن شعب، کیفیتی که مشتری از برند شما انتظار دارد در همه شعب به یک شکل اجرا نمی‌شود.',
+        en: 'As branches are added, the quality customers expect from your brand is not delivered the same way everywhere.',
       } as Localized,
     },
     {
-      title: { fa: 'رشد بدون زیرساخت', en: 'Growth without infrastructure' } as Localized,
+      title: { fa: 'رشد، فشار را بیشتر کرده است', en: 'Growth has added pressure' } as Localized,
       body: {
-        fa: 'توسعه شعب، افزایش فروش یا گسترش شبکه سریع‌تر از شکل‌گیری ساختار، فرآیند، داده و قابلیت‌های مدیریتی اتفاق می‌افتد.',
-        en: 'Branch expansion and commercial growth move faster than the development of structures, processes, data, and managerial capabilities.',
+        fa: 'فروش و تعداد شعب بالا رفته، اما ساختار، فرآیندها و تیم مدیریتی هنوز هم‌پای آن رشد نکرده‌اند.',
+        en: 'Sales and branch count have grown, but structure, processes and the management team have not kept pace.',
       } as Localized,
     },
     {
-      title: { fa: 'تصمیم‌گیری شهودی', en: 'Intuition-driven decisions' } as Localized,
+      title: { fa: 'تصمیم‌های بزرگ، بدون داده کافی', en: 'Big decisions without enough data' } as Localized,
       body: {
-        fa: 'تصمیم‌های مهم بر تجربه فردی و قضاوت شخصی متکی هستند و از داده، چارچوب تحلیلی و نظام ارزیابی کافی استفاده نمی‌شود.',
-        en: 'Important decisions rely heavily on personal experience and judgment rather than reliable data, analytical frameworks, and structured evaluation.',
+        fa: 'تجربه مدیران ارزشمند است؛ اما برای تصمیم‌هایی مثل افتتاح شعبه یا سرمایه‌گذاری، داده و معیار روشنی در دسترس نیست.',
+        en: 'Your managers’ experience is valuable, but decisions like opening a branch or investing lack clear data and criteria.',
       } as Localized,
     },
   ],
@@ -99,8 +99,8 @@ export const industryProblem = {
 export const philosophy = {
   body: [
     {
-      fa: 'ما باور داریم بزرگ‌ترین مانع رشد بسیاری از برندهای ریتیل، کمبود سرمایه یا محصول نیست؛ بلکه وابستگی سازمان به افراد، نبود سیستم‌های قابل تکرار و ضعف در قابلیت‌های مدیریتی است.',
-      en: 'We believe that the greatest barrier to the growth of many retail brands is not necessarily a lack of capital or products. It is organizational dependency on individuals, the absence of repeatable systems, and insufficient managerial capabilities.',
+      fa: 'ما باور داریم بزرگ‌ترین مانع رشد بسیاری از برندهای ریتیل، کمبود سرمایه یا محصول نیست؛ بلکه رساندن ساختار، سیستم‌های قابل تکرار و قابلیت‌های مدیریتی به پای سرعت رشد است.',
+      en: 'We believe that the greatest barrier to the growth of many retail brands is not necessarily a lack of capital or products. It is bringing structure, repeatable systems, and managerial capability up to the pace of growth.',
     } as Localized,
     {
       fa: 'ریتیل سلوشنز با ترکیب استراتژی، طراحی سیستم، توسعه توانمندی‌های سازمانی و همراهی در اجرا، به کسب‌وکارهای ریتیل کمک می‌کند از مدیریت فردمحور به سمت سازمانی داده‌محور، حرفه‌ای و مقیاس‌پذیر حرکت کنند.',

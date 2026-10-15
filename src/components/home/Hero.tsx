@@ -45,8 +45,8 @@ export function Hero({ locale }: { locale: Locale }) {
             style={{ animationDelay: '110ms' }}
           >
             {locale === 'fa'
-              ? 'از استراتژی و توسعه شعب تا استانداردسازی عملیات، سرمایه انسانی و تحلیل داده؛ ما سیستم‌هایی طراحی و پیاده‌سازی می‌کنیم که رشد را تکرارپذیر، قابل‌کنترل و مقیاس‌پذیر می‌کنند.'
-              : 'From strategy and network expansion to operational standards, human capital, and analytics — we design and implement the systems that make growth repeatable, controllable, and scalable.'}
+              ? 'از استراتژی و توسعه شعب تا استانداردسازی عملیات، سرمایه انسانی و تحلیل داده؛ در کنار شما سیستم‌هایی طراحی و پیاده‌سازی می‌کنیم که رشد را تکرارپذیر، قابل‌کنترل و مقیاس‌پذیر می‌کنند.'
+              : 'From strategy and network expansion to operational standards, human capital, and analytics — we work alongside you to design and implement the systems that make growth repeatable, controllable, and scalable.'}
           </p>
 
           <div

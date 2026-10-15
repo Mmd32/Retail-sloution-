@@ -24,11 +24,11 @@ export function CaseStudyCard({
 
   const rows: { label: string; value: string }[] = [
     {
-      label: locale === 'fa' ? 'مسئله' : 'Problem',
+      label: locale === 'fa' ? 'چالش' : 'Challenge',
       value: study.challenge[locale],
     },
     {
-      label: locale === 'fa' ? 'مداخله' : 'Intervention',
+      label: locale === 'fa' ? 'رویکرد' : 'Approach',
       value: study.intervention[locale],
     },
     {

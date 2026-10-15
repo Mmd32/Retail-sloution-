@@ -39,24 +39,24 @@ const content: Record<
     label: { fa: 'سازمان فردمحور', en: 'Person-dependent organization' },
     points: [
       {
-        fa: 'تصمیم‌ها در ذهن مدیران باقی می‌ماند و جایی ثبت نمی‌شود.',
-        en: 'Decisions stay in managers’ heads and are never recorded.',
+        fa: 'تصمیم‌های مهم بیشتر نزد چند مدیر کلیدی است و کمتر ثبت می‌شود.',
+        en: 'Key decisions sit mostly with a few managers and are rarely written down.',
       },
       {
-        fa: 'اجرای شعب یکسان نیست و کیفیت به فرد گره خورده است.',
-        en: 'Branch execution is inconsistent; quality is tied to individuals.',
+        fa: 'کیفیت اجرا در هر شعبه به مهارت مدیر همان شعبه بستگی دارد.',
+        en: 'Execution quality in each branch depends on that branch manager.',
       },
       {
-        fa: 'رشد باعث افزایش آشفتگی می‌شود، نه افزایش ظرفیت.',
-        en: 'Growth adds disorder rather than capacity.',
+        fa: 'رشد، بار کاری تیم را سریع‌تر از ظرفیت سازمان بالا می‌برد.',
+        en: 'Growth raises the team’s workload faster than the organization’s capacity.',
       },
       {
-        fa: 'خروج افراد کلیدی مستقیماً به سازمان آسیب می‌زند.',
-        en: 'The departure of a key person damages the organization directly.',
+        fa: 'جابه‌جایی افراد کلیدی، روند کار را با وقفه روبه‌رو می‌کند.',
+        en: 'When a key person moves on, the work is interrupted.',
       },
       {
-        fa: 'دانش سازمانی منتقل نمی‌شود و با هر خروج از بین می‌رود.',
-        en: 'Organizational knowledge is not transferred; it leaves with people.',
+        fa: 'تجربه ارزشمند افراد، هنوز به دانش مشترک سازمان تبدیل نشده است.',
+        en: 'Valuable personal experience has not yet become shared knowledge.',
       },
     ],
   },
@@ -251,8 +251,8 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
           <p className="text-label mt-6 text-center text-navy-300">
             {mode === 'person'
               ? locale === 'fa'
-                ? 'حذف یک نقطه، شبکه را از هم می‌پاشد.'
-                : 'Remove one node and the network falls apart.'
+                ? 'همه مسیرها از یک نقطه می‌گذرند.'
+                : 'Every path runs through a single point.'
               : locale === 'fa'
                 ? 'شبکه بدون هیچ نقطه‌ای همچنان متصل می‌ماند.'
                 : 'The network stays connected without any single node.'}

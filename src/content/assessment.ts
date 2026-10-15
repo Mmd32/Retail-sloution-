@@ -13,8 +13,8 @@ export const assessmentMeta = {
     en: 'Retail Growth Readiness Assessment',
   } as Localized,
   intro: {
-    fa: 'در حدود ده دقیقه، آمادگی سازمان شما برای رشد سیستم‌محور را در ده بُعد کلیدی می‌سنجیم و یک تصویر تشخیصی اولیه ارائه می‌کنیم.',
-    en: 'In about ten minutes, we assess your organization’s readiness for system-driven growth across ten key dimensions and produce a preliminary diagnostic picture.',
+    fa: 'در حدود ده دقیقه، تصویری اولیه از نقاط قوت سازمانتان و فرصت‌های رشد سیستم‌محور در ده بُعد کلیدی به دست می‌آورید.',
+    en: 'In about ten minutes, get an initial picture of your organization’s strengths and its opportunities for system-driven growth across ten key dimensions.',
   } as Localized,
   disclaimer: {
     fa: 'این ارزیابی یک ابزار تشخیصی اولیه است و جایگزین بررسی تخصصی و جامع سازمان نیست.',
@@ -23,7 +23,7 @@ export const assessmentMeta = {
 };
 
 export const answerScale: { value: number; label: Localized }[] = [
-  { value: 0, label: { fa: 'اصلاً وجود ندارد', en: 'Not in place' } },
+  { value: 0, label: { fa: 'هنوز شکل نگرفته', en: 'Not yet in place' } },
   { value: 1, label: { fa: 'محدود و موردی', en: 'Limited and occasional' } },
   { value: 2, label: { fa: 'تا حدی شکل گرفته', en: 'Partially established' } },
   { value: 3, label: { fa: 'در بیشتر بخش‌ها اجرا می‌شود', en: 'Implemented across most areas' } },
