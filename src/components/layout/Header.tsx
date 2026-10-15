@@ -146,10 +146,17 @@ export function Header({ locale }: { locale: Locale }) {
         <div
           className={cn(
             'container-x flex items-center justify-between gap-6 transition-[height] duration-standard ease-standard',
-            scrolled ? 'h-16' : 'h-20',
+            scrolled ? 'h-[72px]' : 'h-20 lg:h-24',
           )}
         >
-          <Logo locale={locale} />
+          <Logo
+            locale={locale}
+            className={
+              scrolled
+                ? 'h-[60px] w-[73px]'
+                : 'h-[68px] w-[83px] lg:h-[80px] lg:w-[98px]'
+            }
+          />
 
           <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
             {primaryNav.map((link) => {

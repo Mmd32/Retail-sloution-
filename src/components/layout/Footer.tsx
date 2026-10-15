@@ -55,7 +55,7 @@ export function Footer({ locale }: { locale: Locale }) {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-4 lg:pe-10">
-            <Logo locale={locale} onDark />
+            <Logo locale={locale} onDark className="h-24 w-[117px]" />
             <p className="text-label mt-5 max-w-xs text-navy-200">{brand.descriptor[locale]}</p>
             <p className="text-label mt-4 max-w-xs text-navy-300">
               {locale === 'fa'

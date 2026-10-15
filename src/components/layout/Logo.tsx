@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Locale } from '@/i18n/config';
-import { localePath } from '@/lib/utils';
+import { localePath, cn } from '@/lib/utils';
 
 /**
  * Retail Solutions masterbrand (Design System §4).
@@ -110,7 +110,15 @@ export function LogoGlyph({ variant = 'primary', className }: { variant?: Varian
 }
 
 /** Header/footer lockup: the mark, linked home. */
-export function Logo({ locale, onDark }: { locale: Locale; onDark?: boolean }) {
+export function Logo({
+  locale,
+  onDark,
+  className = 'h-[72px] w-[88px]',
+}: {
+  locale: Locale;
+  onDark?: boolean;
+  className?: string;
+}) {
   return (
     <Link
       href={localePath(locale, '/')}
@@ -119,10 +127,10 @@ export function Logo({ locale, onDark }: { locale: Locale; onDark?: boolean }) {
     >
       {/* shrink-0 + an explicit width: as a flex item the SVG would otherwise be
           compressed by longer navigation labels (this clipped the wordmark in
-          the Persian header). 68px keeps the 855:700 aspect at h-14. */}
+          the Persian header). Width/height pairs keep the 855:700 aspect. */}
       <LogoMark
         variant={onDark ? 'reverse' : 'primary'}
-        className="h-14 w-[68px] shrink-0"
+        className={cn('shrink-0 transition-[height,width] duration-standard ease-standard', className)}
       />
     </Link>
   );

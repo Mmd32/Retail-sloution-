@@ -189,7 +189,7 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
         <div
           role="tablist"
           aria-label={locale === 'fa' ? 'مقایسه دو حالت سازمان' : 'Compare the two organizational states'}
-          className="inline-flex rounded-button border border-white/15 bg-white/5 p-1"
+          className="inline-flex rounded-button border border-line bg-white p-1"
         >
           {modes.map((m) => (
             <button
@@ -208,7 +208,7 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
               }}
               className={cn(
                 'inline-flex min-h-[44px] items-center rounded-control px-5 text-label font-semibold transition-colors duration-standard ease-standard',
-                mode === m ? 'bg-cyan text-navy-900' : 'text-navy-200 hover:text-white',
+                mode === m ? 'bg-navy text-white' : 'text-ink-muted hover:text-navy',
               )}
             >
               {content[m].label[locale]}
@@ -228,7 +228,7 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
                 <span
                   className={cn(
                     'mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full',
-                    mode === 'person' ? 'bg-human/20 text-human' : 'bg-cyan/20 text-cyan',
+                    mode === 'person' ? 'bg-human/15 text-human' : 'bg-cyan/15 text-functional',
                   )}
                   aria-hidden
                 >
@@ -238,7 +238,7 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
                     <Check className="h-3.5 w-3.5" />
                   )}
                 </span>
-                <span className="text-body text-navy-100">{p[locale]}</span>
+                <span className="text-body text-ink">{p[locale]}</span>
               </li>
             ))}
           </ul>

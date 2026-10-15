@@ -8,7 +8,7 @@ export function PageHero({
   eyebrow,
   title,
   intro,
-  tone = 'muted',
+  tone = 'navy',
 }: {
   locale: Locale;
   crumbs: Crumb[];
@@ -21,7 +21,7 @@ export function PageHero({
   return (
     <>
       <Breadcrumbs locale={locale} items={crumbs} />
-      <section className={dark ? 'bg-navy' : 'bg-surface-muted'}>
+      <section className={dark ? 'rs-blueprint bg-navy' : 'bg-nude'}>
         <div className="container-x py-12 md:py-16">
           <div className="max-w-3xl">
             {eyebrow && <Eyebrow onDark={dark}>{eyebrow}</Eyebrow>}

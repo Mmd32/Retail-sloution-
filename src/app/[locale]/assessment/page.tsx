@@ -26,7 +26,7 @@ export default function AssessmentPage({ params }: { params: { locale: string } 
         title={assessmentMeta.title[locale]}
         intro={assessmentMeta.intro[locale]}
       />
-      <div className="bg-surface-muted py-14 md:py-20">
+      <div className="bg-nude py-14 md:py-20">
         <div className="container-x">
           <AssessmentFlow locale={locale} />
         </div>

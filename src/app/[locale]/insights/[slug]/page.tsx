@@ -59,18 +59,18 @@ export default function InsightPage({ params }: { params: { locale: string; slug
       />
 
       <article>
-        <header className="bg-surface-muted">
+        <header className="rs-blueprint bg-navy">
           <div className="container-x py-14 md:py-20">
             <div className="mx-auto max-w-3xl">
               <div className="flex items-center gap-2 text-sm">
                 <span className="rounded-control bg-callout-info px-2.5 py-1 font-medium text-functional">
                   {insightTypeLabels[insight.type][locale]}
                 </span>
-                <span className="text-ink-faint">{insight.topic[locale]}</span>
+                <span className="text-navy-200">{insight.topic[locale]}</span>
               </div>
-              <h1 className="mt-5 text-3xl font-bold leading-tight text-navy md:text-4xl">{insight.title[locale]}</h1>
-              <p className="mt-5 text-body text-ink-muted">{insight.summary[locale]}</p>
-              <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-ink-muted">
+              <h1 className="mt-5 text-3xl font-bold leading-tight text-white md:text-4xl">{insight.title[locale]}</h1>
+              <p className="mt-5 text-body text-navy-200">{insight.summary[locale]}</p>
+              <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-navy-200">
                 <span className="inline-flex items-center gap-1.5">
                   <User className="h-4 w-4" aria-hidden /> {insight.author[locale]}
                 </span>

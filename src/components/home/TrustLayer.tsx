@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { Locale } from '@/i18n/config';
 import { proofMetrics, clientLogos, proofMeta, hasVerifiedProof } from '@/content/proof';
-import { SampleNotice } from '@/components/ui/SampleBadge';
+import { SampleBadge } from '@/components/ui/SampleBadge';
 
 /**
  * Credibility strip, directly under the hero (§4).
@@ -18,17 +18,17 @@ export function TrustLayer({ locale }: { locale: Locale }) {
   const hasLogos = clientLogos.length > 0;
 
   return (
-    <section
-      className="border-b border-line bg-surface"
-      aria-label={proofMeta.eyebrow[locale]}
-    >
-      <div className="container-x py-12">
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+    <section className="rs-band border-b border-line" aria-label={proofMeta.eyebrow[locale]}>
+      {/* A single band the height of the header bar: four metrics in a row,
+          value beside label, so the strip reads at a glance instead of
+          pushing the page down. */}
+      <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-3 py-4 lg:min-h-[96px] lg:flex-nowrap">
+        <dl className="grid flex-1 grid-cols-2 gap-x-6 gap-y-3 lg:grid-cols-4">
           {proofMetrics.map((m) => (
-            <div key={m.key} className="border-s-2 border-line ps-4">
-              <dt className="text-label text-ink-muted">{m.label[locale]}</dt>
+            <div key={m.key} className="flex items-center gap-3 border-s-2 border-cyan ps-3">
+              <dt className="text-label leading-snug text-ink-muted">{m.label[locale]}</dt>
               <dd
-                className="mt-1 font-display text-h2 font-bold leading-none text-navy"
+                className="order-first font-display text-h3 font-bold leading-none text-navy"
                 aria-label={
                   m.value === null
                     ? locale === 'fa'
@@ -39,38 +39,34 @@ export function TrustLayer({ locale }: { locale: Locale }) {
               >
                 {m.value ?? <span className="text-line-strong">—</span>}
               </dd>
-              {m.note && <p className="text-label mt-1 text-ink-faint">{m.note[locale]}</p>}
             </div>
           ))}
         </dl>
 
-        {hasLogos && (
-          <div className="mt-12 border-t border-line pt-10">
-            <p className="text-xs font-semibold uppercase tracking-label text-ink-faint">
-              {proofMeta.clientsLabel[locale]}
-            </p>
-            <ul className="mt-6 flex flex-wrap items-center gap-x-12 gap-y-8">
-              {clientLogos.map((logo) => (
-                <li key={logo.name}>
-                  <Image
-                    src={logo.src}
-                    alt={logo.name}
-                    width={logo.width}
-                    height={logo.height}
-                    className="h-7 w-auto opacity-60 grayscale transition-opacity duration-standard ease-standard hover:opacity-100"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         {!hasVerifiedProof && (
-          <SampleNotice locale={locale} className="mt-10 max-w-reading">
-            {proofMeta.sampleNotice[locale]}
-          </SampleNotice>
+          <span title={proofMeta.sampleNotice[locale]}>
+            <SampleBadge locale={locale} />
+          </span>
         )}
       </div>
+
+      {hasLogos && (
+        <div className="container-x border-t border-line py-4">
+          <ul className="flex flex-wrap items-center gap-x-12 gap-y-4">
+            {clientLogos.map((logo) => (
+              <li key={logo.name}>
+                <Image
+                  src={logo.src}
+                  alt={logo.name}
+                  width={logo.width}
+                  height={logo.height}
+                  className="h-7 w-auto opacity-60 grayscale transition-opacity duration-standard ease-standard hover:opacity-100"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }

@@ -69,8 +69,9 @@
   --rs-margin-mobile: 20px;
 
   /* Section rhythm, built from the approved spacing scale */
-  --rs-section-y: clamp(var(--rs-space-12), 3rem + 3vw, calc(var(--rs-space-16) + var(--rs-space-8)));
-  --rs-header-gap: clamp(var(--rs-space-8), 2rem + 1.5vw, var(--rs-space-12));
+  --rs-section-y: clamp(40px, 1.75rem + 2.5vw, 72px);
+  --rs-header-gap: clamp(var(--rs-space-6), 1.5rem + 1vw, 40px);
+  --rs-color-surface-nude: #f4eee6;
 }
 
 @layer base {
@@ -150,6 +151,13 @@
   }
 
   .section-y { padding-block: var(--rs-section-y); }
+
+  /* Page rhythm: navy opens (hero) and closes (CTA + footer) every page; the
+     light bands in between alternate white ↔ nude by position. */
+  .rs-band { background-color: var(--rs-color-surface-page); }
+  main > .rs-band:nth-child(even of .rs-band) {
+    background-color: var(--rs-color-surface-nude);
+  }
   .stack-header { margin-block-start: var(--rs-header-gap); }
 
   /* §6.5 reading column 45–75 characters */

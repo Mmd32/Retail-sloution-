@@ -11,9 +11,13 @@ export function Section({
   tone?: 'default' | 'muted' | 'navy';
   id?: string;
 }) {
+  /* Light sections alternate white ↔ nude automatically (see `.rs-band` in
+     globals.css), so page order alone sets the rhythm. `muted` is kept as an
+     alias so existing call sites compile; navy is reserved for the opening
+     hero and the closing CTA band. */
   const tones = {
-    default: 'bg-surface',
-    muted: 'bg-surface-muted',
+    default: 'rs-band',
+    muted: 'rs-band',
     navy: 'bg-navy text-navy-100',
   } as const;
   return (

@@ -41,6 +41,7 @@ const config: Config = {
           900: '#0F172C',
         },
         fog: '#F1F2F5', // Retail Fog — background, section separation
+        nude: '#F4EEE6', // Warm nude — alternating mid-page bands
 
         /* §5.3 Extended palette */
         functional: {

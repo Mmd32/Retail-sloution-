@@ -48,10 +48,10 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
       </Section>
 
       {/* Vision — displayed as a full-width statement, not a small card */}
-      <Section tone="navy">
+      <Section>
         <div className="mx-auto max-w-4xl text-center">
-          <Eyebrow onDark>{u('vision', locale)}</Eyebrow>
-          <p className="mt-6 text-h2 text-white">
+          <Eyebrow>{u('vision', locale)}</Eyebrow>
+          <p className="mt-6 text-h2 text-navy">
             {vision[locale]}
           </p>
         </div>

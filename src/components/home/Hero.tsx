@@ -4,6 +4,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { ArrowLink } from '@/components/ui/ArrowLink';
 import { SystemDiagram } from '@/components/visual/SystemDiagram';
 import { brand } from '@/content/site';
+import { LogoMark } from '@/components/layout/Logo';
 
 /**
  * Hero (§3).
@@ -17,13 +18,21 @@ import { brand } from '@/content/site';
  */
 export function Hero({ locale }: { locale: Locale }) {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-surface-muted">
-      <div className="container-x grid items-center gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
+    <section className="rs-blueprint relative overflow-hidden bg-navy">
+      <div className="container-x grid items-center gap-10 py-12 md:py-16 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
-          <span className="eyebrow animate-rise">{brand.descriptor[locale]}</span>
+          {/* The full masterbrand opens the page (reverse variant on navy). */}
+          <LogoMark
+            variant="reverse"
+            className="animate-rise h-28 w-[137px] md:h-36 md:w-[176px]"
+          />
+
+          <span className="eyebrow eyebrow-on-dark animate-rise mt-6 flex">
+            {brand.descriptor[locale]}
+          </span>
 
           <h1
-            className="text-display animate-rise mt-5 max-w-[20ch] text-navy"
+            className="text-display animate-rise mt-4 max-w-[20ch] text-white"
             style={{ animationDelay: '60ms' }}
           >
             {locale === 'fa'
@@ -32,7 +41,7 @@ export function Hero({ locale }: { locale: Locale }) {
           </h1>
 
           <p
-            className="text-body animate-rise mt-6 max-w-reading text-ink-muted"
+            className="text-body animate-rise mt-5 max-w-reading text-navy-200"
             style={{ animationDelay: '110ms' }}
           >
             {locale === 'fa'
@@ -41,7 +50,7 @@ export function Hero({ locale }: { locale: Locale }) {
           </p>
 
           <div
-            className="animate-rise mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
+            className="animate-rise mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
             style={{ animationDelay: '150ms' }}
           >
             <ButtonLink
@@ -51,7 +60,7 @@ export function Hero({ locale }: { locale: Locale }) {
             >
               {locale === 'fa' ? 'درخواست جلسه تشخیصی' : 'Request a diagnostic meeting'}
             </ButtonLink>
-            <ArrowLink href={localePath(locale, '/case-studies')} locale={locale}>
+            <ArrowLink href={localePath(locale, '/case-studies')} locale={locale} onDark>
               {locale === 'fa' ? 'مشاهده نتایج پروژه‌ها' : 'See engagement results'}
             </ArrowLink>
           </div>
@@ -59,7 +68,7 @@ export function Hero({ locale }: { locale: Locale }) {
 
         <div className="lg:col-span-5">
           <div
-            className="rs-blueprint animate-rise rounded-feature border border-navy-700 bg-navy-900 p-6 sm:p-8"
+            className="rs-blueprint animate-rise rounded-feature border border-white/10 bg-navy-900 p-6 sm:p-8"
             style={{ animationDelay: '190ms' }}
           >
             <SystemDiagram locale={locale} />
