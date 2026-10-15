@@ -26,6 +26,7 @@ export const primaryNav: NavLink[] = [
   { href: '/case-studies', label: { fa: 'نتایج', en: 'Results' } },
   { href: '/insights', label: { fa: 'بینش‌ها', en: 'Insights' } },
   { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
+  { href: '/company-profile', label: { fa: 'پروفایل شرکت', en: 'Company Profile' } },
 ];
 
 /**
@@ -101,6 +102,7 @@ export const solutionsExtraLinks: NavLink[] = [
 /** Links demoted from the header to the footer (§2, §18). */
 export const companyLinks: NavLink[] = [
   { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
+  { href: '/company-profile', label: { fa: 'پروفایل شرکت', en: 'Company Profile' } },
   { href: '/methodology', label: { fa: 'متدولوژی', en: 'Methodology' } },
   { href: '/engagement', label: { fa: 'مدل همکاری', en: 'Engagement Model' } },
   { href: '/contact', label: { fa: 'تماس', en: 'Contact' } },

@@ -55,7 +55,7 @@ export function Footer({ locale }: { locale: Locale }) {
     'inline-flex min-h-[44px] items-center gap-2 text-navy-200 transition-colors duration-micro ease-standard hover:text-white lg:min-h-[30px]';
 
   return (
-    <footer className="border-t border-white/10 bg-navy text-navy-100">
+    <footer className="border-t border-white/10 bg-navy text-navy-100 print:hidden">
       <div className="container-x py-14">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-8">
           {/* Brand — placed last so it sits at the far end of the row (the

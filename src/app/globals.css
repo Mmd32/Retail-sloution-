@@ -304,6 +304,15 @@ html[lang^='fa'] .text-label { font-size: 0.9375rem; line-height: 1.7; }
   background-size: 32px 32px;
 }
 
+/* Print — used by the company profile's "Download PDF". Keep brand colours
+   and never leave a heading stranded at the foot of a page. */
+@media print {
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  h1, h2, h3 { break-after: avoid; }
+  li, dl > div { break-inside: avoid; }
+}
+
 /* §17.4 / §19 Reduced motion — the site must be fully usable without motion. */
 @media (prefers-reduced-motion: reduce) {
   *,

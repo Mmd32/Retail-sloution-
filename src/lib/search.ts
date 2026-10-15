@@ -48,6 +48,13 @@ const staticPages: SearchDoc[] = [
   },
   {
     type: 'page',
+    href: '/company-profile',
+    title: { fa: 'پروفایل شرکت', en: 'Company Profile' },
+    description: { fa: 'معرفی کامل ریتیل سلوشنز در یک صفحه، قابل دانلود به‌صورت PDF', en: 'Retail Solutions on one page, downloadable as a PDF' },
+    haystack: { fa: '', en: '' },
+  },
+  {
+    type: 'page',
     href: '/contact',
     title: { fa: 'تماس با ما', en: 'Contact' },
     description: { fa: 'با تیم ریتیل سلوشنز در ارتباط باشید', en: 'Get in touch with the Retail Solutions team' },

@@ -98,7 +98,7 @@ export function Header({ locale }: { locale: Locale }) {
   const activeTopics = getActiveTopics();
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="sticky top-0 z-50 print:hidden">
       {/* Utility bar — collapses away on scroll to give the primary bar room. */}
       <div
         className={cn(

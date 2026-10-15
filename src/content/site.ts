@@ -115,8 +115,8 @@ export const vision = {
 } as Localized;
 
 export const mission = {
-  fa: 'ما با تغییر ذهنیت مدیران، طراحی سیستم‌های مدیریتی، توسعه توانمندی‌های سازمانی و اجرای راهکارهای عملیاتی، به برندهای ریتیل کمک می‌کنیم تا از کسب‌وکارهای وابسته به بنیان‌گذار، به سازمان‌هایی حرفه‌ای، سودآور و مقیاس‌پذیر تبدیل شوند.',
-  en: 'Through leadership mindset development, management-system design, organizational capability building, and operational implementation, we help retail brands transform from founder-dependent businesses into professional, profitable, and scalable organizations.',
+  fa: 'ما با همراهی مدیران، طراحی سیستم‌های مدیریتی، توسعه توانمندی‌های سازمانی و اجرای راهکارهای عملیاتی، به برندهای ریتیل کمک می‌کنیم تا از کسب‌وکارهای وابسته به بنیان‌گذار، به سازمان‌هایی حرفه‌ای، سودآور و مقیاس‌پذیر تبدیل شوند.',
+  en: 'By working alongside leadership on management-system design, organizational capability building, and operational implementation, we help retail brands transform from founder-dependent businesses into professional, profitable, and scalable organizations.',
 } as Localized;
 
 export const differentiation = {
