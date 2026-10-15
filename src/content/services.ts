@@ -21,7 +21,7 @@ export const retailTransformation = {
 export const services: Service[] = [
   {
     slug: 'fr',
-    abbr: 'FR™',
+    abbr: 'FR™\u200E', // trailing LRM keeps ™ on the right of the letters in RTL text
     fullName: { fa: 'اصطکاک و پاداش ریتیل', en: 'Retail Friction & Reward' },
     eyebrow: { fa: 'تجربه مشتری', en: 'Customer Experience' },
     proposition: {
@@ -143,7 +143,7 @@ export const services: Service[] = [
   },
   {
     slug: 'svp',
-    abbr: 'SVP™',
+    abbr: 'SVP™\u200E', // trailing LRM keeps ™ on the right of the letters in RTL text
     fullName: { fa: 'فرآیند اعتبارسنجی شعبه', en: 'Store Validation Process' },
     eyebrow: { fa: 'توسعه شعب', en: 'Store Expansion' },
     proposition: {
@@ -265,7 +265,7 @@ export const services: Service[] = [
   },
   {
     slug: 'franch',
-    abbr: 'FRANCH™',
+    abbr: 'FRANCH™\u200E', // trailing LRM keeps ™ on the right of the letters in RTL text
     fullName: { fa: 'توسعه و حاکمیت فرانچایز', en: 'Franchise Development & Governance' },
     eyebrow: { fa: 'توسعه شبکه', en: 'Network Development' },
     proposition: {

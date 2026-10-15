@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 export function PrintButton({ label, onDark }: { label: string; onDark?: boolean }) {
   return (
     <Button
-      variant={onDark ? 'onDark' : 'primary'}
+      variant={onDark ? 'onDark' : 'accent'}
       onClick={() => window.print()}
       className="print:hidden"
     >

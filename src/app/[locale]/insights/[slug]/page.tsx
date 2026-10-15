@@ -50,18 +50,20 @@ export default function InsightPage({ params }: { params: { locale: string; slug
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Breadcrumbs
-        locale={locale}
-        items={[
-          { label: locale === 'fa' ? 'بینش‌ها' : 'Insights', path: '/insights' },
-          { label: insight.title[locale] },
-        ]}
-      />
-
       <article>
         <header className="rs-blueprint bg-navy">
-          <div className="container-x py-14 md:py-20">
+          <div className="container-x py-8 md:py-12">
             <div className="mx-auto max-w-3xl">
+              <div className="mb-6">
+                <Breadcrumbs
+                  locale={locale}
+                  onDark
+                  items={[
+                  { label: locale === 'fa' ? 'بینش‌ها' : 'Insights', path: '/insights' },
+                  { label: insight.title[locale] },
+                  ]}
+                />
+              </div>
               <div className="flex items-center gap-2 text-sm">
                 <span className="rounded-control bg-callout-info px-2.5 py-1 font-medium text-functional">
                   {insightTypeLabels[insight.type][locale]}

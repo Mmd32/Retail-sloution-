@@ -134,16 +134,11 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       {/* 6 — Results, before the methodology explanation (§9).
              Card grid #2 of 3. */}
       <Section>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeader
-            eyebrow={caseStudiesMeta.eyebrow[locale]}
-            title={caseStudiesMeta.title[locale]}
-            intro={caseStudiesMeta.intro[locale]}
-          />
-          <ArrowLink href={localePath(locale, '/case-studies')} locale={locale}>
-            {u('viewAll', locale)}
-          </ArrowLink>
-        </div>
+        <SectionHeader
+          eyebrow={caseStudiesMeta.eyebrow[locale]}
+          title={caseStudiesMeta.title[locale]}
+          intro={caseStudiesMeta.intro[locale]}
+        />
         {allCaseStudiesAreSamples && (
           <SampleNotice locale={locale} className="stack-header max-w-reading">
             {caseStudiesMeta.sampleNotice[locale]}
@@ -154,6 +149,11 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             <CaseStudyCard key={study.slug} study={study} locale={locale} />
           ))}
         </div>
+        <div className="mt-10">
+          <ArrowLink href={localePath(locale, '/case-studies')} locale={locale}>
+            {u('viewAll', locale)}
+          </ArrowLink>
+        </div>
       </Section>
 
       {/* 7 — The assessment, startable here (§14) */}
@@ -163,19 +163,19 @@ export default function HomePage({ params }: { params: { locale: string } }) {
 
       {/* 8 — Insights (card grid #3 of 3) */}
       <Section>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeader
-            eyebrow={locale === 'fa' ? 'بینش‌ها' : 'Insights'}
-            title={locale === 'fa' ? 'بینش‌های منتخب' : 'Selected insights'}
-          />
-          <ArrowLink href={localePath(locale, '/insights')} locale={locale}>
-            {u('viewAll', locale)}
-          </ArrowLink>
-        </div>
+        <SectionHeader
+          eyebrow={locale === 'fa' ? 'بینش‌ها' : 'Insights'}
+          title={locale === 'fa' ? 'بینش‌های منتخب' : 'Selected insights'}
+        />
         <div className="stack-header grid gap-6 md:grid-cols-3">
           {featured.map((n) => (
             <InsightCard key={n.slug} insight={n} locale={locale} />
           ))}
+        </div>
+        <div className="mt-10">
+          <ArrowLink href={localePath(locale, '/insights')} locale={locale}>
+            {u('viewAll', locale)}
+          </ArrowLink>
         </div>
       </Section>
 

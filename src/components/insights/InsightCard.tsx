@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { Locale } from '@/i18n/config';
-import { localePath, formatDate, cn } from '@/lib/utils';
+import { localePath, formatDate, formatNumber, cn } from '@/lib/utils';
 import type { Insight } from '@/content/types';
 import { insightTypeLabels } from '@/content/insights';
 
@@ -104,7 +104,7 @@ export function InsightCard({
           <span>{formatDate(insight.publishedAt, locale)}</span>
           {insight.readingMinutes ? (
             <span>
-              {insight.readingMinutes} {locale === 'fa' ? 'دقیقه مطالعه' : 'min read'}
+              {formatNumber(insight.readingMinutes, locale)} {locale === 'fa' ? 'دقیقه مطالعه' : 'min read'}
             </span>
           ) : null}
         </div>

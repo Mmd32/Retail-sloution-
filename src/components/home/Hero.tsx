@@ -56,6 +56,7 @@ export function Hero({ locale }: { locale: Locale }) {
             <ButtonLink
               href={localePath(locale, '/contact')}
               size="lg"
+              variant="accent"
               className="w-full sm:w-auto"
             >
               {locale === 'fa' ? 'درخواست جلسه تشخیصی' : 'Request a diagnostic meeting'}

@@ -81,12 +81,16 @@ export function Footer({ locale }: { locale: Locale }) {
                   {(footerLabels[d.href] ?? d.label)[locale]}
                 </FLink>
               ))}
-              {services.map((s) => (
-                <FLink key={s.slug} href={localePath(locale, `/solutions/${s.slug}`)}>
-                  {s.abbr}
-                </FLink>
-              ))}
             </Column>
+            <div className="mt-8">
+              <Column title={locale === 'fa' ? 'راهکارهای اختصاصی' : 'Proprietary solutions'}>
+                {services.map((s) => (
+                  <FLink key={s.slug} href={localePath(locale, `/solutions/${s.slug}`)}>
+                    {s.abbr}
+                  </FLink>
+                ))}
+              </Column>
+            </div>
           </div>
 
           <div className="lg:col-span-2">

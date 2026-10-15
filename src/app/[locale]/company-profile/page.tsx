@@ -13,6 +13,10 @@ import { services } from '@/content/services';
 import { industries } from '@/content/industries';
 import { phases } from '@/content/methodology';
 import { values } from '@/content/values';
+import { formatNumber } from '@/lib/utils';
+
+/** Two-digit section number in the page's own digits (۰۱ in Persian, 01 in English). */
+const pad = (n: number, locale: Locale) => formatNumber(0, locale) + formatNumber(n, locale);
 
 const t = {
   title: { fa: 'پروفایل شرکت', en: 'Company Profile' },
@@ -42,20 +46,19 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
 
   return (
     <>
-      <div className="print:hidden">
-        <Breadcrumbs locale={locale} items={[{ label: t.title[locale] }]} />
-      </div>
-
       {/* Cover */}
       <section className="rs-blueprint bg-navy print:flex print:min-h-[297mm] print:break-after-page print:items-center">
         <div className="container-x grid items-center gap-10 py-12 md:py-16 lg:grid-cols-12">
           <div className="lg:col-span-8">
+            <div className="mb-8 print:hidden">
+              <Breadcrumbs locale={locale} items={[{ label: t.title[locale] }]} onDark />
+            </div>
             <LogoMark variant="reverse" className="h-28 w-[137px] md:h-32 md:w-[156px]" />
             <span className="eyebrow eyebrow-on-dark mt-6 flex">{t.title[locale]}</span>
             <h1 className="text-h1 mt-3 max-w-[24ch] text-white">{coreBelief.headline[locale]}</h1>
             <p className="text-body mt-5 max-w-reading text-navy-200">{brand.descriptor[locale]}</p>
             <div className="mt-8">
-              <PrintButton label={t.download[locale]} onDark />
+              <PrintButton label={t.download[locale]} />
             </div>
           </div>
         </div>
@@ -65,7 +68,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
       <Section>
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Eyebrow>01 · {locale === 'fa' ? 'ما که هستیم' : 'Who we are'}</Eyebrow>
+            <Eyebrow>{pad(1, locale)} · {locale === 'fa' ? 'ما که هستیم' : 'Who we are'}</Eyebrow>
           </div>
           <div className="lg:col-span-8">
             <p className="text-h3 text-navy">{philosophy.body[0][locale]}</p>
@@ -87,14 +90,14 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
       {/* 02 — Services */}
       <Section>
         <SectionHeader
-          eyebrow={`02 · ${locale === 'fa' ? 'خدمات' : 'Services'}`}
+          eyebrow={`${pad(2, locale)} · ${locale === 'fa' ? 'خدمات' : 'Services'}`}
           title={locale === 'fa' ? 'شش حوزه تخصصی، یک سیستم یکپارچه' : 'Six areas of expertise, one integrated system'}
         />
         <div className="stack-header grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((c, i) => (
             <div key={c.slug} className="bg-white p-6">
               <span className="font-display text-label font-bold text-functional">
-                {String(i + 1).padStart(2, '0')}
+                {pad(i + 1, locale)}
               </span>
               <h3 className="text-h3 mt-2 text-navy">{c.title[locale]}</h3>
               <p className="text-label mt-2 text-ink-muted">{c.description[locale]}</p>
@@ -106,7 +109,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
       {/* 03 — Proprietary solutions */}
       <Section>
         <SectionHeader
-          eyebrow={`03 · ${locale === 'fa' ? 'راهکارهای اختصاصی' : 'Proprietary solutions'}`}
+          eyebrow={`${pad(3, locale)} · ${locale === 'fa' ? 'راهکارهای اختصاصی' : 'Proprietary solutions'}`}
           title={locale === 'fa' ? 'سه راهکار آماده برای چالش‌های رایج رشد' : 'Three ready solutions for common growth challenges'}
         />
         <div className="stack-header divide-y divide-line border-y border-line">
@@ -125,7 +128,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
       {/* 04 — Industries */}
       <Section>
         <SectionHeader
-          eyebrow={`04 · ${locale === 'fa' ? 'صنایع' : 'Industries'}`}
+          eyebrow={`${pad(4, locale)} · ${locale === 'fa' ? 'صنایع' : 'Industries'}`}
           title={locale === 'fa' ? 'صنایعی که در آن‌ها تخصص داریم' : 'Industries we specialise in'}
         />
         <ul className="stack-header flex flex-wrap gap-3">
@@ -143,14 +146,14 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
       {/* 05 — How we work */}
       <Section>
         <SectionHeader
-          eyebrow={`05 · ${locale === 'fa' ? 'شیوه همکاری' : 'How we work'}`}
+          eyebrow={`${pad(5, locale)} · ${locale === 'fa' ? 'شیوه همکاری' : 'How we work'}`}
           title={locale === 'fa' ? 'پنج مرحله، از شناخت تا توسعه مستمر' : 'Five stages, from discovery to continuous development'}
         />
         <ol className="stack-header grid gap-6 md:grid-cols-5">
           {phases.map((p, i) => (
             <li key={p.key} className="border-t-2 border-cyan pt-4">
               <span className="font-display text-label font-bold text-functional">
-                {String(i + 1).padStart(2, '0')}
+                {pad(i + 1, locale)}
               </span>
               <h3 className="text-h3 mt-1 text-navy">{p.name[locale]}</h3>
               <p className="text-label mt-2 text-ink-muted">{p.objective[locale]}</p>
@@ -162,7 +165,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
       {/* 06 — Values */}
       <Section>
         <SectionHeader
-          eyebrow={`06 · ${locale === 'fa' ? 'ارزش‌ها' : 'Values'}`}
+          eyebrow={`${pad(6, locale)} · ${locale === 'fa' ? 'ارزش‌ها' : 'Values'}`}
           title={locale === 'fa' ? 'اصولی که به آن پایبندیم' : 'The principles we hold to'}
         />
         <div className="stack-header grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-5">
@@ -178,7 +181,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
       {/* 07 — Contact */}
       <Section>
         <SectionHeader
-          eyebrow={`07 · ${locale === 'fa' ? 'ارتباط با ما' : 'Contact'}`}
+          eyebrow={`${pad(7, locale)} · ${locale === 'fa' ? 'ارتباط با ما' : 'Contact'}`}
           title={locale === 'fa' ? 'با هم بسازیم' : 'Let’s build together'}
         />
         <ul className="stack-header flex flex-wrap gap-x-10 gap-y-4 text-body text-navy">

@@ -82,7 +82,7 @@ const config: Config = {
         },
         surface: {
           DEFAULT: '#FFFFFF',
-          muted: '#F1F2F5',
+          muted: '#F7F3EC', // warm tint — sits between white and the nude band
         },
       },
 

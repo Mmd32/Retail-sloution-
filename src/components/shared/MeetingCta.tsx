@@ -29,7 +29,7 @@ export function MeetingCta({
       {/* Backdrop figure — decorative, hidden from assistive tech, and clipped
           so it can never introduce horizontal overflow. */}
       <div
-        className="pointer-events-none absolute -end-24 top-1/2 hidden w-[30rem] -translate-y-1/2 opacity-[0.13] lg:block"
+        className="pointer-events-none absolute -end-40 top-1/2 hidden w-[30rem] -translate-y-1/2 opacity-[0.12] [mask-image:linear-gradient(to_left,transparent_35%,black_80%)] ltr:[mask-image:linear-gradient(to_right,transparent_35%,black_80%)] lg:block"
         aria-hidden
       >
         <SystemDiagram locale={locale} ambient labelled={false} />
@@ -56,6 +56,7 @@ export function MeetingCta({
             <ButtonLink
               href={localePath(locale, '/contact')}
               size="lg"
+              variant="accent"
               className="w-full sm:w-auto"
             >
               {locale === 'fa' ? 'درخواست جلسه تشخیصی' : 'Request a diagnostic meeting'}
