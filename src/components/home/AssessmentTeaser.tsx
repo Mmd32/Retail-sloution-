@@ -158,7 +158,7 @@ export function AssessmentTeaser({ locale }: { locale: Locale }) {
                       className="flex min-h-[44px] w-full items-center gap-3 rounded-control border border-line px-4 py-3 text-start text-label text-navy transition-colors duration-micro ease-standard hover:border-functional hover:bg-callout-info"
                     >
                       <span
-                        className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-line-strong text-[10px] font-semibold text-ink-faint"
+                        className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong text-xs font-semibold text-ink-faint"
                         aria-hidden
                       >
                         {formatNumber(opt.value, locale)}

@@ -159,7 +159,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                   <span className="block text-sm font-medium text-navy">{d.title[locale]}</span>
                   <span className="mt-0.5 block text-xs text-ink-muted line-clamp-1">{d.description[locale]}</span>
                 </span>
-                <span className="mt-0.5 shrink-0 rounded-control bg-surface-muted px-2 py-0.5 text-[10px] font-medium text-ink-muted">
+                <span className="mt-0.5 shrink-0 rounded-control bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
                   {typeLabels[d.type][locale]}
                 </span>
               </Link>

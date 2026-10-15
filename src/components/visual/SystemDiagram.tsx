@@ -35,6 +35,45 @@ export const osDomains: DomainNode[] = [
 const C = { x: 200, y: 200 };
 const R = 132;
 
+/** One simple glyph per domain, drawn around (0,0) so it can be translated. */
+function DomainGlyph({ k }: { k: string }) {
+  switch (k) {
+    case 'strategy': // target
+      return (
+        <>
+          <circle r="7" />
+          <circle r="2.2" />
+        </>
+      );
+    case 'expansion': // arrow out
+      return <path d="M-5.5 5.5 L5.5 -5.5 M-0.5 -5.5 H5.5 V0.5" />;
+    case 'analytics': // bars
+      return <path d="M-6 6.5 V0.5 M0 6.5 V-6.5 M6 6.5 V2" strokeWidth="2.4" />;
+    case 'experience': // smile
+      return (
+        <>
+          <circle r="7.5" />
+          <path d="M-3.5 2 Q0 5.5 3.5 2" />
+          <path d="M-2.6 -2.2 h0.01 M2.6 -2.2 h0.01" strokeWidth="2.2" />
+        </>
+      );
+    case 'people': // person
+      return (
+        <>
+          <circle cy="-3.2" r="3.2" />
+          <path d="M-6.5 7 a6.5 6.5 0 0 1 13 0" />
+        </>
+      );
+    default: // operations — checklist
+      return (
+        <>
+          <rect x="-6" y="-7" width="12" height="14" rx="2" />
+          <path d="M-3 0.5 l2 2 l4 -4" />
+        </>
+      );
+  }
+}
+
 function pos(angle: number, radius = R) {
   const rad = (angle * Math.PI) / 180;
   return { x: C.x + Math.cos(rad) * radius, y: C.y + Math.sin(rad) * radius };
@@ -49,6 +88,8 @@ export function SystemDiagram({
   /** Dim everything and drop the labels — used behind the final CTA. */
   ambient = false,
   labelled = true,
+  /** Larger nodes with the domain name under each one. */
+  nodeLabels = false,
 }: {
   locale: Locale;
   className?: string;
@@ -56,6 +97,7 @@ export function SystemDiagram({
   onSelect?: (key: string) => void;
   ambient?: boolean;
   labelled?: boolean;
+  nodeLabels?: boolean;
 }) {
   const ref = useRef<SVGSVGElement>(null);
   const [drawn, setDrawn] = useState(false);
@@ -155,27 +197,39 @@ export function SystemDiagram({
       {osDomains.map((d) => {
         const p = pos(d.angle);
         const isActive = active === d.key;
+        const nr = nodeLabels ? 27 : 21;
         const node = (
           <>
             <circle
               cx={p.x}
               cy={p.y}
-              r={isActive ? 25 : 21}
+              r={isActive ? nr + 4 : nr}
               fill={isActive ? '#0B2E4A' : '#0B1F3A'}
               stroke={isActive ? '#00B0F0' : '#37507A'}
               strokeWidth={isActive ? 2 : 1.25}
               style={{ transition: 'all var(--rs-d-standard) var(--rs-ease)' }}
             />
-            {/* storefront glyph */}
             <g
-              stroke={isActive ? '#93DCF6' : '#8FA3BF'}
+              transform={`translate(${p.x} ${p.y}) scale(${nodeLabels ? 1.2 : 1})`}
+              stroke={isActive ? '#93DCF6' : nodeLabels ? '#B7C6DB' : '#8FA3BF'}
               strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               fill="none"
               style={{ transition: 'stroke var(--rs-d-standard) var(--rs-ease)' }}
             >
-              <rect x={p.x - 7} y={p.y - 5} width="14" height="12" rx="1.5" />
-              <path d={`M${p.x - 9.5} ${p.y - 5} h19`} strokeLinecap="round" strokeWidth="2.2" />
+              <DomainGlyph k={d.key} />
             </g>
+            {nodeLabels && (
+              <text
+                x={p.x}
+                y={d.angle === -90 ? p.y - nr - 9 : p.y + nr + 17}
+                textAnchor="middle"
+                className="fill-white text-[13px] font-semibold"
+              >
+                {d.label[locale]}
+              </text>
+            )}
           </>
         );
 
@@ -220,7 +274,7 @@ export function SystemDiagram({
           x={C.x}
           y={C.y + 74}
           textAnchor="middle"
-          className="fill-navy-200 text-[11px] font-medium tracking-wide"
+          className={cn('fill-navy-200 font-medium tracking-wide', nodeLabels ? 'text-[13px]' : 'text-[11px]')}
         >
           {locale === 'fa' ? 'سیستم عامل ریتیل' : 'Retail Operating System'}
         </text>

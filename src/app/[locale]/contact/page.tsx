@@ -35,11 +35,11 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <LeadForm locale={locale} type="consultation" />
           </div>
 
-          <aside className="lg:col-span-5">
+          <aside className="min-w-0 lg:col-span-5">
             <div className="rounded-card border border-line bg-surface-muted p-8">
               <h2 className="text-h3 text-navy">
                 {locale === 'fa' ? 'راه‌های ارتباطی' : 'Ways to reach us'}
@@ -69,7 +69,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                     href={contact.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
+                    className="inline-flex min-h-[44px] min-w-0 items-center break-all text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
                     dir="ltr"
                   >
                     linkedin.com/company/retailsolutions

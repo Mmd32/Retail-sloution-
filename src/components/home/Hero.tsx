@@ -72,7 +72,7 @@ export function Hero({ locale }: { locale: Locale }) {
             className="rs-blueprint animate-rise rounded-feature border border-white/10 bg-navy-900 p-6 sm:p-8"
             style={{ animationDelay: '190ms' }}
           >
-            <SystemDiagram locale={locale} />
+            <SystemDiagram locale={locale} nodeLabels />
           </div>
         </div>
       </div>

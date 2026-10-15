@@ -6,6 +6,7 @@ import { localePath } from '@/lib/utils';
 import { Section } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
+import { IndustryIcon } from '@/components/ui/IndustryIcon';
 import { ArrowLink } from '@/components/ui/ArrowLink';
 import { industries } from '@/content/industries';
 import { u } from '@/content/ui';
@@ -41,26 +42,41 @@ export default function IndustriesPage({ params }: { params: { locale: string } 
       />
 
       <Section>
-        <div className="grid gap-6 md:grid-cols-2">
-          {industries.map((ind) => (
-            <div key={ind.slug} className="flex flex-col rounded-card border border-line p-7">
-              <h2 className="text-h3 text-navy">{ind.name[locale]}</h2>
-              <p className="mt-3 flex-1 leading-relaxed text-ink-muted">{ind.overview[locale]}</p>
-              <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-functional">
-                {u('commonChallenges', locale)}
-              </p>
-              <ul className="mt-2 space-y-1.5">
-                {ind.challenges[locale].slice(0, 3).map((c, i) => (
-                  <li key={i} className="text-sm text-ink-muted">• {c}</li>
-                ))}
-              </ul>
-              <div className="mt-5">
-                <ArrowLink href={localePath(locale, `/industries/${ind.slug}`)} locale={locale}>
-                  {u('learnMore', locale)}
-                </ArrowLink>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {industries.map((ind, i) => {
+            // With seven industries the last card spans the full row on large
+            // screens, so the grid ends square instead of with a lone card.
+            const wide = industries.length % 3 === 1 && i === industries.length - 1;
+            return (
+              <div
+                key={ind.slug}
+                className={`flex flex-col rounded-card border border-line bg-white p-7 transition-shadow duration-standard ease-standard hover:shadow-card ${
+                  wide ? 'lg:col-span-3 lg:grid lg:grid-cols-2 lg:gap-x-10' : ''
+                }`}
+              >
+                <div className="flex flex-col">
+                  <IndustryIcon slug={ind.slug} />
+                  <h2 className="text-h3 mt-5 text-navy">{ind.name[locale]}</h2>
+                  <p className="mt-3 flex-1 text-body text-ink-muted">{ind.overview[locale]}</p>
+                </div>
+                <div className={`flex flex-col ${wide ? 'lg:justify-center lg:border-s lg:border-line lg:ps-10' : ''}`}>
+                  <p className={`mt-5 text-xs font-semibold uppercase tracking-wide text-functional ${wide ? 'lg:mt-0' : ''}`}>
+                    {u('commonChallenges', locale)}
+                  </p>
+                  <ul className="mt-2 flex-1 space-y-1.5">
+                    {ind.challenges[locale].slice(0, 3).map((c, k) => (
+                      <li key={k} className="text-sm text-ink-muted">• {c}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-5">
+                    <ArrowLink href={localePath(locale, `/industries/${ind.slug}`)} locale={locale}>
+                      {u('learnMore', locale)}
+                    </ArrowLink>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Section>
 

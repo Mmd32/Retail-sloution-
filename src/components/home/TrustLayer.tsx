@@ -23,9 +23,9 @@ export function TrustLayer({ locale }: { locale: Locale }) {
           value beside label, so the strip reads at a glance instead of
           pushing the page down. */}
       <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-3 py-4 lg:min-h-[96px] lg:flex-nowrap">
-        <dl className="grid flex-1 grid-cols-2 gap-x-6 gap-y-3 lg:grid-cols-4">
+        <dl className="grid w-full grid-cols-2 gap-x-6 gap-y-4 lg:w-auto lg:flex-1 lg:grid-cols-4">
           {proofMetrics.map((m) => (
-            <div key={m.key} className="flex items-center gap-3 border-s-2 border-cyan ps-3">
+            <div key={m.key} className="flex flex-col items-start gap-1 border-s-2 border-cyan ps-3 sm:flex-row sm:items-center sm:gap-3">
               <dt className="text-label leading-snug text-ink-muted">{m.label[locale]}</dt>
               <dd
                 className="order-first font-display text-h3 font-bold leading-none text-navy"

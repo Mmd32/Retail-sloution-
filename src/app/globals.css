@@ -15,7 +15,7 @@
   --rs-color-neutral-white: #ffffff;
 
   /* Functional and semantic */
-  --rs-color-action-primary: #007daa;
+  --rs-color-action-primary: #00709a;
   --rs-color-success: #2d9d78;
   --rs-color-warning: #f2b544;
   --rs-color-error: #d94a56;
@@ -23,14 +23,14 @@
 
   /* Text and surfaces */
   --rs-color-text-primary: #16213e;
-  --rs-color-text-link: #007daa;
+  --rs-color-text-link: #00709a;
   /* Small labels/eyebrows frequently sit on Fog, where Functional Blue reaches
      only 4.14:1 — under the 4.5:1 required for 14px text (§18.1). This darker
      shade of the same hue passes on both White (6.4:1) and Fog (5.7:1). */
   --rs-color-text-label: #00668c;
   --rs-color-surface-page: #ffffff;
   --rs-color-surface-subtle: #f7f3ec;
-  --rs-color-focus-ring: #007daa;
+  --rs-color-focus-ring: #00709a;
 
   /* Spacing (§7.4) */
   --rs-space-1: 4px;
@@ -246,7 +246,9 @@ html[lang^='fa'] .text-h3 {
   letter-spacing: 0;
 }
 html[lang^='fa'] .text-body  { line-height: 1.8; }
-html[lang^='fa'] .text-label { font-size: 0.9375rem; line-height: 1.7; }
+html[lang^='fa'] .text-label { font-size: 1rem; line-height: 1.75; }
+html[lang^='fa'] .text-xs { font-size: 0.875rem; line-height: 1.5; }
+html[lang^='fa'] .text-sm { font-size: 1rem; line-height: 1.7; }
 
 /* §17 — motion explains a state change; one short hero entrance only. */
 @keyframes rs-rise {

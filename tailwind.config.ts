@@ -45,8 +45,8 @@ const config: Config = {
 
         /* §5.3 Extended palette */
         functional: {
-          DEFAULT: '#007DAA', // Functional Blue — links, focus, accessible emphasis
-          hover: '#00668C',
+          DEFAULT: '#00709A', // Functional Blue — links, focus, accessible emphasis (darkened: 4.8:1 on the nude band)
+          hover: '#005A80',
         },
         capability: '#18B6A4', // Capability Teal
         decision: '#F2B544', // Decision Amber
@@ -70,11 +70,9 @@ const config: Config = {
         /* Text + surfaces */
         ink: {
           DEFAULT: '#16213E', // text.primary
-          muted: '#4C5878',
-          /* Was #7C87A3, which measured 3.59:1 on white — below WCAG AA for
-             normal text (§25). Darkened to clear 4.5:1 on both white (5.06)
-             and Fog (4.52), the two surfaces it actually appears on. */
-          faint: '#646E8C',
+          muted: '#3F4B6B', // was #4C5878 — body copy in cards read too pale
+          /* Clears 4.5:1 on white, Fog and the nude band (§25). */
+          faint: '#5A6482',
         },
         line: {
           DEFAULT: '#E2E5EC',
@@ -99,7 +97,11 @@ const config: Config = {
        * Persian overrides live in globals.css.
        */
       fontSize: {
-        label: ['0.875rem', { lineHeight: '1.25rem', fontWeight: '500' }], // 14/20 Medium
+        /* Small steps raised one notch: long stretches of 12–14px grey text read
+           as thin and low-hierarchy, especially in Persian. */
+        xs: ['0.8125rem', { lineHeight: '1.25rem' }], // 13/20 (was 12/16)
+        sm: ['0.9375rem', { lineHeight: '1.5rem' }], // 15/24 (was 14/20)
+        label: ['0.9375rem', { lineHeight: '1.5rem', fontWeight: '500' }], // 15/24 Medium (was 14/20)
         body: ['clamp(1rem, 0.9rem + 0.5vw, 1.125rem)', { lineHeight: '1.667' }], // 16→18 / 30
         h3: ['clamp(1.375rem, 1.3rem + 0.35vw, 1.5rem)', { lineHeight: '1.333', fontWeight: '600' }], // 22→24 / 32
         h2: ['clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem)', { lineHeight: '1.222', fontWeight: '700' }], // 28→36 / 44

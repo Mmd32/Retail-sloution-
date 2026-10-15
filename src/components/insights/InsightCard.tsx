@@ -89,7 +89,7 @@ export function InsightCard({
           slug={insight.slug}
           className="max-w-[13rem] transition-transform duration-emphasis ease-standard group-hover:-translate-y-1"
         />
-        <span className="absolute bottom-3 start-4 text-[10px] font-semibold uppercase tracking-label text-cyan">
+        <span className="absolute bottom-3 start-4 text-xs font-semibold uppercase tracking-label text-cyan">
           {insight.topic[locale]}
         </span>
       </div>

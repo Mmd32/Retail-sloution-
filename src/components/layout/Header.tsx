@@ -47,6 +47,7 @@ export function Header({ locale }: { locale: Locale }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const barRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -55,7 +56,10 @@ export function Header({ locale }: { locale: Locale }) {
   // Condense on scroll (§2). Threshold is well past the utility bar so the
   // header does not flicker between states on small scroll jitters.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 48);
+      setPastHero(window.scrollY > 300);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -89,6 +93,8 @@ export function Header({ locale }: { locale: Locale }) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
   };
+
+  const isHome = pathname === `/${locale}`;
 
   const isActive = (href: string) => {
     const full = localePath(locale, href);
@@ -149,14 +155,24 @@ export function Header({ locale }: { locale: Locale }) {
             scrolled ? 'h-[72px]' : 'h-20 lg:h-24',
           )}
         >
-          <Logo
-            locale={locale}
-            className={
-              scrolled
-                ? 'h-[60px] w-[73px]'
-                : 'h-[68px] w-[83px] lg:h-[80px] lg:w-[98px]'
-            }
-          />
+          {/* On the homepage the hero carries the full logo, so the header copy
+              waits until the hero logo has scrolled away (no double logo). It
+              stays in layout (invisible) so the bar does not jump. */}
+          <div
+            className={cn(
+              'transition-opacity duration-standard ease-standard',
+              isHome && !pastHero && 'invisible opacity-0',
+            )}
+          >
+            <Logo
+              locale={locale}
+              className={
+                scrolled
+                  ? 'h-[60px] w-[73px]'
+                  : 'h-[68px] w-[83px] lg:h-[80px] lg:w-[98px]'
+              }
+            />
+          </div>
 
           <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
             {primaryNav.map((link) => {
