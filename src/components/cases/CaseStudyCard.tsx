@@ -3,7 +3,6 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { Locale } from '@/i18n/config';
 import { localePath, cn } from '@/lib/utils';
 import type { CaseStudy } from '@/content/caseStudies';
-import { SampleBadge } from '@/components/ui/SampleBadge';
 
 /**
  * A case study reads as a project record, not a marketing card (§9): the
@@ -48,7 +47,6 @@ export function CaseStudyCard({
         <span className="text-xs font-semibold uppercase tracking-label text-functional">
           {study.industry[locale]}
         </span>
-        {study.status === 'sample' && <SampleBadge locale={locale} />}
       </header>
 
       <h3 className="text-h3 mt-3 text-navy">{study.client[locale]}</h3>

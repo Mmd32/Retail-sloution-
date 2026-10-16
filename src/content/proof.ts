@@ -1,52 +1,49 @@
 import type { Localized } from './types';
 
+import { capabilities } from './capabilities';
+import { services } from './services';
+import { industries } from './industries';
+import { phases } from './methodology';
+
 /**
  * Trust layer (§4).
  *
- * ── Why this file has no numbers ──────────────────────────────────────────
- * A credibility strip is only credible if its figures are true. No verified
- * counts (projects, branches, industries, years, client logos) were supplied
- * with this project, so none are asserted here. Instead:
- *
- *   - `metrics` ships the *slots* with their labels and `value: null`.
- *   - The UI renders a slot with `value: null` as a visible placeholder and
- *     shows a sample notice, rather than printing a plausible-looking number.
- *   - `clientLogos` is empty. A logo wall with invented marks would be a
- *     false claim of clientele, so the component hides itself when empty.
- *
- * To go live: fill in `value` for each metric that has been verified, set
- * `verified: true`, and add real logo files under /public/clients.
+ * Every figure below is counted from the site's own content, so it is always
+ * true and updates itself when a solution, industry or stage is added. No
+ * engagement counts, branch counts, years of experience or client logos are
+ * asserted: none were supplied. Add them here (with real numbers) once they
+ * are confirmed, and put real logo files under /public/clients.
  */
 
 export interface ProofMetric {
   key: string;
   label: Localized;
-  /** Verified figure, e.g. "24". Null renders as an unfilled slot. */
+  /** The figure, as a digit string. Null renders as an unfilled slot. */
   value: string | null;
-  /** Optional qualifier, e.g. "since 2019". */
+  /** Optional qualifier. */
   note?: Localized;
 }
 
 export const proofMetrics: ProofMetric[] = [
   {
-    key: 'engagements',
-    label: { fa: 'پروژه اجراشده', en: 'Engagements delivered' },
-    value: null,
+    key: 'capabilities',
+    label: { fa: 'حوزه تخصصی', en: 'Areas of expertise' },
+    value: String(capabilities.length),
   },
   {
-    key: 'branches',
-    label: { fa: 'شعبه بررسی یا استانداردشده', en: 'Branches assessed or standardized' },
-    value: null,
+    key: 'solutions',
+    label: { fa: 'راهکار اختصاصی', en: 'Proprietary solutions' },
+    value: String(services.length),
   },
   {
     key: 'industries',
     label: { fa: 'صنعت تحت پوشش', en: 'Industries covered' },
-    value: null,
+    value: String(industries.length),
   },
   {
-    key: 'experience',
-    label: { fa: 'سال تجربه تیم', en: 'Years of combined team experience' },
-    value: null,
+    key: 'stages',
+    label: { fa: 'مرحله در متدولوژی', en: 'Stages in our methodology' },
+    value: String(phases.length),
   },
 ];
 
@@ -58,7 +55,7 @@ export interface ClientLogo {
   height: number;
 }
 
-/** Empty by design — see the note at the top of this file. */
+/** Empty until real client logos are supplied. */
 export const clientLogos: ClientLogo[] = [];
 
 export const proofMeta = {
@@ -67,11 +64,4 @@ export const proofMeta = {
     fa: 'برندهایی که با آن‌ها کار کرده‌ایم',
     en: 'Brands we have worked with',
   } as Localized,
-  sampleNotice: {
-    fa: 'این آمار هنوز تکمیل نشده است. جایگاه هر عدد طراحی شده و پس از تأیید داده واقعی جایگزین می‌شود — تا آن زمان هیچ عددی نمایش داده نمی‌شود.',
-    en: 'These figures are not yet filled in. Each slot is designed and will be populated once real data is confirmed — until then no number is shown.',
-  } as Localized,
 };
-
-/** True when at least one metric carries a real, verified figure. */
-export const hasVerifiedProof = proofMetrics.some((m) => m.value !== null);

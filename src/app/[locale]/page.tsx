@@ -6,7 +6,6 @@ import { localePath } from '@/lib/utils';
 import { buildMetadata } from '@/lib/seo';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { ArrowLink } from '@/components/ui/ArrowLink';
-import { SampleNotice } from '@/components/ui/SampleBadge';
 
 import { Hero } from '@/components/home/Hero';
 import { TrustLayer } from '@/components/home/TrustLayer';
@@ -21,7 +20,7 @@ import { u } from '@/content/ui';
 import { industryProblem } from '@/content/site';
 import { services, retailTransformation } from '@/content/services';
 import { insights } from '@/content/insights';
-import { caseStudies, caseStudiesMeta, allCaseStudiesAreSamples } from '@/content/caseStudies';
+import { caseStudies, caseStudiesMeta } from '@/content/caseStudies';
 
 export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
   const locale = (isLocale(params.locale) ? params.locale : 'fa') as Locale;
@@ -139,11 +138,6 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           title={caseStudiesMeta.title[locale]}
           intro={caseStudiesMeta.intro[locale]}
         />
-        {allCaseStudiesAreSamples && (
-          <SampleNotice locale={locale} className="stack-header max-w-reading">
-            {caseStudiesMeta.sampleNotice[locale]}
-          </SampleNotice>
-        )}
         <div className="mt-10 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((study) => (
             <CaseStudyCard key={study.slug} study={study} locale={locale} />

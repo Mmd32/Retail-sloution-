@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { Locale } from '@/i18n/config';
-import { proofMetrics, clientLogos, proofMeta, hasVerifiedProof } from '@/content/proof';
-import { SampleBadge } from '@/components/ui/SampleBadge';
+import { proofMetrics, clientLogos, proofMeta } from '@/content/proof';
+import { formatNumber } from '@/lib/utils';
 
 /**
  * Credibility strip, directly under the hero (§4).
@@ -37,17 +37,11 @@ export function TrustLayer({ locale }: { locale: Locale }) {
                     : undefined
                 }
               >
-                {m.value ?? <span className="text-line-strong">—</span>}
+                {m.value === null ? <span className="text-line-strong">—</span> : formatNumber(Number(m.value), locale)}
               </dd>
             </div>
           ))}
         </dl>
-
-        {!hasVerifiedProof && (
-          <span title={proofMeta.sampleNotice[locale]}>
-            <SampleBadge locale={locale} />
-          </span>
-        )}
       </div>
 
       {hasLogos && (

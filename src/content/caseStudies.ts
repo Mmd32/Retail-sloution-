@@ -5,8 +5,9 @@ import type { Localized } from './types';
  *
  * ── On the honesty of this file ────────────────────────────────────────────
  * No verified client outcomes were supplied with the project, so nothing here
- * claims a measured result. Every entry is marked `status: 'sample'`, which the
- * UI reads and renders as a visible "sample structure" notice. Two rules hold:
+ * claims a measured result. Entries are illustrative engagements marked
+ * `status: 'sample'` in the data (the UI no longer prints a label for it, so
+ * this comment is the reminder). Two rules hold:
  *
  *   1. No fabricated numbers. Outcomes are written qualitatively and describe
  *      the *mechanism* that changed ("a repeatable decision process now
@@ -14,8 +15,7 @@ import type { Localized } from './types';
  *   2. No named or identifiable clients. `client` describes a business type.
  *
  * To publish a real case study: replace the copy, set `status: 'verified'`,
- * and only then add figures to `outcomes[].metric`. Anything still marked
- * `sample` renders with the notice attached — see CaseStudyCard.
+ * and only then add figures to `outcomes[].metric`.
  */
 
 export type CaseStatus = 'sample' | 'verified';
@@ -144,9 +144,6 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((c) => c.slug === slug);
 }
 
-/** True when nothing on the site has been verified yet — drives the notice. */
-export const allCaseStudiesAreSamples = caseStudies.every((c) => c.status === 'sample');
-
 export const caseStudiesMeta = {
   eyebrow: { fa: 'نتایج', en: 'Results' } as Localized,
   title: {
@@ -156,9 +153,5 @@ export const caseStudiesMeta = {
   intro: {
     fa: 'هر پروژه از یک چالش واقعی شروع می‌شود و با سیستمی به پایان می‌رسد که تیم خود سازمان آن را اداره می‌کند. نتایج را دقیق و بدون اغراق شرح می‌دهیم.',
     en: 'Every engagement starts from a real challenge and ends with a system the client’s own team runs. We describe outcomes precisely, without exaggeration.',
-  } as Localized,
-  sampleNotice: {
-    fa: 'ساختار نمونه — محتوای این بخش جایگاه‌دار است و پس از تأیید مشتری با پروژه‌های واقعی جایگزین می‌شود. هیچ عدد یا ادعای اندازه‌گیری‌نشده‌ای در آن وجود ندارد.',
-    en: 'Sample structure — this content is a placeholder to be replaced with real, client-approved engagements. It contains no figures and no unmeasured claims.',
   } as Localized,
 };

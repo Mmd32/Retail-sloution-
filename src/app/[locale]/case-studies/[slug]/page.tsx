@@ -7,7 +7,6 @@ import { Section, Eyebrow } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
 import { ArrowLink } from '@/components/ui/ArrowLink';
-import { SampleNotice } from '@/components/ui/SampleBadge';
 import { caseStudies, getCaseStudy, caseStudiesMeta } from '@/content/caseStudies';
 
 export function generateStaticParams() {
@@ -72,12 +71,6 @@ export default function CaseStudyPage({ params }: { params: { locale: string; sl
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            {study.status === 'sample' && (
-              <SampleNotice locale={locale} className="mb-10">
-                {caseStudiesMeta.sampleNotice[locale]}
-              </SampleNotice>
-            )}
-
             <ol className="relative space-y-10 border-s border-line ps-8">
               {stages.map((s, i) => (
                 <li key={s.label} className="relative">

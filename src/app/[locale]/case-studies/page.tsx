@@ -5,8 +5,7 @@ import { Section } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
 import { CaseStudyCard } from '@/components/cases/CaseStudyCard';
-import { SampleNotice } from '@/components/ui/SampleBadge';
-import { caseStudies, caseStudiesMeta, allCaseStudiesAreSamples } from '@/content/caseStudies';
+import { caseStudies, caseStudiesMeta } from '@/content/caseStudies';
 
 export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
   const locale = (isLocale(params.locale) ? params.locale : 'fa') as Locale;
@@ -32,11 +31,6 @@ export default function CaseStudiesPage({ params }: { params: { locale: string }
       />
 
       <Section>
-        {allCaseStudiesAreSamples && (
-          <SampleNotice locale={locale} className="mb-10 max-w-reading">
-            {caseStudiesMeta.sampleNotice[locale]}
-          </SampleNotice>
-        )}
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((study) => (
             <CaseStudyCard key={study.slug} study={study} locale={locale} />
