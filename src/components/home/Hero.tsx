@@ -18,8 +18,8 @@ import { LogoMark } from '@/components/layout/Logo';
  */
 export function Hero({ locale }: { locale: Locale }) {
   return (
-    <section className="rs-blueprint relative overflow-hidden bg-navy">
-      <div className="container-x grid items-center gap-10 py-12 md:py-16 lg:grid-cols-12 lg:gap-16">
+    <section className="rs-blueprint-drift relative overflow-hidden bg-navy">
+      <div className="container-x relative grid items-center gap-10 py-12 md:py-16 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
           {/* The full masterbrand opens the page (reverse variant on navy). */}
           <LogoMark

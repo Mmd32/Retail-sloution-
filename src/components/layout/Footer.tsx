@@ -9,6 +9,7 @@ import { contact, brand, poweredByNovark } from '@/content/site';
 import { u } from '@/content/ui';
 import { Logo } from './Logo';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { Reveal } from '@/components/ui/Reveal';
 
 /**
  * Footer (§18).
@@ -57,7 +58,7 @@ export function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="border-t border-white/10 bg-navy text-navy-100 print:hidden">
       <div className="container-x py-14">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-8">
+        <Reveal className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-8">
           {/* Brand — placed last so it sits at the far end of the row (the
               left edge in Persian, the right in English); the link columns
               lead from the reading side. On small screens it stays on top. */}
@@ -155,7 +156,7 @@ export function Footer({ locale }: { locale: Locale }) {
               </li>
             </Column>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       {/* Legal bar */}

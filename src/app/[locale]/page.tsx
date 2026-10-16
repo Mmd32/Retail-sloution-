@@ -15,6 +15,7 @@ import { AssessmentTeaser } from '@/components/home/AssessmentTeaser';
 import { CaseStudyCard } from '@/components/cases/CaseStudyCard';
 import { InsightCard } from '@/components/insights/InsightCard';
 import { MeetingCta } from '@/components/shared/MeetingCta';
+import { Reveal } from '@/components/ui/Reveal';
 
 import { u } from '@/content/ui';
 import { industryProblem } from '@/content/site';
@@ -139,8 +140,10 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           intro={caseStudiesMeta.intro[locale]}
         />
         <div className="mt-10 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {caseStudies.map((study) => (
-            <CaseStudyCard key={study.slug} study={study} locale={locale} />
+          {caseStudies.map((study, i) => (
+            <Reveal key={study.slug} delay={i * 80} className="h-full">
+              <CaseStudyCard study={study} locale={locale} />
+            </Reveal>
           ))}
         </div>
         <div className="mt-10">
@@ -162,8 +165,10 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           title={locale === 'fa' ? 'بینش‌های منتخب' : 'Selected insights'}
         />
         <div className="stack-header grid gap-6 md:grid-cols-3">
-          {featured.map((n) => (
-            <InsightCard key={n.slug} insight={n} locale={locale} />
+          {featured.map((n, i) => (
+            <Reveal key={n.slug} delay={i * 80} className="h-full">
+              <InsightCard insight={n} locale={locale} />
+            </Reveal>
           ))}
         </div>
         <div className="mt-10">

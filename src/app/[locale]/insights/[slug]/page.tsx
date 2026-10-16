@@ -8,6 +8,7 @@ import { localePath, formatDate, readingTimeLabel } from '@/lib/utils';
 import { Section } from '@/components/ui/Section';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { MeetingCta } from '@/components/shared/MeetingCta';
+import { ReadingProgress } from '@/components/insights/ReadingProgress';
 import { insights, getInsight, insightTypeLabels } from '@/content/insights';
 import { u } from '@/content/ui';
 
@@ -50,7 +51,8 @@ export default function InsightPage({ params }: { params: { locale: string; slug
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <article>
+      <ReadingProgress targetId="insight-article" />
+      <article id="insight-article">
         <header className="rs-blueprint bg-navy">
           <div className="container-x py-8 md:py-12">
             <div className="mx-auto max-w-3xl">

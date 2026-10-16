@@ -87,43 +87,72 @@ const content: Record<
   },
 };
 
-function Graph({ mode, locale }: { mode: Mode; locale: Locale }) {
+type Removed = 'hub' | number | null;
+
+function Graph({
+  mode,
+  locale,
+  removed,
+  onRemove,
+}: {
+  mode: Mode;
+  locale: Locale;
+  removed: Removed;
+  onRemove: (r: Removed) => void;
+}) {
   const person = mode === 'person';
+  const hubGone = removed === 'hub';
+  const t = 'all var(--rs-d-standard) var(--rs-ease)';
+  const key = (fn: () => void) => (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fn();
+    }
+  };
+  const focusRing = 'cursor-pointer outline-none [&:focus-visible>circle:first-child]:stroke-cyan';
 
   return (
     <svg
       viewBox="0 0 400 248"
       className="w-full"
-      role="img"
+      role="group"
       aria-label={
         person
           ? locale === 'fa'
-            ? 'نمودار: تمام ارتباطات به یک نقطه مرکزی متصل است و با حذف آن شبکه از هم می‌پاشد.'
-            : 'Diagram: every connection terminates at a single central point; removing it disconnects the network.'
+            ? 'نمودار: تمام ارتباطات به یک نقطه مرکزی متصل است. با کلیک روی آن نقطه، اثر رفتنش را ببینید.'
+            : 'Diagram: every connection terminates at one central point. Select it to see what happens when it leaves.'
           : locale === 'fa'
-            ? 'نمودار: نقاط به یکدیگر متصل‌اند و حذف هر نقطه شبکه را از هم نمی‌پاشد.'
-            : 'Diagram: nodes are meshed together; removing any one of them does not disconnect the network.'
+            ? 'نمودار: نقاط به یکدیگر متصل‌اند. روی هر نقطه کلیک کنید تا ببینید شبکه همچنان متصل می‌ماند.'
+            : 'Diagram: nodes are meshed together. Select any node to see that the network stays connected.'
       }
     >
       {/* Spokes to the hub — the only structure in the person-dependent state */}
-      {NODES.map((n, i) => (
-        <line
-          key={`s-${i}`}
-          x1={HUB.x}
-          y1={HUB.y}
-          x2={n.x}
-          y2={n.y}
-          stroke={person ? '#E85D75' : '#2A3F66'}
-          strokeWidth={person ? 1.8 : 1}
-          opacity={person ? 0.95 : 0.35}
-          style={{ transition: 'all var(--rs-d-standard) var(--rs-ease)' }}
-        />
-      ))}
+      {NODES.map((n, i) => {
+        const gone = removed === i;
+        return (
+          <line
+            key={`s-${i}`}
+            x1={HUB.x}
+            y1={HUB.y}
+            x2={n.x}
+            y2={n.y}
+            stroke={person ? '#E85D75' : '#2A3F66'}
+            strokeWidth={person ? 1.8 : 1}
+            strokeDasharray={person && hubGone ? '3 7' : undefined}
+            opacity={gone ? 0 : person ? (hubGone ? 0.18 : 0.95) : 0.35}
+            style={{ transition: t }}
+          />
+        );
+      })}
 
       {/* Peer mesh — fades in only when the system exists */}
       {NODES.map((a, i) => {
-        const b = NODES[(i + 1) % NODES.length];
-        const c = NODES[(i + 2) % NODES.length];
+        const bi = (i + 1) % NODES.length;
+        const ci = (i + 2) % NODES.length;
+        const b = NODES[bi];
+        const c = NODES[ci];
+        const abGone = removed === i || removed === bi;
+        const acGone = removed === i || removed === ci;
         return (
           <g
             key={`m-${i}`}
@@ -132,53 +161,153 @@ function Graph({ mode, locale }: { mode: Mode; locale: Locale }) {
               transition: 'opacity var(--rs-d-reveal) var(--rs-ease)',
             }}
           >
-            <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#00B0F0" strokeWidth="1.4" opacity="0.8" />
-            <line x1={a.x} y1={a.y} x2={c.x} y2={c.y} stroke="#00B0F0" strokeWidth="1" opacity="0.4" />
+            <line
+              x1={a.x}
+              y1={a.y}
+              x2={b.x}
+              y2={b.y}
+              stroke="#00B0F0"
+              strokeWidth="1.4"
+              opacity={abGone ? 0 : 0.8}
+              style={{ transition: t }}
+            />
+            <line
+              x1={a.x}
+              y1={a.y}
+              x2={c.x}
+              y2={c.y}
+              stroke="#00B0F0"
+              strokeWidth="1"
+              opacity={acGone ? 0 : 0.4}
+              style={{ transition: t }}
+            />
           </g>
         );
       })}
 
       {/* Centre: a single point of failure, or a governing core */}
-      <circle
-        cx={HUB.x}
-        cy={HUB.y}
-        r={person ? 26 : 18}
-        fill={person ? '#E85D75' : '#0782B5'}
-        style={{ transition: 'all var(--rs-d-standard) var(--rs-ease)' }}
-      />
       {person ? (
-        /* a person */
-        <g fill="#fff" style={{ transition: 'opacity var(--rs-d-standard)' }}>
-          <circle cx={HUB.x} cy={HUB.y - 6} r="5.5" />
-          <path d={`M${HUB.x - 9} ${HUB.y + 11} a9 9 0 0 1 18 0 z`} />
+        <g
+          role="button"
+          tabIndex={0}
+          aria-pressed={hubGone}
+          aria-label={
+            locale === 'fa'
+              ? hubGone
+                ? 'بازگرداندن نقطه مرکزی'
+                : 'حذف نقطه مرکزی'
+              : hubGone
+                ? 'Restore the central point'
+                : 'Remove the central point'
+          }
+          className={focusRing}
+          onClick={() => onRemove(hubGone ? null : 'hub')}
+          onKeyDown={key(() => onRemove(hubGone ? null : 'hub'))}
+        >
+          <circle cx={HUB.x} cy={HUB.y} r="34" fill="transparent" />
+          {/* attention ring while the point is still there */}
+          {!hubGone && (
+            <circle
+              cx={HUB.x}
+              cy={HUB.y}
+              r="34"
+              fill="none"
+              stroke="#E85D75"
+              strokeWidth="1.2"
+              strokeDasharray="3 5"
+              className="rs-pulse"
+            />
+          )}
+          <g className={hubGone ? 'rs-gone' : undefined} style={{ transition: t }}>
+            <circle cx={HUB.x} cy={HUB.y} r="26" fill="#E85D75" />
+            <g fill="#fff">
+              <circle cx={HUB.x} cy={HUB.y - 6} r="5.5" />
+              <path d={`M${HUB.x - 9} ${HUB.y + 11} a9 9 0 0 1 18 0 z`} />
+            </g>
+          </g>
         </g>
       ) : (
-        /* a system */
-        <g stroke="#fff" strokeWidth="2.4" strokeLinecap="round">
-          <line x1={HUB.x - 6} y1={HUB.y + 5} x2={HUB.x - 6} y2={HUB.y - 1} />
-          <line x1={HUB.x} y1={HUB.y + 5} x2={HUB.x} y2={HUB.y - 6} />
-          <line x1={HUB.x + 6} y1={HUB.y + 5} x2={HUB.x + 6} y2={HUB.y + 1} />
+        <g>
+          <circle cx={HUB.x} cy={HUB.y} r="18" fill="#0782B5" />
+          <g stroke="#fff" strokeWidth="2.4" strokeLinecap="round">
+            <line x1={HUB.x - 6} y1={HUB.y + 5} x2={HUB.x - 6} y2={HUB.y - 1} />
+            <line x1={HUB.x} y1={HUB.y + 5} x2={HUB.x} y2={HUB.y - 6} />
+            <line x1={HUB.x + 6} y1={HUB.y + 5} x2={HUB.x + 6} y2={HUB.y + 1} />
+          </g>
         </g>
       )}
 
-      {NODES.map((n, i) => (
-        <circle
-          key={`n-${i}`}
-          cx={n.x}
-          cy={n.y}
-          r="11"
-          fill="#0B1F3A"
-          stroke={person ? '#3A4870' : '#00B0F0'}
-          strokeWidth="1.5"
-          style={{ transition: 'stroke var(--rs-d-standard) var(--rs-ease)' }}
-        />
-      ))}
+      {NODES.map((n, i) => {
+        const gone = removed === i;
+        const body = (
+          <circle
+            cx={n.x}
+            cy={n.y}
+            r="11"
+            fill="#0B1F3A"
+            stroke={person ? (hubGone ? '#2A3F66' : '#3A4870') : '#00B0F0'}
+            strokeWidth="1.5"
+            style={{ transition: t }}
+          />
+        );
+        if (person) return <g key={`n-${i}`}>{body}</g>;
+        return (
+          <g
+            key={`n-${i}`}
+            role="button"
+            tabIndex={0}
+            aria-pressed={gone}
+            aria-label={
+              locale === 'fa'
+                ? gone
+                  ? `بازگرداندن نقطه ${i + 1}`
+                  : `حذف نقطه ${i + 1}`
+                : gone
+                  ? `Restore node ${i + 1}`
+                  : `Remove node ${i + 1}`
+            }
+            className={focusRing}
+            onClick={() => onRemove(gone ? null : i)}
+            onKeyDown={key(() => onRemove(gone ? null : i))}
+          >
+            <circle cx={n.x} cy={n.y} r="22" fill="transparent" />
+            <g className={gone ? 'rs-gone' : undefined} style={{ transition: t }}>
+              {body}
+            </g>
+          </g>
+        );
+      })}
     </svg>
   );
 }
 
+function caption(mode: Mode, removed: Removed, locale: Locale) {
+  const fa = locale === 'fa';
+  if (mode === 'person') {
+    return removed === 'hub'
+      ? fa
+        ? 'با رفتنِ همان یک نفر، همه‌چیز از هم می‌پاشد. (برای بازگرداندن دوباره کلیک کنید)'
+        : 'When that one person goes, everything comes apart. (Select again to restore)'
+      : fa
+        ? 'همه مسیرها از یک نقطه می‌گذرند. روی آن کلیک کنید.'
+        : 'Every path runs through a single point. Select it.';
+  }
+  return removed !== null
+    ? fa
+      ? 'یک نقطه کنار رفت، اما بقیه هنوز به هم وصل‌اند و سیستم کار می‌کند.'
+      : 'One point is gone, yet the rest stay connected and the system keeps working.'
+    : fa
+      ? 'شبکه بدون هیچ نقطه‌ای همچنان متصل می‌ماند. روی یک نقطه کلیک کنید.'
+      : 'The network stays connected without any single node. Select a point.';
+}
+
 export function DependencyToggle({ locale }: { locale: Locale }) {
-  const [mode, setMode] = useState<Mode>('person');
+  const [mode, setModeRaw] = useState<Mode>('person');
+  const [removed, setRemoved] = useState<Removed>(null);
+  const setMode = (m: Mode | ((cur: Mode) => Mode)) => {
+    setRemoved(null);
+    setModeRaw(m);
+  };
   const baseId = useId();
   const modes: Mode[] = ['person', 'system'];
   const active = content[mode];
@@ -247,15 +376,9 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
 
       <div className="lg:col-span-6">
         <div className="rs-blueprint rounded-feature border border-white/10 bg-navy-900 p-6 sm:p-10">
-          <Graph mode={mode} locale={locale} />
-          <p className="text-label mt-6 text-center text-navy-300">
-            {mode === 'person'
-              ? locale === 'fa'
-                ? 'همه مسیرها از یک نقطه می‌گذرند.'
-                : 'Every path runs through a single point.'
-              : locale === 'fa'
-                ? 'شبکه بدون هیچ نقطه‌ای همچنان متصل می‌ماند.'
-                : 'The network stays connected without any single node.'}
+          <Graph mode={mode} locale={locale} removed={removed} onRemove={setRemoved} />
+          <p className="text-label mt-6 text-center text-navy-200" aria-live="polite">
+            {caption(mode, removed, locale)}
           </p>
         </div>
       </div>

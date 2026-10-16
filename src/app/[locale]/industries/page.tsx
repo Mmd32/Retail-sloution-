@@ -6,6 +6,7 @@ import { localePath } from '@/lib/utils';
 import { Section } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
+import { Reveal } from '@/components/ui/Reveal';
 import { IndustryIcon } from '@/components/ui/IndustryIcon';
 import { ArrowLink } from '@/components/ui/ArrowLink';
 import { industries } from '@/content/industries';
@@ -48,10 +49,14 @@ export default function IndustriesPage({ params }: { params: { locale: string } 
             // screens, so the grid ends square instead of with a lone card.
             const wide = industries.length % 3 === 1 && i === industries.length - 1;
             return (
-              <div
+              <Reveal
                 key={ind.slug}
-                className={`flex flex-col rounded-card border border-line bg-white p-7 transition-shadow duration-standard ease-standard hover:shadow-card ${
-                  wide ? 'lg:col-span-3 lg:grid lg:grid-cols-2 lg:gap-x-10' : ''
+                delay={(i % 3) * 80}
+                className={wide ? 'lg:col-span-3' : ''}
+              >
+              <div
+                className={`group h-full flex flex-col rounded-card border border-line bg-white p-7 transition-shadow duration-standard ease-standard hover:shadow-card ${
+                  wide ? 'lg:grid lg:grid-cols-2 lg:gap-x-10' : ''
                 }`}
               >
                 <div className="flex flex-col">
@@ -75,6 +80,7 @@ export default function IndustriesPage({ params }: { params: { locale: string } 
                   </div>
                 </div>
               </div>
+              </Reveal>
             );
           })}
         </div>

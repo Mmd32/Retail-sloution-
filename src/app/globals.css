@@ -306,6 +306,62 @@ html[lang^='fa'] .text-sm { font-size: 1rem; line-height: 1.7; }
   background-size: 32px 32px;
 }
 
+/* ── More motion (all transform / opacity, all off under reduced motion) ── */
+
+/* Route change: opacity only, so sticky/fixed descendants keep working. */
+@keyframes rs-page-in { from { opacity: 0.2; } to { opacity: 1; } }
+.animate-page { animation: rs-page-in 260ms var(--rs-ease) both; }
+
+/* Hero grid: a slow one-cell drift. The grid lives on a pseudo-element and is
+   moved with transform, so it never repaints. 32px = one grid period, so the
+   loop is seamless. Off on small screens. */
+.rs-blueprint-drift { position: relative; }
+.rs-blueprint-drift::before {
+  content: '';
+  position: absolute;
+  inset: -32px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  animation: rs-grid-drift 32s linear infinite;
+}
+@keyframes rs-grid-drift { to { transform: translate3d(32px, 32px, 0); } }
+@media (max-width: 767px) { .rs-blueprint-drift::before { animation: none; } }
+
+/* Diagram nodes pop in from the core, then the core breathes. */
+@keyframes rs-node-pop {
+  from { opacity: 0; transform: scale(0.55); }
+  to   { opacity: 1; transform: none; }
+}
+.rs-node-pre { opacity: 0; }
+.rs-node-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rs-node-pop 520ms var(--rs-ease) both;
+  animation-delay: var(--rs-node-delay, 0ms);
+}
+@keyframes rs-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+.rs-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rs-breathe 4.5s ease-in-out 1.2s infinite;
+}
+/* The dashed boundary ring turns very slowly behind the closing CTA. */
+@keyframes rs-spin { to { transform: rotate(360deg); } }
+.rs-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rs-spin 120s linear infinite;
+}
+
+@keyframes rs-pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.85; } }
+.rs-pulse { animation: rs-pulse 2.2s ease-in-out infinite; }
+
+/* Network demo: a removed point fades and shrinks; broken links dash out. */
+.rs-gone { opacity: 0 !important; transform: scale(0.4); transform-box: fill-box; transform-origin: center; }
+
 /* Print — used by the company profile's "Download PDF". Keep brand colours
    and never leave a heading stranded at the foot of a page. */
 @media print {

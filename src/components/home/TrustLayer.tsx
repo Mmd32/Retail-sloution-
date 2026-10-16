@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { Locale } from '@/i18n/config';
 import { proofMetrics, clientLogos, proofMeta } from '@/content/proof';
-import { formatNumber } from '@/lib/utils';
+import { CountUp } from '@/components/ui/CountUp';
 
 /**
  * Credibility strip, directly under the hero (§4).
@@ -37,7 +37,7 @@ export function TrustLayer({ locale }: { locale: Locale }) {
                     : undefined
                 }
               >
-                {m.value === null ? <span className="text-line-strong">—</span> : formatNumber(Number(m.value), locale)}
+                {m.value === null ? <span className="text-line-strong">—</span> : <CountUp value={Number(m.value)} locale={locale} />}
               </dd>
             </div>
           ))}

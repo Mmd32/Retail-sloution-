@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function Section({
   children,
@@ -52,10 +53,18 @@ export function SectionHeader({
 }) {
   return (
     <div className={cn('max-w-2xl', align === 'center' && 'mx-auto text-center', className)}>
-      {eyebrow && <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow>}
-      <h2 className={cn('text-h2 mt-3', onDark ? 'text-white' : 'text-navy')}>{title}</h2>
+      {eyebrow && (
+        <Reveal>
+          <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow>
+        </Reveal>
+      )}
+      <Reveal delay={70}>
+        <h2 className={cn('text-h2 mt-3', onDark ? 'text-white' : 'text-navy')}>{title}</h2>
+      </Reveal>
       {intro && (
-        <p className={cn('text-body mt-4', onDark ? 'text-navy-200' : 'text-ink-muted')}>{intro}</p>
+        <Reveal delay={140}>
+          <p className={cn('text-body mt-4', onDark ? 'text-navy-200' : 'text-ink-muted')}>{intro}</p>
+        </Reveal>
       )}
     </div>
   );

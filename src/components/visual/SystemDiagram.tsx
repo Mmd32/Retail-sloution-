@@ -101,6 +101,8 @@ export function SystemDiagram({
 }) {
   const ref = useRef<SVGSVGElement>(null);
   const [drawn, setDrawn] = useState(false);
+  /* 'static' until we know JS + motion are on, so nothing is ever hidden without them. */
+  const [armed, setArmed] = useState(false);
 
   // Draw the connections once, when the diagram is actually looked at.
   useEffect(() => {
@@ -110,6 +112,7 @@ export function SystemDiagram({
       setDrawn(true);
       return;
     }
+    setArmed(true);
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -147,7 +150,16 @@ export function SystemDiagram({
       </defs>
 
       {/* Controlled expansion boundary */}
-      <circle cx={C.x} cy={C.y} r={R + 34} fill="none" stroke="#22375C" strokeDasharray="2 8" opacity={0.7} />
+      <circle
+        cx={C.x}
+        cy={C.y}
+        r={R + 34}
+        fill="none"
+        stroke="#22375C"
+        strokeDasharray="2 8"
+        opacity={0.7}
+        className={ambient ? 'rs-spin' : undefined}
+      />
       <circle cx={C.x} cy={C.y} r={R} fill="none" stroke="#1B2E52" strokeWidth="1" />
 
       {/* Connections: core → each domain */}
@@ -194,7 +206,7 @@ export function SystemDiagram({
       })}
 
       {/* Domain nodes */}
-      {osDomains.map((d) => {
+      {osDomains.map((d, i) => {
         const p = pos(d.angle);
         const isActive = active === d.key;
         const nr = nodeLabels ? 27 : 21;
@@ -233,7 +245,15 @@ export function SystemDiagram({
           </>
         );
 
-        if (!interactive) return <g key={d.key}>{node}</g>;
+        const popClass = armed ? (drawn ? 'rs-node-in' : 'rs-node-pre') : undefined;
+        const popStyle = { ['--rs-node-delay' as string]: `${300 + i * 90}ms` } as React.CSSProperties;
+
+        if (!interactive)
+          return (
+            <g key={d.key} className={popClass} style={popStyle}>
+              {node}
+            </g>
+          );
 
         return (
           <g
@@ -261,7 +281,13 @@ export function SystemDiagram({
       })}
 
       {/* Governing core */}
-      <circle cx={C.x} cy={C.y} r="46" fill="url(#rs-core)" />
+      <circle
+        cx={C.x}
+        cy={C.y}
+        r="46"
+        fill="url(#rs-core)"
+        className={!ambient && drawn && armed ? 'rs-breathe' : undefined}
+      />
       <circle cx={C.x} cy={C.y} r="46" fill="none" stroke="#93DCF6" strokeOpacity="0.35" strokeWidth="1.5" />
       <g stroke="#fff" strokeWidth="3" strokeLinecap="round">
         <line x1={C.x - 14} y1={C.y + 12} x2={C.x - 14} y2={C.y - 1} />

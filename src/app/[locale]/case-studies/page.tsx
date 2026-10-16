@@ -4,6 +4,7 @@ import { buildMetadata } from '@/lib/seo';
 import { Section } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
+import { Reveal } from '@/components/ui/Reveal';
 import { CaseStudyCard } from '@/components/cases/CaseStudyCard';
 import { caseStudies, caseStudiesMeta } from '@/content/caseStudies';
 
@@ -32,8 +33,10 @@ export default function CaseStudiesPage({ params }: { params: { locale: string }
 
       <Section>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {caseStudies.map((study) => (
-            <CaseStudyCard key={study.slug} study={study} locale={locale} />
+          {caseStudies.map((study, i) => (
+            <Reveal key={study.slug} delay={i * 80} className="h-full">
+              <CaseStudyCard study={study} locale={locale} />
+            </Reveal>
           ))}
         </div>
       </Section>
