@@ -256,7 +256,7 @@ html[lang^='fa'] .text-sm { font-size: 1rem; line-height: 1.7; }
   to   { opacity: 1; transform: none; }
 }
 .animate-rise {
-  animation: rs-rise var(--rs-duration-narrative) var(--rs-ease-standard) both;
+  animation: rs-rise var(--rs-duration-narrative) var(--rs-ease-standard) backwards;
 }
 
 /* ── Motion system (§19) ──────────────────────────────────────────────────
@@ -310,25 +310,7 @@ html[lang^='fa'] .text-sm { font-size: 1rem; line-height: 1.7; }
 
 /* Route change: opacity only, so sticky/fixed descendants keep working. */
 @keyframes rs-page-in { from { opacity: 0.2; } to { opacity: 1; } }
-.animate-page { animation: rs-page-in 260ms var(--rs-ease) both; }
-
-/* Hero grid: a slow one-cell drift. The grid lives on a pseudo-element and is
-   moved with transform, so it never repaints. 32px = one grid period, so the
-   loop is seamless. Off on small screens. */
-.rs-blueprint-drift { position: relative; }
-.rs-blueprint-drift::before {
-  content: '';
-  position: absolute;
-  inset: -32px;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-  animation: rs-grid-drift 32s linear infinite;
-}
-@keyframes rs-grid-drift { to { transform: translate3d(32px, 32px, 0); } }
-@media (max-width: 767px) { .rs-blueprint-drift::before { animation: none; } }
+.animate-page { animation: rs-page-in 260ms var(--rs-ease) backwards; }
 
 /* Diagram nodes pop in from the core, then the core breathes. */
 @keyframes rs-node-pop {
@@ -339,7 +321,7 @@ html[lang^='fa'] .text-sm { font-size: 1rem; line-height: 1.7; }
 .rs-node-in {
   transform-box: fill-box;
   transform-origin: center;
-  animation: rs-node-pop 520ms var(--rs-ease) both;
+  animation: rs-node-pop 520ms var(--rs-ease) backwards;
   animation-delay: var(--rs-node-delay, 0ms);
 }
 @keyframes rs-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }

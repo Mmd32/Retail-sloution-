@@ -103,16 +103,12 @@ export function Header({ locale }: { locale: Locale }) {
 
   const activeTopics = getActiveTopics();
 
+  // Sticky with a -32px offset on desktop: the utility bar simply scrolls away
+  // with the page while the primary bar stays pinned. Nothing resizes on
+  // scroll, so the content below never jumps.
   return (
-    <header className="sticky top-0 z-50 print:hidden">
-      {/* Utility bar — collapses away on scroll to give the primary bar room. */}
-      <div
-        className={cn(
-          'hidden overflow-hidden bg-navy text-navy-100 transition-[height,opacity] duration-standard ease-standard lg:block',
-          scrolled ? 'h-0 opacity-0' : 'h-8 opacity-100',
-        )}
-        aria-hidden={scrolled}
-      >
+    <header className="sticky top-0 z-50 print:hidden lg:-top-8">
+      <div className="hidden bg-navy text-navy-100 lg:block">
         <div className="container-x flex h-8 items-center justify-between text-xs">
           <p className="text-navy-200">
             {locale === 'fa'
@@ -126,16 +122,14 @@ export function Header({ locale }: { locale: Locale }) {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[24px] items-center gap-1.5 transition-colors duration-micro ease-standard hover:text-white"
-              tabIndex={scrolled ? -1 : undefined}
-            >
+                          >
               <Linkedin className="h-3.5 w-3.5" aria-hidden /> LinkedIn
             </a>
             <button
               onClick={() => setSearchOpen(true)}
               className="inline-flex min-h-[24px] items-center gap-1.5 transition-colors duration-micro ease-standard hover:text-white"
               aria-label={u('search', locale)}
-              tabIndex={scrolled ? -1 : undefined}
-            >
+                          >
               <Search className="h-3.5 w-3.5" aria-hidden /> {u('search', locale)}
             </button>
           </div>
@@ -145,15 +139,15 @@ export function Header({ locale }: { locale: Locale }) {
       {/* Primary bar */}
       <div
         ref={barRef}
-        className="relative border-b border-line bg-white/85 backdrop-blur-[6px] supports-[backdrop-filter]:bg-white/75"
+        className={cn(
+          'relative border-b border-line bg-white transition-shadow duration-standard ease-standard',
+          scrolled && 'shadow-card',
+        )}
         onMouseLeave={closeSoon}
         onBlurCapture={onBlurCapture}
       >
         <div
-          className={cn(
-            'container-x flex items-center justify-between gap-6 transition-[height] duration-standard ease-standard',
-            scrolled ? 'h-[72px]' : 'h-20 lg:h-24',
-          )}
+          className="container-x flex h-20 items-center justify-between gap-6 lg:h-24"
         >
           {/* On the homepage the hero carries the full logo, so the header copy
               waits until the hero logo has scrolled away (no double logo). It
@@ -166,11 +160,7 @@ export function Header({ locale }: { locale: Locale }) {
           >
             <Logo
               locale={locale}
-              className={
-                scrolled
-                  ? 'h-[60px] w-[73px]'
-                  : 'h-[68px] w-[83px] lg:h-[80px] lg:w-[98px]'
-              }
+              className="h-[68px] w-[83px] lg:h-[80px] lg:w-[98px]"
             />
           </div>
 

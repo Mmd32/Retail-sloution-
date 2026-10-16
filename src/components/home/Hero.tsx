@@ -18,7 +18,7 @@ import { LogoMark } from '@/components/layout/Logo';
  */
 export function Hero({ locale }: { locale: Locale }) {
   return (
-    <section className="rs-blueprint-drift relative overflow-hidden bg-navy">
+    <section className="rs-blueprint relative overflow-hidden bg-navy">
       <div className="container-x relative grid items-center gap-10 py-12 md:py-16 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
           {/* The full masterbrand opens the page (reverse variant on navy). */}
@@ -62,7 +62,7 @@ export function Hero({ locale }: { locale: Locale }) {
               {locale === 'fa' ? 'درخواست جلسه تشخیصی' : 'Request a diagnostic meeting'}
             </ButtonLink>
             <ArrowLink href={localePath(locale, '/case-studies')} locale={locale} onDark>
-              {locale === 'fa' ? 'مشاهده نتایج پروژه‌ها' : 'See engagement results'}
+              {locale === 'fa' ? 'مشاهده نمونه کارها' : 'See selected work'}
             </ArrowLink>
           </div>
         </div>

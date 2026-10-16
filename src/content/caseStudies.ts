@@ -145,13 +145,13 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
 }
 
 export const caseStudiesMeta = {
-  eyebrow: { fa: 'نتایج', en: 'Results' } as Localized,
+  eyebrow: { fa: 'نمونه کارها', en: 'Selected work' } as Localized,
   title: {
-    fa: 'چالش، رویکرد، سیستم، نتیجه.',
-    en: 'The challenge, the approach, the system, the result.',
+    fa: 'ببینید مسئله‌ها چطور به سیستم تبدیل می‌شوند',
+    en: 'See how problems become systems',
   } as Localized,
   intro: {
-    fa: 'هر پروژه از یک چالش واقعی شروع می‌شود و با سیستمی به پایان می‌رسد که تیم خود سازمان آن را اداره می‌کند. نتایج را دقیق و بدون اغراق شرح می‌دهیم.',
-    en: 'Every engagement starts from a real challenge and ends with a system the client’s own team runs. We describe outcomes precisely, without exaggeration.',
+    fa: 'هر همکاری از یک چالش واقعی شروع می‌شود و به سیستمی می‌رسد که تیم خودتان آن را اداره می‌کند. هر نمونه را دقیق و بدون اغراق شرح می‌دهیم.',
+    en: 'Every engagement starts from a real challenge and ends with a system your own team runs. We describe each one precisely, without exaggeration.',
   } as Localized,
 };

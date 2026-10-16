@@ -23,7 +23,7 @@ export interface NavLink {
 export const primaryNav: NavLink[] = [
   { href: '/solutions', label: { fa: 'راهکارها', en: 'Solutions' } },
   { href: '/industries', label: { fa: 'صنایع', en: 'Industries' } },
-  { href: '/case-studies', label: { fa: 'نتایج', en: 'Results' } },
+  { href: '/case-studies', label: { fa: 'نمونه کارها', en: 'Selected work' } },
   { href: '/insights', label: { fa: 'بینش‌ها', en: 'Insights' } },
   { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
   { href: '/company-profile', label: { fa: 'پروفایل شرکت', en: 'Company Profile' } },

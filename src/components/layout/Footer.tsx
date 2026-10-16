@@ -112,7 +112,7 @@ export function Footer({ locale }: { locale: Locale }) {
                 </FLink>
               ))}
               <FLink href={localePath(locale, '/case-studies')}>
-                {locale === 'fa' ? 'نتایج' : 'Results'}
+                {locale === 'fa' ? 'نمونه کارها' : 'Selected work'}
               </FLink>
               <FLink href={localePath(locale, '/insights')}>
                 {locale === 'fa' ? 'بینش‌ها' : 'Insights'}
