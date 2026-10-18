@@ -23,7 +23,7 @@ const suggestions: { label: Record<Locale, string>; href: string }[] = [
   { label: { fa: 'راهکار SVP™', en: 'SVP™ solution' }, href: '/solutions/svp' },
   { label: { fa: 'ارزیابی آمادگی رشد', en: 'Growth assessment' }, href: '/assessment' },
   { label: { fa: 'متدولوژی', en: 'Methodology' }, href: '/methodology' },
-  { label: { fa: 'صنعت پوشاک', en: 'Fashion industry' }, href: '/industries/fashion' },
+  { label: { fa: 'صنعت پوشاک', en: 'Fashion industry' }, href: '/industries#fashion' },
 ];
 
 export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: boolean; onClose: () => void }) {

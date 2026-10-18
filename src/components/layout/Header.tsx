@@ -307,7 +307,7 @@ export function Header({ locale }: { locale: Locale }) {
           <MegaPanel id="mega-industries" onMouseEnter={() => openNow('/industries')}>
             <div className="grid grid-cols-3 gap-x-8 gap-y-1">
               {industries.map((i) => (
-                <MegaLink key={i.slug} href={localePath(locale, `/industries/${i.slug}`)}>
+                <MegaLink key={i.slug} href={localePath(locale, `/industries#${i.slug}`)}>
                   <span className="font-medium text-navy">{i.name[locale]}</span>
                   <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted line-clamp-2">
                     {i.overview[locale]}

@@ -83,7 +83,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
                 {relatedIndustries.map((i) => (
                   <Link
                     key={i.slug}
-                    href={localePath(locale, `/industries/${i.slug}`)}
+                    href={localePath(locale, `/industries#${i.slug}`)}
                     className="inline-flex min-h-[44px] items-center rounded-full border border-line px-4 text-label text-navy hover:border-cyan"
                   >
                     {i.name[locale]}

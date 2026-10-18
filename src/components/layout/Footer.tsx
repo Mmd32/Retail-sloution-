@@ -97,7 +97,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <div className="lg:col-span-2">
             <Column title={u('footerIndustries', locale)}>
               {industries.map((i) => (
-                <FLink key={i.slug} href={localePath(locale, `/industries/${i.slug}`)}>
+                <FLink key={i.slug} href={localePath(locale, `/industries#${i.slug}`)}>
                   {i.name[locale]}
                 </FLink>
               ))}

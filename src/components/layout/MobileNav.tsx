@@ -178,7 +178,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
           {industries.map((i) => (
             <Link
               key={i.slug}
-              href={localePath(locale, `/industries/${i.slug}`)}
+              href={localePath(locale, `/industries#${i.slug}`)}
               onClick={onClose}
               className={sub}
             >

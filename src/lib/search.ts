@@ -92,7 +92,7 @@ function build(): SearchDoc[] {
   for (const i of industries) {
     docs.push({
       type: 'industry',
-      href: `/industries/${i.slug}`,
+      href: `/industries#${i.slug}`,
       title: i.name,
       description: i.overview,
       haystack: {

@@ -1,14 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { isLocale, type Locale } from '@/i18n/config';
 import { buildMetadata } from '@/lib/seo';
-import { localePath } from '@/lib/utils';
 import { Section } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
 import { Reveal } from '@/components/ui/Reveal';
 import { IndustryIcon } from '@/components/ui/IndustryIcon';
-import { ArrowLink } from '@/components/ui/ArrowLink';
 import { industries } from '@/content/industries';
 import { u } from '@/content/ui';
 
@@ -55,7 +52,8 @@ export default function IndustriesPage({ params }: { params: { locale: string } 
                 className={wide ? 'lg:col-span-3' : ''}
               >
               <div
-                className={`group h-full flex flex-col rounded-card border border-line bg-white p-7 transition-shadow duration-standard ease-standard hover:shadow-card ${
+                id={ind.slug}
+                className={`h-full scroll-mt-32 flex flex-col rounded-card border border-line bg-white p-7 ${
                   wide ? 'lg:grid lg:grid-cols-2 lg:gap-x-10' : ''
                 }`}
               >
@@ -68,16 +66,11 @@ export default function IndustriesPage({ params }: { params: { locale: string } 
                   <p className={`mt-5 text-xs font-semibold uppercase tracking-wide text-functional ${wide ? 'lg:mt-0' : ''}`}>
                     {u('commonChallenges', locale)}
                   </p>
-                  <ul className="mt-2 flex-1 space-y-1.5">
-                    {ind.challenges[locale].slice(0, 3).map((c, k) => (
+                  <ul className="mt-2 space-y-1.5">
+                    {ind.challenges[locale].map((c, k) => (
                       <li key={k} className="text-sm text-ink-muted">• {c}</li>
                     ))}
                   </ul>
-                  <div className="mt-5">
-                    <ArrowLink href={localePath(locale, `/industries/${ind.slug}`)} locale={locale}>
-                      {u('learnMore', locale)}
-                    </ArrowLink>
-                  </div>
                 </div>
               </div>
               </Reveal>
