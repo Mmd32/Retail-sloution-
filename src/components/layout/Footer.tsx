@@ -57,7 +57,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
   return (
     <footer className="border-t border-white/10 bg-navy text-navy-100 print:hidden">
-      <div className="container-x py-14">
+      <div className="container-x py-10">
         <Reveal className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-8">
           {/* Brand — placed last so it sits at the far end of the row (the
               left edge in Persian, the right in English); the link columns
@@ -161,7 +161,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
       {/* Legal bar */}
       <div className="border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-2 py-6 text-xs text-navy-300 md:flex-row">
+        <div className="container-x flex flex-col items-center justify-between gap-2 py-4 text-xs text-navy-300 md:flex-row">
           <p>
             © {year} {brand.name}. {u('allRightsReserved', locale)}
           </p>

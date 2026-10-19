@@ -1,20 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Check, HelpCircle, Target, Download } from 'lucide-react';
+import { Check, HelpCircle, Target } from 'lucide-react';
 import { isLocale, locales, type Locale } from '@/i18n/config';
 import { buildMetadata } from '@/lib/seo';
-import { localePath, formatDate } from '@/lib/utils';
+import { localePath } from '@/lib/utils';
 import { Section, Eyebrow } from '@/components/ui/Section';
 import { PageHero } from '@/components/shared/PageHero';
 import { MeetingCta } from '@/components/shared/MeetingCta';
 import { Accordion } from '@/components/ui/Accordion';
-import { LeadForm } from '@/components/forms/LeadForm';
-import { ArrowLink } from '@/components/ui/ArrowLink';
 import { services, getService } from '@/content/services';
 import { getCapability } from '@/content/capabilities';
 import { getIndustry } from '@/content/industries';
-import { insights } from '@/content/insights';
 import { u } from '@/content/ui';
 
 export function generateStaticParams() {
@@ -39,9 +36,6 @@ export default function ServicePage({ params }: { params: { locale: string; slug
   const service = getService(params.slug);
   if (!service) notFound();
 
-  // Prefer insights whose topic matches this solution's theme, then fill up to 3.
-  const themed = insights.filter((i) => i.topic.en === service.eyebrow.en);
-  const relatedInsights = [...themed, ...insights.filter((i) => !themed.includes(i))].slice(0, 3);
 
   return (
     <>
@@ -211,66 +205,21 @@ export default function ServicePage({ params }: { params: { locale: string; slug
                   {u('requestMeeting', locale)}
                 </Link>
               </div>
-
-              {/* Downloadable resource (gated) */}
-              <div className="rounded-card border border-dashed border-line p-6">
-                <div className="flex items-center gap-2 text-navy">
-                  <Download className="h-4 w-4 text-functional" aria-hidden />
-                  <h3 className="text-sm font-semibold">{locale === 'fa' ? 'دریافت معرفی راهکار' : 'Download solution brief'}</h3>
-                </div>
-                <p className="mt-2 text-xs text-ink-muted">
-                  {locale === 'fa'
-                    ? 'معرفی PDF این راهکار پس از بارگذاری در CMS در دسترس قرار می‌گیرد.'
-                    : 'A PDF brief for this solution becomes available once uploaded in the CMS.'}
-                </p>
-              </div>
             </div>
           </aside>
         </div>
       </Section>
 
-      {/* Related insights */}
-      {relatedInsights.length > 0 && (
-        <Section tone="muted">
-          <div className="flex items-end justify-between">
-            <h2 className="text-h2 text-navy">{u('relatedInsights', locale)}</h2>
-            <ArrowLink href={localePath(locale, '/insights')} locale={locale}>
-              {u('viewAll', locale)}
-            </ArrowLink>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {relatedInsights.map((n) => (
-              <Link
-                key={n.slug}
-                href={localePath(locale, `/insights/${n.slug}`)}
-                className="group rounded-card border border-line bg-white p-6 transition-colors hover:border-cyan-300"
-              >
-                <span className="text-xs font-semibold uppercase tracking-wide text-functional">{n.topic[locale]}</span>
-                <h3 className="mt-3 text-h3 text-navy group-hover:text-functional">{n.title[locale]}</h3>
-                <p className="mt-2 text-label text-ink-muted line-clamp-2">{n.summary[locale]}</p>
-                <span className="mt-3 block text-xs text-ink-faint">{formatDate(n.publishedAt, locale)}</span>
-              </Link>
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* Lead-generation CTA form */}
-      <Section id="request">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="text-center text-h2 text-navy">
-            {locale === 'fa' ? `درباره‌ی ${service.abbr} با ما صحبت کنید` : `Talk to us about ${service.abbr}`}
-          </h2>
-          <p className="mt-3 text-center text-ink-muted">
-            {locale === 'fa'
-              ? 'فرم زیر را کامل کنید تا یک جلسه‌ی اولیه هماهنگ شود.'
-              : 'Complete the form below and we’ll arrange an initial meeting.'}
-          </p>
-          <div className="mt-8">
-            <LeadForm locale={locale} type="service-inquiry" serviceSlug={service.slug} />
-          </div>
-        </div>
-      </Section>
+      {/* Short closing CTA; the full contact form lives on /contact */}
+      <MeetingCta
+        locale={locale}
+        title={locale === 'fa' ? `درباره‌ی ${service.abbr} با ما صحبت کنید` : `Talk to us about ${service.abbr}`}
+        body={
+          locale === 'fa'
+            ? 'در یک جلسه کوتاه بررسی می‌کنیم این راهکار به کار برند شما می‌آید یا نه.'
+            : 'In one short meeting we check whether this solution fits your brand.'
+        }
+      />
     </>
   );
 }

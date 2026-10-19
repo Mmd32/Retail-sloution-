@@ -69,8 +69,8 @@
   --rs-margin-mobile: 20px;
 
   /* Section rhythm, built from the approved spacing scale */
-  --rs-section-y: clamp(40px, 1.75rem + 2.5vw, 72px);
-  --rs-header-gap: clamp(var(--rs-space-6), 1.5rem + 1vw, 40px);
+  --rs-section-y: clamp(32px, 1.25rem + 2vw, 56px);
+  --rs-header-gap: clamp(var(--rs-space-6), 1.25rem + 0.75vw, 32px);
   --rs-color-surface-nude: #f4eee6;
 }
 
