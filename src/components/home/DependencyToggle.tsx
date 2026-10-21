@@ -318,7 +318,7 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
         <div
           role="tablist"
           aria-label={locale === 'fa' ? 'مقایسه دو حالت سازمان' : 'Compare the two organizational states'}
-          className="inline-flex rounded-button border border-line bg-white p-1"
+          className="inline-flex rounded-button border border-line bg-surface p-1"
         >
           {modes.map((m) => (
             <button
@@ -337,7 +337,7 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
               }}
               className={cn(
                 'inline-flex min-h-[44px] items-center rounded-control px-5 text-label font-semibold transition-colors duration-standard ease-standard',
-                mode === m ? 'bg-navy text-white' : 'text-ink-muted hover:text-navy',
+                mode === m ? 'bg-ink text-paper' : 'text-ink-muted hover:text-ink',
               )}
             >
               {content[m].label[locale]}
@@ -375,7 +375,7 @@ export function DependencyToggle({ locale }: { locale: Locale }) {
       </div>
 
       <div className="lg:col-span-6">
-        <div className="rs-blueprint rounded-feature border border-white/10 bg-navy-900 p-6 sm:p-10">
+        <div className="rounded-feature bg-navy p-6 sm:p-10">
           <Graph mode={mode} locale={locale} removed={removed} onRemove={setRemoved} />
           <p className="text-label mt-6 text-center text-navy-200" aria-live="polite">
             {caption(mode, removed, locale)}

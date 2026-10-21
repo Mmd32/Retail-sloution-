@@ -1,19 +1,13 @@
+import { CalendarCheck, ClipboardList } from 'lucide-react';
 import type { Locale } from '@/i18n/config';
 import { localePath } from '@/lib/utils';
 import { ButtonLink } from '@/components/ui/Button';
 import { ArrowLink } from '@/components/ui/ArrowLink';
-import { SystemDiagram } from '@/components/visual/SystemDiagram';
 
 /**
- * Final CTA band (§17).
- *
- * One primary action. The secondary is a text link rather than a second button
- * — the previous version showed two equally weighted buttons, which forced a
- * choice at exactly the moment the visitor should have only one obvious step.
- *
- * The Retail OS diagram returns here at low contrast as a backdrop, closing the
- * page with the same figure it opened on. It is static: no ambient animation,
- * nothing that keeps moving while someone is trying to read the CTA.
+ * Closing band in the brand's action blue — bright enough to read as an
+ * invitation, not a full stop. One primary action; the assessment is a text
+ * link so it cannot compete.
  */
 export function MeetingCta({
   locale,
@@ -24,45 +18,45 @@ export function MeetingCta({
   title?: string;
   body?: string;
 }) {
+  const fa = locale === 'fa';
   return (
-    <section className="rs-blueprint relative overflow-hidden border-t border-navy-700 bg-navy">
-      {/* Backdrop figure — decorative, hidden from assistive tech, and clipped
-          so it can never introduce horizontal overflow. */}
+    <section className="relative overflow-hidden bg-[#0072A3] text-white">
+      {/* Soft cyan glow, decorative. */}
       <div
-        className="pointer-events-none absolute -end-40 top-1/2 hidden w-[30rem] -translate-y-1/2 opacity-[0.12] [mask-image:linear-gradient(to_left,transparent_35%,black_80%)] ltr:[mask-image:linear-gradient(to_right,transparent_35%,black_80%)] lg:block"
+        className="pointer-events-none absolute -top-32 end-[-10%] h-96 w-96 rounded-full bg-cyan/40 blur-3xl"
         aria-hidden
-      >
-        <SystemDiagram locale={locale} ambient labelled={false} />
-      </div>
-
+      />
       <div className="container-x section-y relative">
-        <div className="grid items-end gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <h2 className="text-h2 max-w-[22ch] text-white">
-              {title ??
-                (locale === 'fa'
-                  ? 'درباره مرحله بعدی رشد برندتان گفت‌وگو کنیم.'
-                  : 'Let’s talk about your brand’s next stage of growth.')}
+        <p className="inline-flex items-center gap-2 text-sm font-semibold text-white/90">
+          <CalendarCheck className="h-4 w-4" aria-hidden />
+          {fa ? 'بیایید حرف بزنیم' : 'Let’s talk'}
+        </p>
+        <div className="mt-4 grid items-end gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <h2 className="text-h1 max-w-[22ch] text-white">
+              {title ?? (fa ? 'بگویید ریتیل شما باید به کجا برسد.' : 'Tell us where your retail needs to go.')}
             </h2>
-            <p className="text-body mt-5 max-w-reading text-navy-200">
+            <p className="mt-6 max-w-[40rem] text-[1.0625rem] leading-relaxed text-white/90">
               {body ??
-                (locale === 'fa'
-                  ? 'در یک جلسه تشخیصی، با هم وضعیت فعلی، فرصت‌ها و مسیر مناسب همکاری را مرور می‌کنیم.'
-                  : 'In one diagnostic meeting we walk through where you are, the opportunities ahead, and the right way to work together.')}
+                (fa
+                  ? 'از همین سه سؤال شروع می‌کنیم: چه چیزی جواب می‌دهد، چه چیزی نه و فرصت کجاست.'
+                  : 'We start with three questions: what is working, what is not and where the opportunity is.')}
             </p>
           </div>
-
-          <div className="flex flex-col items-start gap-5 lg:col-span-5 lg:items-end">
-            <ButtonLink
-              href={localePath(locale, '/contact')}
-              size="lg"
-              variant="accent"
-              className="w-full sm:w-auto"
-            >
-              {locale === 'fa' ? 'درخواست جلسه تشخیصی' : 'Request a diagnostic meeting'}
+          <div className="flex flex-col items-start gap-5 lg:col-span-4 lg:items-end">
+            <ButtonLink href={localePath(locale, '/contact')} variant="onDark" className="w-full shadow-popover sm:w-auto">
+              {fa ? 'رزرو جلسه تشخیصی' : 'Book a diagnostic meeting'}
             </ButtonLink>
-            <ArrowLink href={localePath(locale, '/assessment')} locale={locale} onDark>
-              {locale === 'fa' ? 'شروع ارزیابی آمادگی رشد' : 'Start the growth readiness assessment'}
+            <ArrowLink
+              href={localePath(locale, '/assessment')}
+              locale={locale}
+              onDark
+              className="!text-white hover:!text-white/80"
+            >
+              <span className="inline-flex items-center gap-2">
+                <ClipboardList className="h-4 w-4" aria-hidden />
+                {fa ? 'یا اول ارزیابی ۱۰ دقیقه‌ای را انجام دهید' : 'Or take the 10-minute assessment first'}
+              </span>
             </ArrowLink>
           </div>
         </div>

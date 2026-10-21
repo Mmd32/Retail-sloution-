@@ -112,7 +112,7 @@ export function AssessmentTeaser({ locale }: { locale: Locale }) {
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
       <div className="lg:col-span-5">
         <p className="eyebrow">{locale === 'fa' ? 'ابزار تشخیصی' : 'Diagnostic tool'}</p>
-        <h2 className="text-h2 mt-3 text-navy">{assessmentMeta.title[locale]}</h2>
+        <h2 className="text-h2 mt-3 text-ink">{assessmentMeta.title[locale]}</h2>
         <p className="text-body mt-4 text-ink-muted">{assessmentMeta.intro[locale]}</p>
         <p className="text-label mt-6 text-ink-faint">
           {formatNumber(totalQuestions, locale)} {locale === 'fa' ? 'پرسش' : 'questions'} ·{' '}
@@ -122,7 +122,7 @@ export function AssessmentTeaser({ locale }: { locale: Locale }) {
       </div>
 
       <div className="lg:col-span-7">
-        <div className="rounded-feature border border-line bg-white p-6 shadow-card sm:p-8">
+        <div className="rounded-feature border border-line bg-surface p-6 shadow-card sm:p-8">
           {/* Progress */}
           <div className="mb-6">
             <div className="flex items-center justify-between text-label text-ink-muted">
@@ -149,13 +149,13 @@ export function AssessmentTeaser({ locale }: { locale: Locale }) {
                 {seeds[step].dim.name[locale]}
               </p>
               <fieldset className="mt-3">
-                <legend className="text-h3 text-navy">{seeds[step].question[locale]}</legend>
+                <legend className="text-h3 text-ink">{seeds[step].question[locale]}</legend>
                 <div className="mt-5 space-y-2">
                   {answerScale.map((opt) => (
                     <button
                       key={opt.value}
                       onClick={() => answer(seeds[step].key, opt.value)}
-                      className="flex min-h-[44px] w-full items-center gap-3 rounded-control border border-line px-4 py-3 text-start text-label text-navy transition-colors duration-micro ease-standard hover:border-functional hover:bg-callout-info"
+                      className="flex min-h-[44px] w-full items-center gap-3 rounded-control border border-line px-4 py-3 text-start text-label text-ink transition-colors duration-micro ease-standard hover:border-functional hover:bg-callout-info"
                     >
                       <span
                         className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong text-xs font-semibold text-ink-faint"
@@ -181,7 +181,7 @@ export function AssessmentTeaser({ locale }: { locale: Locale }) {
                   signal.tone === 'success' && 'border-success/35 bg-callout-success',
                 )}
               >
-                <p className="font-semibold text-navy">{signal.label[locale]}</p>
+                <p className="font-semibold text-ink">{signal.label[locale]}</p>
                 <p className="text-label mt-2 text-ink-muted">{signal.body[locale]}</p>
               </div>
 

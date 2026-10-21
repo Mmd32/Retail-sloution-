@@ -1,7 +1,15 @@
 import Image from 'next/image';
 import type { Locale } from '@/i18n/config';
 import { proofMetrics, clientLogos, proofMeta } from '@/content/proof';
+import { Layers, Sparkles, Store, Route } from 'lucide-react';
 import { CountUp } from '@/components/ui/CountUp';
+
+const metricIcons: Record<string, typeof Layers> = {
+  capabilities: Layers,
+  solutions: Sparkles,
+  industries: Store,
+  stages: Route,
+};
 
 /**
  * Credibility strip, directly under the hero (§4).
@@ -18,17 +26,23 @@ export function TrustLayer({ locale }: { locale: Locale }) {
   const hasLogos = clientLogos.length > 0;
 
   return (
-    <section className="rs-band border-b border-line" aria-label={proofMeta.eyebrow[locale]}>
-      {/* A single band the height of the header bar: four metrics in a row,
-          value beside label, so the strip reads at a glance instead of
-          pushing the page down. */}
-      <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-3 py-4 lg:min-h-[96px] lg:flex-nowrap">
-        <dl className="grid w-full grid-cols-2 gap-x-6 gap-y-4 lg:w-auto lg:flex-1 lg:grid-cols-4">
+    <section className="border-b border-line bg-paper" aria-label={proofMeta.eyebrow[locale]}>
+      {/* Four figures read as a ledger row: hairline above, figure, label.
+          Tabular mono figures so they align like a report, not a banner. */}
+      <div className="container-x py-10 md:py-14">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
           {proofMetrics.map((m) => (
-            <div key={m.key} className="flex flex-col items-start gap-1 border-s-2 border-cyan ps-3 sm:flex-row sm:items-center sm:gap-3">
-              <dt className="text-label leading-snug text-ink-muted">{m.label[locale]}</dt>
+            <div key={m.key} className="flex items-center gap-4">
+              <span className="rs-icon-chip">
+                {(() => {
+                  const Icon = metricIcons[m.key] ?? Layers;
+                  return <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />;
+                })()}
+              </span>
+              <div className="flex flex-col gap-1">
+              <dt className="text-sm text-ink-muted">{m.label[locale]}</dt>
               <dd
-                className="order-first font-display text-h3 font-bold leading-none text-navy"
+                className="num order-first text-[2.25rem] font-light leading-none text-ink"
                 aria-label={
                   m.value === null
                     ? locale === 'fa'
@@ -37,8 +51,9 @@ export function TrustLayer({ locale }: { locale: Locale }) {
                     : undefined
                 }
               >
-                {m.value === null ? <span className="text-line-strong">—</span> : <CountUp value={Number(m.value)} locale={locale} />}
+                {m.value === null ? <span className="text-ink-faint">—</span> : <CountUp value={Number(m.value)} locale={locale} />}
               </dd>
+              </div>
             </div>
           ))}
         </dl>

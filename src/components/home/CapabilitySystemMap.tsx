@@ -57,7 +57,7 @@ export function CapabilitySystemMap({ locale }: { locale: Locale }) {
       {/* Diagram — desktop only. On mobile it would be too dense to read and
           adds nothing the list does not already say (§23). */}
       <div className="hidden lg:col-span-6 lg:block">
-        <div className="rs-blueprint rounded-feature border border-white/10 bg-navy-900 p-8">
+        <div className="rounded-feature bg-navy p-8">
           <SystemDiagram
             locale={locale}
             active={active}
@@ -83,7 +83,7 @@ export function CapabilitySystemMap({ locale }: { locale: Locale }) {
                     'flex min-h-[44px] w-full items-center gap-3 rounded-control border px-4 py-3 text-start transition-colors duration-standard ease-standard',
                     isActive
                       ? 'border-cyan bg-cyan/10 text-white'
-                      : 'border-white/10 bg-white/5 text-navy-100 hover:border-white/25',
+                      : 'border-white/10 bg-surface/5 text-navy-100 hover:border-white/25',
                   )}
                 >
                   <span
@@ -104,7 +104,7 @@ export function CapabilitySystemMap({ locale }: { locale: Locale }) {
             told what changed when they move through the list. */}
         <div
           aria-live="polite"
-          className="mt-6 rounded-card border border-white/10 bg-white/5 p-6"
+          className="mt-6 rounded-card border border-white/10 bg-surface/5 p-6"
         >
           <p className="text-xs font-semibold uppercase tracking-label text-cyan">
             {activeDomain.label[locale]}

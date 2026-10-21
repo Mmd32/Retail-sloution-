@@ -1,25 +1,31 @@
-import { Inter, Vazirmatn } from 'next/font/google';
+import { IBM_Plex_Sans, IBM_Plex_Mono, IBM_Plex_Sans_Arabic } from 'next/font/google';
 
 /**
- * Design System §6.1 Font families.
+ * Type system (v4, studio direction).
  *
- * Latin  — Inter, per the approved system.
- * Persian — IRANSansX is the primary Persian face, but it is a licensed font
- *   and is not distributed here. The system names Vazirmatn as the approved
- *   substitute, so Vazirmatn is loaded and IRANSansX is listed first in the
- *   CSS stack: if the licensed webfont is self-hosted later it takes over with
- *   no code change (see tailwind.config.ts → fontFamily.fa).
+ * IBM Plex Sans carries display and body (light 300 for large text), IBM Plex
+ * Mono carries labels, navigation and numbers. Persian uses IBM Plex Sans
+ * Arabic — the same family drawn for Arabic script — so both locales share one
+ * voice. Persian has no monospaced tradition; mono labels fall back to Plex
+ * Sans Arabic at the same size.
  */
-export const inter = Inter({
+export const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-latin',
 });
 
-export const vazirmatn = Vazirmatn({
+export const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500'],
+  variable: '--font-mono',
+});
+
+export const plexArabic = IBM_Plex_Sans_Arabic({
   subsets: ['arabic', 'latin'],
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-fa',
 });

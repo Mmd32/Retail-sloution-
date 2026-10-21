@@ -36,7 +36,7 @@ export function LanguageSwitcher({
       className={
         onDark
           ? 'inline-flex min-h-[44px] lg:min-h-[24px] items-center gap-1.5 text-sm font-medium text-navy-100 transition-colors hover:text-white'
-          : 'inline-flex min-h-[44px] lg:min-h-[24px] items-center gap-1.5 text-sm font-medium text-navy transition-colors hover:text-functional'
+          : 'inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink'
       }
     >
       <Globe className="h-4 w-4" aria-hidden />

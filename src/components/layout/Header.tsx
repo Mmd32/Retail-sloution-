@@ -1,408 +1,159 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  Search,
-  Menu,
-  Linkedin,
-  ChevronDown,
-  Compass,
-  Building2,
-  Settings2,
-  Store,
-  Users,
-  BarChart3,
-} from 'lucide-react';
 import type { Locale } from '@/i18n/config';
-import { localePath, cn } from '@/lib/utils';
-import { primaryNav, solutionDomains, solutionsExtraLinks } from '@/content/navigation';
-import { services } from '@/content/services';
-import { industries } from '@/content/industries';
-import { getActiveTopics, insightTypeLabels } from '@/content/insights';
+import { otherLocale, localeLabel } from '@/i18n/config';
+import { localePath } from '@/lib/utils';
 import { contact } from '@/content/site';
 import { u } from '@/content/ui';
 import { track } from '@/lib/analytics';
-import { Logo } from './Logo';
-import { LanguageSwitcher } from './LanguageSwitcher';
-import { SearchDialog } from './SearchDialog';
-import { MobileNav } from './MobileNav';
-import { ButtonLink } from '@/components/ui/Button';
+import { LogoGlyph } from './Logo';
+import { Brackets } from '@/components/studio/Brackets';
 
-const MEGA = new Set(['/solutions', '/industries', '/insights']);
+/**
+ * Header (studio direction).
+ *
+ * One thin white bar: wordmark at the start, mono links at the end whose
+ * brackets close around them on hover. On the homepage it sits below the
+ * full-screen reel and pins once it reaches the top. Below `lg` the links
+ * fold into a full-screen sheet.
+ */
+const nav = [
+  { href: '/case-studies', label: { fa: 'نمونه کارها', en: 'Work' } },
+  { href: '/solutions', label: { fa: 'چه کار می‌کنیم', en: 'What we do' } },
+  { href: '/insights', label: { fa: 'بینش‌ها', en: 'Insights' } },
+  { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
+  { href: '/contact', label: { fa: 'سلام!', en: 'Hello!' } },
+];
 
-const domainIcons: Record<string, typeof Compass> = {
-  compass: Compass,
-  building: Building2,
-  settings: Settings2,
-  store: Store,
-  users: Users,
-  chart: BarChart3,
-};
-
-export function Header({ locale }: { locale: Locale }) {
+export function Header({ locale, logoSrc }: { locale: Locale; logoSrc?: string }) {
   const pathname = usePathname();
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
-  const barRef = useRef<HTMLDivElement>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [open, setOpen] = useState(false);
+  const target = otherLocale(locale);
+  const langHref = `/${target}${pathname.replace(/^\/(fa|en)/, '')}`;
 
-  useEffect(() => setOpenMenu(null), [pathname]);
+  useEffect(() => setOpen(false), [pathname]);
 
-  // Condense on scroll (§2). Threshold is well past the utility bar so the
-  // header does not flicker between states on small scroll jitters.
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 48);
-      setPastHero(window.scrollY > 300);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Escape closes the panel and returns focus to its trigger.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || !openMenu) return;
-      const trigger = barRef.current?.querySelector<HTMLElement>(
-        `[data-mega-trigger="${openMenu}"]`,
-      );
-      setOpenMenu(null);
-      trigger?.focus();
-    };
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [openMenu]);
-
-  // Tabbing out of the header entirely closes the panel.
-  const onBlurCapture = (e: React.FocusEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenMenu(null);
-  };
-
-  const openNow = (href: string) => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setOpenMenu(href);
-  };
-  // Small grace period so a diagonal mouse path to the panel does not close it.
-  const closeSoon = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
-  };
-
-  const isHome = pathname === `/${locale}`;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   const isActive = (href: string) => {
     const full = localePath(locale, href);
     return pathname === full || pathname.startsWith(`${full}/`);
   };
 
-  const activeTopics = getActiveTopics();
+  const lang = (
+    <Link
+      href={langHref}
+      hrefLang={target}
+      lang={target}
+      onClick={() => track('language_selected', { to: target })}
+      aria-label={`${u('language', locale)}: ${localeLabel[target].native}`}
+      className="bk-nav-item inline-flex min-h-[36px] items-center"
+    >
+      <Brackets>{target === 'fa' ? 'فا' : 'EN'}</Brackets>
+    </Link>
+  );
 
-  // Sticky with a -32px offset on desktop: the utility bar simply scrolls away
-  // with the page while the primary bar stays pinned. Nothing resizes on
-  // scroll, so the content below never jumps.
   return (
-    <header className="sticky top-0 z-50 print:hidden lg:-top-8">
-      <div className="hidden bg-navy text-navy-100 lg:block">
-        <div className="container-x flex h-8 items-center justify-between text-xs">
-          <p className="text-navy-200">
-            {locale === 'fa'
-              ? 'ساختن سازمان‌های ماندگار در صنعت ریتیل'
-              : 'Building Enduring Retail Organizations'}
-          </p>
-          <div className="flex items-center gap-5">
-            <LanguageSwitcher locale={locale} onDark />
-            <a
-              href={contact.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[24px] items-center gap-1.5 transition-colors duration-micro ease-standard hover:text-white"
-                          >
-              <Linkedin className="h-3.5 w-3.5" aria-hidden /> LinkedIn
-            </a>
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="inline-flex min-h-[24px] items-center gap-1.5 transition-colors duration-micro ease-standard hover:text-white"
-              aria-label={u('search', locale)}
-                          >
-              <Search className="h-3.5 w-3.5" aria-hidden /> {u('search', locale)}
-            </button>
-          </div>
-        </div>
-      </div>
+    <header className="bk-header print:hidden">
+      <div className="flex h-[var(--bk-nav-h)] items-center justify-between border-b border-navy/10 ps-5 pe-[15px]">
+        <Wordmark locale={locale} src={logoSrc} />
 
-      {/* Primary bar */}
-      <div
-        ref={barRef}
-        className={cn(
-          'relative border-b border-line bg-white transition-shadow duration-standard ease-standard',
-          scrolled && 'shadow-card',
-        )}
-        onMouseLeave={closeSoon}
-        onBlurCapture={onBlurCapture}
-      >
-        <div
-          className="container-x flex h-20 items-center justify-between gap-6 lg:h-24"
+        <nav aria-label="Primary" className="hidden items-center gap-[18px] lg:flex">
+          {nav.map((l) => (
+            <Link
+              key={l.href}
+              href={localePath(locale, l.href)}
+              aria-current={isActive(l.href) ? 'page' : undefined}
+              className="bk-nav-item inline-flex min-h-[36px] items-center"
+            >
+              <Brackets>{l.label[locale]}</Brackets>
+            </Link>
+          ))}
+          {lang}
+        </nav>
+
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-expanded={open}
+          className="bk-btn inline-flex min-h-[36px] items-center lg:hidden"
         >
-          {/* On the homepage the hero carries the full logo, so the header copy
-              waits until the hero logo has scrolled away (no double logo). It
-              stays in layout (invisible) so the bar does not jump. */}
-          <div
-            className={cn(
-              'transition-opacity duration-standard ease-standard',
-              isHome && !pastHero && 'invisible opacity-0',
-            )}
-          >
-            <Logo
-              locale={locale}
-              className="h-[68px] w-[83px] lg:h-[80px] lg:w-[98px]"
-            />
-          </div>
-
-          <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
-            {primaryNav.map((link) => {
-              const hasMega = MEGA.has(link.href);
-              const isOpen = openMenu === link.href;
-              const active = isActive(link.href);
-
-              // The label is always a real link to the section index. The
-              // disclosure lives in a separate button so the index page stays
-              // reachable by both mouse and keyboard — previously these were
-              // buttons only, which made /solutions unreachable from the nav.
-              return (
-                <div
-                  key={link.href}
-                  className="static flex items-center"
-                  onMouseEnter={() => hasMega && openNow(link.href)}
-                >
-                  <Link
-                    href={localePath(locale, link.href)}
-                    aria-current={active ? 'page' : undefined}
-                    className={cn(
-                      'relative inline-flex min-h-[44px] items-center rounded-control px-3 text-body font-medium transition-colors duration-micro ease-standard',
-                      active ? 'text-functional' : 'text-navy hover:text-functional',
-                      // Active underline, drawn from the token scale so it
-                      // aligns with the bar's bottom border.
-                      active &&
-                        'after:absolute after:inset-x-3 after:-bottom-px after:h-0.5 after:rounded-full after:bg-cyan',
-                    )}
-                  >
-                    {link.label[locale]}
-                  </Link>
-                  {hasMega && (
-                    <button
-                      data-mega-trigger={link.href}
-                      aria-expanded={isOpen}
-                      aria-controls={`mega-${link.href.slice(1)}`}
-                      aria-label={`${link.label[locale]} — ${locale === 'fa' ? 'باز کردن زیرمنو' : 'open submenu'}`}
-                      onClick={() => (isOpen ? setOpenMenu(null) : openNow(link.href))}
-                      className="-ms-2 inline-flex h-11 w-6 items-center justify-center rounded-control text-navy transition-colors duration-micro ease-standard hover:text-functional"
-                    >
-                      <ChevronDown
-                        className={cn(
-                          'h-4 w-4 transition-transform duration-standard ease-standard',
-                          isOpen && 'rotate-180',
-                        )}
-                        aria-hidden
-                      />
-                    </button>
-                  )}
-                </div>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-control text-navy transition-colors duration-micro ease-standard hover:bg-surface-muted lg:hidden"
-              aria-label={u('search', locale)}
-            >
-              <Search className="h-5 w-5" />
-            </button>
-            {/* The one CTA. Present at every width above 380px. */}
-            <ButtonLink
-              href={localePath(locale, '/contact')}
-              className="hidden sm:inline-flex"
-              onClick={() => track('meeting_cta_clicked', { from: 'header' })}
-            >
-              {u('requestMeeting', locale)}
-            </ButtonLink>
-            <button
-              onClick={() => setMobileOpen(true)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-control text-navy transition-colors duration-micro ease-standard hover:bg-surface-muted lg:hidden"
-              aria-label={u('menu', locale)}
-            >
-              <Menu className="h-6 w-6" />
-            </button>
-          </div>
-        </div>
-
-        {openMenu === '/solutions' && (
-          <MegaPanel id="mega-solutions" onMouseEnter={() => openNow('/solutions')}>
-            <div className="grid grid-cols-12 gap-10">
-              <div className="col-span-8">
-                <MegaHeading>
-                  {locale === 'fa' ? 'شش حوزه سیستم عامل ریتیل' : 'Six domains of the Retail OS'}
-                </MegaHeading>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-1">
-                  {solutionDomains.map((d) => {
-                    const Icon = domainIcons[d.icon] ?? Compass;
-                    return (
-                      <Link
-                        key={d.href}
-                        href={localePath(locale, d.href)}
-                        className="group flex min-h-[44px] items-start gap-3 rounded-control p-3 transition-colors duration-micro ease-standard hover:bg-surface-muted"
-                      >
-                        <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-control bg-navy-50 text-functional transition-colors duration-micro ease-standard group-hover:bg-cyan/15">
-                          <Icon className="h-4 w-4" aria-hidden />
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block font-medium text-navy group-hover:text-functional">
-                            {d.label[locale]}
-                          </span>
-                          <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">
-                            {d.description?.[locale]}
-                          </span>
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-              <div className="col-span-4 border-s border-line ps-8">
-                <MegaHeading>
-                  {locale === 'fa' ? 'متدولوژی‌های اختصاصی' : 'Proprietary methodologies'}
-                </MegaHeading>
-                <div className="space-y-0.5">
-                  {services.map((s) => (
-                    <MegaLink key={s.slug} href={localePath(locale, `/solutions/${s.slug}`)}>
-                      <span className="block text-sm font-medium text-navy">
-                        {s.eyebrow[locale]}
-                      </span>
-                      <span className="block font-display text-xs font-bold tracking-wide text-functional">
-                        {s.abbr}
-                      </span>
-                    </MegaLink>
-                  ))}
-                </div>
-                <div className="mt-4 space-y-0.5 border-t border-line pt-4">
-                  {solutionsExtraLinks.map((l) => (
-                    <MegaLink key={l.href} href={localePath(locale, l.href)} compact>
-                      {l.label[locale]}
-                    </MegaLink>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </MegaPanel>
-        )}
-
-        {openMenu === '/industries' && (
-          <MegaPanel id="mega-industries" onMouseEnter={() => openNow('/industries')}>
-            <div className="grid grid-cols-3 gap-x-8 gap-y-1">
-              {industries.map((i) => (
-                <MegaLink key={i.slug} href={localePath(locale, `/industries#${i.slug}`)}>
-                  <span className="font-medium text-navy">{i.name[locale]}</span>
-                  <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted line-clamp-2">
-                    {i.overview[locale]}
-                  </span>
-                </MegaLink>
-              ))}
-            </div>
-          </MegaPanel>
-        )}
-
-        {openMenu === '/insights' && (
-          <MegaPanel id="mega-insights" onMouseEnter={() => openNow('/insights')}>
-            <div className="grid grid-cols-12 gap-8">
-              <div className="col-span-8">
-                <MegaHeading>{locale === 'fa' ? 'موضوعات' : 'Topics'}</MegaHeading>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
-                  {activeTopics.map((topicItem) => (
-                    <MegaLink
-                      key={topicItem.key}
-                      href={localePath(
-                        locale,
-                        `/insights?topic=${encodeURIComponent(topicItem.label.en)}`,
-                      )}
-                      compact
-                    >
-                      {topicItem.label[locale]}
-                    </MegaLink>
-                  ))}
-                </div>
-              </div>
-              <div className="col-span-4 border-s border-line ps-6">
-                <MegaHeading>{locale === 'fa' ? 'انواع محتوا' : 'Content types'}</MegaHeading>
-                <div className="space-y-0.5">
-                  {Object.entries(insightTypeLabels).map(([key, label]) => (
-                    <MegaLink key={key} href={localePath(locale, `/insights?type=${key}`)} compact>
-                      {label[locale]}
-                    </MegaLink>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </MegaPanel>
-        )}
+          <Brackets>{u('menu', locale)}</Brackets>
+        </button>
       </div>
 
-      <SearchDialog locale={locale} open={searchOpen} onClose={() => setSearchOpen(false)} />
-      {mobileOpen && <MobileNav locale={locale} onClose={() => setMobileOpen(false)} />}
+      {open && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={u('menu', locale)}
+          className="animate-rs-fade fixed inset-0 z-[60] flex flex-col bg-white lg:hidden"
+        >
+          <div className="flex h-[var(--bk-nav-h)] items-center justify-between border-b border-navy/10 ps-5 pe-[15px]">
+            <Wordmark locale={locale} src={logoSrc} />
+            <button type="button" onClick={() => setOpen(false)} className="bk-btn inline-flex min-h-[36px] items-center">
+              <Brackets>{locale === 'fa' ? 'بستن' : 'Close'}</Brackets>
+            </button>
+          </div>
+          <nav aria-label="Primary" className="bk-wrap flex flex-1 flex-col justify-center gap-2">
+            {nav.map((l, i) => (
+              <Link
+                key={l.href}
+                href={localePath(locale, l.href)}
+                aria-current={isActive(l.href) ? 'page' : undefined}
+                className="bk-display animate-rs-rise py-1 !text-[clamp(34px,9vw,56px)]"
+                style={{ animationDelay: `${60 + i * 50}ms` }}
+              >
+                {l.label[locale]}
+              </Link>
+            ))}
+          </nav>
+          <div className="bk-wrap flex items-center justify-between pb-6">
+            <a href={`mailto:${contact.email}`} className="bk-mono !normal-case" dir="ltr">
+              {contact.email}
+            </a>
+            {lang}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
 
-function MegaPanel({
-  id,
-  children,
-  onMouseEnter,
-}: {
-  id: string;
-  children: React.ReactNode;
-  onMouseEnter?: () => void;
-}) {
-  return (
-    <div
-      id={id}
-      onMouseEnter={onMouseEnter}
-      className="animate-rs-fade absolute inset-x-0 top-full hidden border-b border-line bg-white shadow-popover lg:block"
-    >
-      <div className="container-x py-8">{children}</div>
-    </div>
-  );
-}
-
-function MegaHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="mb-3 text-xs font-semibold uppercase tracking-label text-functional">{children}</p>
-  );
-}
-
-function MegaLink({
-  href,
-  children,
-  compact,
-}: {
-  href: string;
-  children: React.ReactNode;
-  compact?: boolean;
-}) {
+function Wordmark({ locale, src }: { locale: Locale; src?: string }) {
+  // The supplied artwork (/public/brand/logo.svg) when present; otherwise a
+  // rebuilt lockup in the logo's colours. The logo is Latin and never mirrored.
   return (
     <Link
-      href={href}
-      className={cn(
-        'flex min-h-[44px] flex-col justify-center rounded-control px-3 transition-colors duration-micro ease-standard hover:bg-surface-muted',
-        compact && 'text-body text-ink-muted hover:text-functional',
-      )}
+      href={localePath(locale, '/')}
+      dir="ltr"
+      className="inline-flex items-center"
+      aria-label="Retail Solutions — home"
     >
-      {children}
+      {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt="" className="h-[30px] w-auto" />
+      ) : (
+        <>
+          <LogoGlyph className="h-[30px] w-[25px] shrink-0" />
+          <span className="-ms-[13px] whitespace-nowrap text-[14px] leading-none tracking-tight" aria-hidden>
+            <span className="font-medium text-[#6D6E71]">RETAIL</span>{' '}
+            <span className="text-[#1BB5EC]">Solutions</span>
+          </span>
+        </>
+      )}
     </Link>
   );
 }

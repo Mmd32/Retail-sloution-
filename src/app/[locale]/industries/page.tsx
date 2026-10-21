@@ -53,13 +53,13 @@ export default function IndustriesPage({ params }: { params: { locale: string } 
               >
               <div
                 id={ind.slug}
-                className={`h-full scroll-mt-32 flex flex-col rounded-card border border-line bg-white p-7 ${
+                className={`h-full scroll-mt-32 flex flex-col rounded-card border border-line bg-surface p-7 ${
                   wide ? 'lg:grid lg:grid-cols-2 lg:gap-x-10' : ''
                 }`}
               >
                 <div className="flex flex-col">
                   <IndustryIcon slug={ind.slug} />
-                  <h2 className="text-h3 mt-5 text-navy">{ind.name[locale]}</h2>
+                  <h2 className="text-h3 mt-5 text-ink">{ind.name[locale]}</h2>
                   <p className="mt-3 flex-1 text-body text-ink-muted">{ind.overview[locale]}</p>
                 </div>
                 <div className={`flex flex-col ${wide ? 'lg:justify-center lg:border-s lg:border-line lg:ps-10' : ''}`}>

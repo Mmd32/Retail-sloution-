@@ -47,18 +47,18 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
   return (
     <>
       {/* Cover */}
-      <section className="rs-blueprint bg-navy print:flex print:min-h-[297mm] print:break-after-page print:items-center">
+      <section className="rs-shell print:flex print:min-h-[297mm] print:break-after-page print:items-center">
         <div className="container-x grid items-center gap-10 py-12 md:py-16 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <div className="mb-8 print:hidden">
               <Breadcrumbs locale={locale} items={[{ label: t.title[locale] }]} onDark />
             </div>
             <LogoMark variant="reverse" className="h-28 w-[137px] md:h-32 md:w-[156px]" />
-            <span className="eyebrow eyebrow-on-dark mt-6 flex">{t.title[locale]}</span>
-            <h1 className="text-h1 mt-3 max-w-[24ch] text-white">{coreBelief.headline[locale]}</h1>
-            <p className="text-body mt-5 max-w-reading text-navy-200">{brand.descriptor[locale]}</p>
+            <span className="eyebrow eyebrow-on-dark mt-10 flex">{t.title[locale]}</span>
+            <h1 className="text-h1 mt-4 max-w-[20ch] text-white">{coreBelief.headline[locale]}</h1>
+            <p className="text-body mt-6 max-w-reading text-[#C9CED8]">{brand.descriptor[locale]}</p>
             <div className="mt-8">
-              <PrintButton label={t.download[locale]} />
+              <PrintButton label={t.download[locale]} onDark />
             </div>
           </div>
         </div>
@@ -71,16 +71,16 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
             <Eyebrow>{pad(1, locale)} · {locale === 'fa' ? 'ما که هستیم' : 'Who we are'}</Eyebrow>
           </div>
           <div className="lg:col-span-8">
-            <p className="text-h3 text-navy">{philosophy.body[0][locale]}</p>
+            <p className="text-h3 text-ink">{philosophy.body[0][locale]}</p>
             <p className="text-body mt-5 text-ink-muted">{philosophy.body[1][locale]}</p>
             <dl className="mt-10 grid gap-6 md:grid-cols-2">
-              <div className="rounded-card border border-line bg-white p-6">
+              <div className="rounded-card border border-line bg-surface p-6">
                 <dt className="eyebrow">{locale === 'fa' ? 'چشم‌انداز' : 'Vision'}</dt>
-                <dd className="text-label mt-3 text-navy">{vision[locale]}</dd>
+                <dd className="text-label mt-3 text-ink">{vision[locale]}</dd>
               </div>
-              <div className="rounded-card border border-line bg-white p-6">
+              <div className="rounded-card border border-line bg-surface p-6">
                 <dt className="eyebrow">{locale === 'fa' ? 'مأموریت' : 'Mission'}</dt>
-                <dd className="text-label mt-3 text-navy">{mission[locale]}</dd>
+                <dd className="text-label mt-3 text-ink">{mission[locale]}</dd>
               </div>
             </dl>
           </div>
@@ -95,11 +95,11 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
         />
         <div className="stack-header grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
           {capabilities.map((c, i) => (
-            <div key={c.slug} className="bg-white p-6">
-              <span className="font-display text-label font-bold text-functional">
+            <div key={c.slug} className="bg-surface p-6">
+              <span className="num text-sm text-functional">
                 {pad(i + 1, locale)}
               </span>
-              <h3 className="text-h3 mt-2 text-navy">{c.title[locale]}</h3>
+              <h3 className="text-h3 mt-2 text-ink">{c.title[locale]}</h3>
               <p className="text-label mt-2 text-ink-muted">{c.description[locale]}</p>
             </div>
           ))}
@@ -116,7 +116,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
           {services.map((s) => (
             <div key={s.slug} className="grid gap-3 py-6 md:grid-cols-12 md:gap-8">
               <div className="md:col-span-4">
-                <p className="font-display text-h3 font-bold text-navy">{s.abbr}</p>
+                <p className="num text-h3 font-medium text-ink">{s.abbr}</p>
                 <p className="text-label mt-1 text-ink-muted">{s.fullName[locale]}</p>
               </div>
               <p className="text-body text-ink md:col-span-8">{s.proposition[locale]}</p>
@@ -135,7 +135,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
           {industries.map((ind) => (
             <li
               key={ind.slug}
-              className="rounded-full border border-line-strong bg-white px-5 py-2 text-label font-semibold text-navy"
+              className="rounded-full border border-line-strong bg-surface px-5 py-2 text-label font-semibold text-ink"
             >
               {ind.name[locale]}
             </li>
@@ -152,10 +152,10 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
         <ol className="stack-header grid gap-6 md:grid-cols-5">
           {phases.map((p, i) => (
             <li key={p.key} className="border-t-2 border-cyan pt-4">
-              <span className="font-display text-label font-bold text-functional">
+              <span className="num text-sm text-functional">
                 {pad(i + 1, locale)}
               </span>
-              <h3 className="text-h3 mt-1 text-navy">{p.name[locale]}</h3>
+              <h3 className="text-h3 mt-1 text-ink">{p.name[locale]}</h3>
               <p className="text-label mt-2 text-ink-muted">{p.objective[locale]}</p>
             </li>
           ))}
@@ -170,8 +170,8 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
         />
         <div className="stack-header grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-5">
           {values.map((v) => (
-            <div key={v.key} className="bg-white p-6">
-              <h3 className="text-h3 text-navy">{v.name[locale]}</h3>
+            <div key={v.key} className="bg-surface p-6">
+              <h3 className="text-h3 text-ink">{v.name[locale]}</h3>
               <p className="text-label mt-2 text-ink-muted">{v.description[locale]}</p>
             </div>
           ))}
@@ -184,7 +184,7 @@ export default function CompanyProfilePage({ params }: { params: { locale: strin
           eyebrow={`${pad(7, locale)} · ${locale === 'fa' ? 'ارتباط با ما' : 'Contact'}`}
           title={locale === 'fa' ? 'با هم بسازیم' : 'Let’s build together'}
         />
-        <ul className="stack-header flex flex-wrap gap-x-10 gap-y-4 text-body text-navy">
+        <ul className="stack-header flex flex-wrap gap-x-10 gap-y-4 text-body text-ink">
           <li className="inline-flex items-center gap-2">
             <Mail className="h-5 w-5 text-functional" aria-hidden />
             <a href={`mailto:${contact.email}`} dir="ltr" className="hover:text-functional">

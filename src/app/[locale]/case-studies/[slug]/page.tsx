@@ -80,7 +80,7 @@ export default function CaseStudyPage({ params }: { params: { locale: string; sl
                   >
                     {i + 1}
                   </span>
-                  <h2 className="text-h3 text-navy">{s.label}</h2>
+                  <h2 className="text-h3 text-ink">{s.label}</h2>
                   <p className="text-body mt-3 max-w-reading text-ink-muted">{s.body}</p>
                 </li>
               ))}
@@ -94,7 +94,7 @@ export default function CaseStudyPage({ params }: { params: { locale: string; sl
                 {study.outcomes.map((o, i) => (
                   <li key={i} className="border-s-2 border-cyan ps-4">
                     {o.metric && (
-                      <span className="block font-display text-h2 font-bold text-navy">
+                      <span className="block num text-h2 font-medium text-ink">
                         {o.metric}
                       </span>
                     )}

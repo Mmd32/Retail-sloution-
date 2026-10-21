@@ -2,8 +2,8 @@ import type { Locale } from '@/i18n/config';
 
 /** Interface strings — never mechanically translated; both feel native. */
 export const ui = {
-  requestMeeting: { fa: 'درخواست جلسه', en: 'Request a Meeting' },
-  assessBusiness: { fa: 'ارزیابی وضعیت کسب‌وکار', en: 'Assess Your Business' },
+  requestMeeting: { fa: 'رزرو جلسه', en: 'Book a meeting' },
+  assessBusiness: { fa: 'ارزیابی وضعیت کسب‌وکار', en: 'Assess your business' },
   learnMore: { fa: 'بیشتر بدانید', en: 'Learn more' },
   readMore: { fa: 'ادامه مطلب', en: 'Read more' },
   viewAll: { fa: 'مشاهده همه', en: 'View all' },
@@ -92,7 +92,7 @@ export const ui = {
   consentRequired: { fa: 'برای ادامه باید موافقت کنید', en: 'You must agree to continue' },
 
   // assessment
-  startAssessment: { fa: 'شروع ارزیابی', en: 'Start Assessment' },
+  startAssessment: { fa: 'شروع ارزیابی', en: 'Start the assessment' },
   next: { fa: 'بعدی', en: 'Next' },
   previous: { fa: 'قبلی', en: 'Previous' },
   dimension: { fa: 'بُعد', en: 'Dimension' },

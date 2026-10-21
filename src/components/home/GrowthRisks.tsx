@@ -1,60 +1,62 @@
 import type { Locale } from '@/i18n/config';
 import { industryProblem } from '@/content/site';
+import { UserCog, Store, TrendingUp, BarChart3, CheckCircle2 } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
+
+/** One icon per risk, in the order of `industryProblem.problems`. */
+export const riskIcons = [UserCog, Store, TrendingUp, BarChart3];
 
 /**
  * The four growth risks (§5).
  *
- * Each risk now states its consequence, which is the part that makes it a risk
- * rather than an observation. The number is set large and treated as the
- * anchor, so the group scans as a sequence rather than four equal boxes.
- *
- * Hover lifts 3px and lights the top rule — no glow, no scale, no rotation.
- * Reveal staggers by 70ms across the row and is disabled under reduced motion.
+ * Symptom, then response — a 2×2 so each pair has room to be read. These are
+ * four parallel risks, not a sequence, so they carry no numbers.
  */
 
 /** How we solve each challenge, in the same order as `industryProblem`. */
 const solutions: { fa: string; en: string }[] = [
   {
-    fa: 'ساختار تصمیم‌گیری و تفویض اختیار را طراحی می‌کنیم تا کسب‌وکار بدون حضور دائم شما هم درست اداره شود.',
-    en: 'We design decision rights and delegation so the business runs well without you in every room.',
+    fa: 'با هم مشخص می‌کنیم چه تصمیمی با چه کسی باشد، تا کسب‌وکار بدون حضور دائم شما هم درست بچرخد.',
+    en: 'Together we work out who decides what, so the business runs well without you in every room.',
   },
   {
-    fa: 'استاندارد عملیات، چک‌لیست ارزیابی و مسیر آموزش را تدوین می‌کنیم تا هر شعبه همان تجربه را ارائه دهد.',
-    en: 'We write operating standards, evaluation checklists and training paths so every branch delivers the same experience.',
+    fa: 'استاندارد عملیات، چک‌لیست و مسیر آموزش می‌نویسیم تا مشتری در هر شعبه همان تجربه را داشته باشد.',
+    en: 'We write the operating standards, checklists and training paths, so customers get the same experience in every branch.',
   },
   {
-    fa: 'پیش از هر مرحله توسعه، ساختار، فرآیند و تیم لازم را آماده می‌کنیم تا شعبه جدید ظرفیت اضافه کند، نه فشار.',
-    en: 'Before each expansion step we put the structure, processes and team in place, so a new branch adds capacity, not pressure.',
+    fa: 'قبل از هر قدم توسعه، ساختار و تیم لازم را آماده می‌کنیم تا شعبه جدید به ظرفیت اضافه کند، نه به فشار.',
+    en: 'Before each step of expansion we get the structure and team ready, so a new branch adds capacity, not pressure.',
   },
   {
-    fa: 'شاخص‌های کلیدی، داشبورد مدیریتی و مدل اعتبارسنجی شعبه را راه‌اندازی می‌کنیم تا تصمیم‌ها پشتوانه عددی داشته باشند.',
-    en: 'We set up KPIs, a management dashboard and a branch validation model, so decisions rest on numbers.',
+    fa: 'شاخص‌ها، داشبورد مدیریتی و مدل سنجش شعبه را راه می‌اندازیم تا تصمیم‌های بزرگ پشتوانه عددی داشته باشند.',
+    en: 'We set up the KPIs, a management dashboard and a branch validation model, so big calls rest on numbers.',
   },
 ];
 
 export function GrowthRisks({ locale }: { locale: Locale }) {
+  const fa = locale === 'fa';
   return (
-    <ul className="stack-header grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
+    <ul className="stack-header grid gap-6 md:grid-cols-2">
       {industryProblem.problems.map((p, i) => (
-        <Reveal as="li" key={i} delay={i * 70} className="group relative bg-surface">
-          <div className="relative h-full p-6 transition-transform duration-standard ease-standard group-hover:-translate-y-[3px]">
-            {/* accent rule — the only thing hover changes besides the lift */}
-            <span
-              className="absolute inset-x-0 top-0 h-0.5 scale-x-0 bg-cyan transition-transform duration-standard ease-standard group-hover:scale-x-100"
-              aria-hidden
-            />
-            <span className="font-display text-h2 font-bold leading-none text-line-strong transition-colors duration-standard ease-standard group-hover:text-cyan">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <h3 className="text-h3 mt-4 text-navy">{p.title[locale]}</h3>
-            <p className="text-label mt-2 text-ink-muted">{p.body[locale]}</p>
-            <p className="text-label mt-4 border-t border-line pt-4 text-navy">
-              <span className="font-semibold text-functional">
-                {locale === 'fa' ? 'راه‌حل ما: ' : 'Our solution: '}
-              </span>
-              {solutions[i]?.[locale]}
-            </p>
+        <Reveal as="li" key={i} delay={i * 70}>
+          <div className="rs-card flex h-full flex-col rounded-card bg-surface p-6 shadow-card ring-1 ring-line hover:shadow-popover md:p-8">
+            {(() => {
+              const Icon = riskIcons[i] ?? Store;
+              return (
+                <span className="rs-icon-chip rs-card-icon">
+                  <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
+                </span>
+              );
+            })()}
+            <h3 className="text-h3 mt-5 text-ink">{p.title[locale]}</h3>
+            <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-muted">{p.body[locale]}</p>
+            <div className="mt-6 flex flex-1 gap-3 rounded-card bg-sunken p-4">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#0B7A6E]" strokeWidth={2} aria-hidden />
+              <div>
+                <p className="text-sm font-semibold text-ink">{fa ? 'چطور کمک می‌کنیم' : 'How we help'}</p>
+                <p className="mt-1 text-[0.9375rem] leading-relaxed text-ink">{solutions[i]?.[locale]}</p>
+              </div>
+            </div>
           </div>
         </Reveal>
       ))}

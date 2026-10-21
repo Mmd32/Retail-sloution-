@@ -29,7 +29,7 @@ export function InsightArchive({
 
   const chip = (active: boolean) =>
     `inline-flex min-h-[44px] items-center rounded-full px-5 text-label font-medium transition-colors duration-standard ease-standard ${
-      active ? 'bg-navy text-white' : 'border border-line bg-white text-ink-muted hover:border-cyan-300'
+      active ? 'bg-ink text-paper' : 'border border-line bg-surface text-ink-muted hover:border-cyan-300'
     }`;
 
   return (

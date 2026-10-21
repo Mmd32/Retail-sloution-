@@ -41,13 +41,13 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
 
           <aside className="min-w-0 lg:col-span-5">
             <div className="rounded-card border border-line bg-surface-muted p-8">
-              <h2 className="text-h3 text-navy">
+              <h2 className="text-h3 text-ink">
                 {locale === 'fa' ? 'راه‌های ارتباطی' : 'Ways to reach us'}
               </h2>
               <ul className="mt-6 space-y-5 text-sm">
                 <li className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-functional" aria-hidden />
-                  <a href={`mailto:${contact.email}`} className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]" dir="ltr">
+                  <a href={`mailto:${contact.email}`} className="inline-flex min-h-[44px] items-center text-ink transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]" dir="ltr">
                     {contact.email}
                   </a>
                 </li>
@@ -57,7 +57,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                     href={`https://${contact.website}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
+                    className="inline-flex min-h-[44px] items-center text-ink transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
                     dir="ltr"
                   >
                     {contact.website}
@@ -69,7 +69,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                     href={contact.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] min-w-0 items-center break-all text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
+                    className="inline-flex min-h-[44px] min-w-0 items-center break-all text-ink transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]"
                     dir="ltr"
                   >
                     linkedin.com/company/retailsolutions
@@ -78,7 +78,7 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
                 {contact.phoneEnabled && contact.phone ? (
                   <li className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-functional" aria-hidden />
-                    <a href={`tel:${contact.phone}`} className="inline-flex min-h-[44px] items-center text-navy transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]" dir="ltr">
+                    <a href={`tel:${contact.phone}`} className="inline-flex min-h-[44px] items-center text-ink transition-colors duration-standard ease-standard hover:text-functional lg:min-h-[24px]" dir="ltr">
                       {contact.phone}
                     </a>
                   </li>

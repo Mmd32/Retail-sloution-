@@ -63,7 +63,7 @@ export function EngagementComparison({ locale }: { locale: Locale }) {
         <p className="text-xs font-semibold uppercase tracking-label text-functional">
           {differentiation.retailSolutions.label[locale]}
         </p>
-        <h3 className="text-h3 mt-3 text-navy">
+        <h3 className="text-h3 mt-3 text-ink">
           {differentiation.retailSolutions.headline[locale]}
         </h3>
         <ol className="mt-7 space-y-3">
@@ -75,7 +75,7 @@ export function EngagementComparison({ locale }: { locale: Locale }) {
               >
                 <Check className="h-3 w-3" />
               </span>
-              <span className="text-label font-medium text-navy">{s[locale]}</span>
+              <span className="text-label font-medium text-ink">{s[locale]}</span>
             </li>
           ))}
         </ol>

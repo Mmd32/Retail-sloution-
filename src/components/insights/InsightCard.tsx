@@ -44,7 +44,8 @@ function TopicMark({ slug, className }: { slug: string; className?: string }) {
             y1={n.y}
             x2={m.x}
             y2={m.y}
-            stroke="#37507A"
+            stroke="currentColor"
+            strokeOpacity="0.6"
             strokeWidth="1"
           />
         );
@@ -55,8 +56,8 @@ function TopicMark({ slug, className }: { slug: string; className?: string }) {
           cx={n.x}
           cy={n.y}
           r={i === 0 ? 7 : 4}
-          fill={i === 0 ? '#00B0F0' : '#0B1F3A'}
-          stroke={i === 0 ? 'none' : '#5D6B90'}
+          style={{ fill: i === 0 ? '#00B0F0' : 'var(--rs-tint)' }}
+          stroke={i === 0 ? 'none' : 'currentColor'}
           strokeWidth="1.25"
         />
       ))}
@@ -80,49 +81,29 @@ export function InsightCard({
     <Link
       href={localePath(locale, `/insights/${insight.slug}`)}
       className={cn(
-        'group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface transition-colors duration-standard ease-standard hover:border-cyan',
+        'rs-card group flex h-full flex-col rounded-card bg-surface p-6 shadow-card ring-1 ring-line hover:shadow-popover',
         className,
       )}
     >
-      <div className="rs-blueprint relative flex items-center justify-center overflow-hidden bg-navy-900 px-8 py-7">
-        <TopicMark
-          slug={insight.slug}
-          className="max-w-[13rem] transition-transform duration-emphasis ease-standard group-hover:-translate-y-1"
-        />
-        <span className="absolute bottom-3 start-4 text-xs font-semibold uppercase tracking-label text-cyan">
-          {insight.topic[locale]}
-        </span>
-      </div>
-
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-faint">
-          {typeLabel && (
-            <span className="font-semibold uppercase tracking-label text-functional">
-              {typeLabel}
-            </span>
-          )}
-          <span>{formatDate(insight.publishedAt, locale)}</span>
-          {insight.readingMinutes ? (
-            <span>
-              {formatNumber(insight.readingMinutes, locale)} {locale === 'fa' ? 'دقیقه مطالعه' : 'min read'}
-            </span>
-          ) : null}
-        </div>
-
-        <h3 className="text-h3 mt-3 text-navy transition-transform duration-standard ease-standard group-hover:translate-x-0.5 group-hover:text-functional rtl:group-hover:-translate-x-0.5">
-          {insight.title[locale]}
-        </h3>
-        <p className="text-label mt-3 flex-1 text-ink-muted line-clamp-3">
-          {insight.summary[locale]}
-        </p>
-
-        <span className="mt-5 inline-flex items-center gap-2 text-label font-semibold text-functional">
-          {locale === 'fa' ? 'مطالعه' : 'Read'}
-          <Arrow
-            className="h-4 w-4 opacity-0 transition-all duration-standard ease-standard group-hover:opacity-100"
-            aria-hidden
-          />
-        </span>
+      <h3 className="text-h3 text-ink transition-colors duration-micro group-hover:text-functional">
+        {insight.title[locale]}
+      </h3>
+      <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-muted line-clamp-3">
+        {insight.summary[locale]}
+      </p>
+      <p className="mt-4 flex flex-wrap items-center gap-x-3 text-sm">
+        {typeLabel && <span className="font-semibold text-ink">{typeLabel}</span>}
+        <span className="text-ink-faint">{formatDate(insight.publishedAt, locale)}</span>
+        {insight.readingMinutes ? (
+          <span className="text-ink-faint">
+            {formatNumber(insight.readingMinutes, locale)} {locale === 'fa' ? 'دقیقه' : 'min'}
+          </span>
+        ) : null}
+      </p>
+      <div className="rs-tint relative mt-6 flex flex-1 items-end overflow-hidden rounded-card px-6 pb-4 pt-8 text-functional">
+        <TopicMark slug={insight.slug} className="mx-auto max-w-[14rem]" />
+        <span className="absolute start-4 top-3 text-xs font-semibold text-functional">{insight.topic[locale]}</span>
+        <Arrow className="rs-nudge absolute bottom-3 end-4 h-4 w-4 text-functional" aria-hidden />
       </div>
     </Link>
   );

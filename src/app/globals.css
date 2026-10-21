@@ -3,36 +3,64 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Retail Solutions — Design System v1.0 tokens (§13.3)
-   Names follow the system exactly so they can be swapped for the published
-   token package without touching components.
+   Retail Solutions — Design System v3.0
+
+   Benchmark: the information architecture and presentation of the large
+   global professional-services sites — a dark, quiet shell (header, hero,
+   footer), light display type at large sizes, colour-coded sticky section
+   bars, white cards on a fog field, pill buttons. Nothing is borrowed except
+   the pattern: every colour and face below is Retail Solutions' own
+   (Executive Navy, Retail Cyan, the §5.3 extended palette, Inter + Vazirmatn).
+
+   Colours are RGB channels so Tailwind `/alpha` modifiers keep working.
+   Contrast — light: ink 15.9, ink-2 7.8 (white) / 7.0 (fog), action 5.3 / 4.8.
+   Dark: ink 15.2, ink-2 8.1, action 9.3.
    ───────────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Brand */
-  --rs-color-brand-cyan: #00b0f0;
-  --rs-color-brand-navy: #16213e;
-  --rs-color-neutral-fog: #f1f2f5;
-  --rs-color-neutral-white: #ffffff;
+  color-scheme: light;
 
-  /* Functional and semantic */
-  --rs-color-action-primary: #00709a;
-  --rs-color-success: #2d9d78;
-  --rs-color-warning: #f2b544;
-  --rs-color-error: #d94a56;
-  --rs-color-info: #007daa;
+  --c-paper: 255 255 255;        /* page */
+  --c-surface: 255 255 255;      /* cards */
+  --c-surface-muted: 241 242 245;/* hover wash = Retail Fog */
+  --c-sunken: 241 242 245;       /* #F1F2F5 Retail Fog — card field */
+  --c-ink: 22 33 62;             /* #16213E Executive Navy */
+  --c-ink-2: 74 82 102;          /* #4A5266 */
+  --c-ink-3: 88 96 118;          /* #586076 */
+  --c-line: 223 226 233;         /* #DFE2E9 */
+  --c-line-strong: 134 142 160;  /* #868EA0 control borders */
+  --c-action: 0 114 163;         /* #0072A3 */
+  --c-action-hover: 0 90 130;
+  --c-on-action: 255 255 255;
+  --c-shadow: 10 15 28;
+  --c-callout-info: 217 245 255;
+  --c-callout-attention: 255 245 222;
+  --c-callout-success: 232 247 241;
+  --c-callout-critical: 253 236 239;
 
-  /* Text and surfaces */
-  --rs-color-text-primary: #16213e;
-  --rs-color-text-link: #00709a;
-  /* Small labels/eyebrows frequently sit on Fog, where Functional Blue reaches
-     only 4.14:1 — under the 4.5:1 required for 14px text (§18.1). This darker
-     shade of the same hue passes on both White (6.4:1) and Fog (5.7:1). */
-  --rs-color-text-label: #00668c;
-  --rs-color-surface-page: #ffffff;
-  --rs-color-surface-subtle: #f7f3ec;
-  --rs-color-focus-ring: #00709a;
+  /* The dark shell: header, hero, closing band, footer. Fixed in both
+     appearances — it is already dark. */
+  --rs-shell: #16213e;           /* Executive Navy — footer, data panels */
+  --rs-shell-2: #1d2a49;
+  --rs-tint: #eaf6fc;            /* soft cyan wash for light feature bands */
+  --rs-cyan: #00b0f0;
+  --rs-navy: #16213e;
 
-  /* Spacing (§7.4) */
+  /* Section bars — one colour per content type, white text ≥ 5.2:1. */
+  --rs-bar-challenges: #16213e;  /* navy   — the problem */
+  --rs-bar-solutions: #0072a3;   /* blue   — what we do */
+  --rs-bar-work: #0b7a6e;        /* teal   — capability, results */
+  --rs-bar-insights: #4f4fc4;    /* violet — thinking */
+  --rs-bar-assessment: #16213e;
+
+  /* Legacy names still read by a few components. */
+  --rs-color-brand-cyan: var(--rs-cyan);
+  --rs-color-brand-navy: var(--rs-navy);
+  --rs-color-text-primary: rgb(var(--c-ink));
+  --rs-color-text-label: rgb(var(--c-action));
+  --rs-color-surface-page: rgb(var(--c-paper));
+  --rs-color-surface-nude: rgb(var(--c-sunken));
+  --rs-color-focus-ring: rgb(var(--c-action));
+
   --rs-space-1: 4px;
   --rs-space-2: 8px;
   --rs-space-3: 12px;
@@ -41,58 +69,72 @@
   --rs-space-8: 32px;
   --rs-space-12: 48px;
   --rs-space-16: 64px;
-
-  /* Radius (§8.1) */
-  --rs-radius-control: 8px;
-  --rs-radius-button: 12px;
-  --rs-radius-card: 16px;
-  --rs-radius-feature: 24px;
   --rs-radius-full: 999px;
 
-  /* Motion (§17) */
-  --rs-duration-micro: 100ms;
-  --rs-duration-standard: 180ms;
-  --rs-duration-emphasis: 240ms;
+  --rs-duration-micro: 120ms;
+  --rs-duration-standard: 200ms;
   --rs-duration-narrative: 320ms;
   --rs-ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --rs-ease-exit: cubic-bezier(0.4, 0, 1, 1);
 
-  /* Elevation (§8.2) */
-  --rs-shadow-card: 0 4px 16px rgba(22, 33, 62, 0.08);
-  --rs-shadow-popover: 0 12px 32px rgba(22, 33, 62, 0.14);
-  --rs-shadow-modal: 0 24px 64px rgba(22, 33, 62, 0.2);
-
-  /* Layout (§7.1, §7.2) */
-  --rs-container: 1200px;
+  --rs-container: 1280px;
   --rs-margin-desktop: 48px;
   --rs-margin-tablet: 32px;
-  --rs-margin-mobile: 20px;
+  --rs-margin-mobile: 16px;
+  --rs-section-y: clamp(56px, 2.5rem + 4vw, 104px);
+  --rs-header-gap: clamp(32px, 1.75rem + 1.5vw, 56px);
+  --rs-header-h: 56px;
+}
 
-  /* Section rhythm, built from the approved spacing scale */
-  --rs-section-y: clamp(32px, 1.25rem + 2vw, 56px);
-  --rs-header-gap: clamp(var(--rs-space-6), 1.25rem + 0.75vw, 32px);
-  --rs-color-surface-nude: #f4eee6;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --c-paper: 13 18 30;          /* #0D121E */
+    --c-surface: 18 24 38;        /* #121826 */
+    --c-surface-muted: 26 33 50;
+    --c-sunken: 10 15 26;         /* #0A0F1A */
+    --c-ink: 232 235 242;
+    --c-ink-2: 167 176 194;       /* #A7B0C2 */
+    --c-ink-3: 140 150 170;
+    --c-line: 38 47 68;
+    --c-line-strong: 98 110 138;
+    --c-action: 91 200 242;       /* #5BC8F2 */
+    --c-action-hover: 140 218 248;
+    --c-on-action: 6 18 31;
+    --c-shadow: 0 0 0;
+    --c-callout-info: 14 39 56;
+    --c-callout-attention: 48 38 14;
+    --c-callout-success: 12 44 34;
+    --c-callout-critical: 54 20 28;
+    --rs-tint: #0f2233;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --c-ink-2: 40 48 68;
+    --c-ink-3: 52 60 82;
+    --c-line: 150 158 176;
+  }
 }
 
 @layer base {
-  * {
-    border-color: theme('colors.line.DEFAULT');
-  }
+  * { border-color: rgb(var(--c-line)); }
 
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    scroll-padding-top: 72px; /* anchors land below the sticky header */
+    background-color: rgb(var(--c-paper));
   }
 
   body {
-    background-color: var(--rs-color-surface-page);
-    color: var(--rs-color-text-primary);
+    background-color: rgb(var(--c-paper));
+    color: rgb(var(--c-ink));
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* §6.5 minimum body 16px, line-height 1.5–1.7 */
   html[lang^='en'] body {
     font-family: theme('fontFamily.sans');
     font-size: 1rem;
@@ -102,95 +144,86 @@
   html[lang^='fa'] body {
     font-family: theme('fontFamily.fa');
     font-size: 1.0625rem;
-    line-height: 1.8;
+    line-height: 1.85;
     letter-spacing: 0;
   }
 
   h1, h2, h3, h4 {
-    color: var(--rs-color-text-primary);
+    color: rgb(var(--c-ink));
     text-wrap: balance;
   }
+  html[lang^='fa'] h1, html[lang^='fa'] h2, html[lang^='fa'] h3, html[lang^='fa'] h4 { letter-spacing: 0; }
+  html[lang^='fa'] { font-variant-numeric: lining-nums; }
+  p { text-wrap: pretty; }
 
-  html[lang^='fa'] h1,
-  html[lang^='fa'] h2,
-  html[lang^='fa'] h3,
-  html[lang^='fa'] h4 {
-    letter-spacing: 0;
-  }
-
-  html[lang^='fa'] {
-    font-variant-numeric: lining-nums;
-  }
-
-  /* §18.1 focus indicator visible on every surface */
   :focus-visible {
-    outline: 2px solid var(--rs-color-focus-ring);
-    outline-offset: 2px;
+    outline: 2px solid rgb(var(--c-action));
+    outline-offset: 3px;
     border-radius: 2px;
   }
+  .rs-shell :focus-visible { outline-color: var(--rs-cyan); }
 
-  ::selection {
-    background: theme('colors.callout.info');
-    color: var(--rs-color-brand-navy);
-  }
+  ::selection { background: rgb(0 176 240 / 0.25); color: inherit; }
 }
 
 @layer components {
-  /* §7.1 responsive margins, §7.2 container 1200px */
   .container-x {
     width: 100%;
     max-width: var(--rs-container);
     margin-inline: auto;
     padding-inline: var(--rs-margin-mobile);
   }
-  @media (min-width: 768px) {
-    .container-x { padding-inline: var(--rs-margin-tablet); }
-  }
-  @media (min-width: 1200px) {
-    .container-x { padding-inline: var(--rs-margin-desktop); }
-  }
+  @media (min-width: 768px) { .container-x { padding-inline: var(--rs-margin-tablet); } }
+  @media (min-width: 1200px) { .container-x { padding-inline: var(--rs-margin-desktop); } }
 
   .section-y { padding-block: var(--rs-section-y); }
+  /* Tighter rhythm for the short, scannable homepage. */
+  .section-y-sm { padding-block: clamp(40px, 1.75rem + 2.5vw, 72px); }
 
-  /* Page rhythm: navy opens (hero) and closes (CTA + footer) every page; the
-     light bands in between alternate white ↔ nude by position. */
-  .rs-band { background-color: var(--rs-color-surface-page); }
-  main > .rs-band:nth-child(even of .rs-band) {
-    background-color: var(--rs-color-surface-nude);
-  }
+  /* Light sections alternate fog ↔ white by position, starting on fog so
+     the first card grid sits on a field. */
+  .rs-band { background-color: rgb(var(--c-sunken)); }
+  main > .rs-band:nth-child(even of .rs-band) { background-color: rgb(var(--c-paper)); }
   .stack-header { margin-block-start: var(--rs-header-gap); }
-
-  /* §6.5 reading column 45–75 characters */
   .reading { max-width: theme('maxWidth.reading'); }
 
-  /* Label style — used for eyebrows and metadata (§6.2 Label 14/20 Medium).
-     Functional Blue, never Cyan, because Cyan fails contrast on white (§5.5). */
+  /* The dark shell surface. */
+  .rs-shell { background-color: var(--rs-shell); color: #c9ced8; }
+
+  /* Eyebrow / tag — short, semibold, sentence case, no ornament. */
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: var(--rs-space-2);
     font-size: 0.875rem;
     line-height: 1.25rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--rs-color-text-label);
-  }
-  html[lang^='fa'] .eyebrow {
-    letter-spacing: 0;
-    text-transform: none;
     font-weight: 600;
+    color: rgb(var(--c-ink));
   }
-  .eyebrow-on-dark { color: theme('colors.cyan.DEFAULT'); }
+  html[lang^='fa'] .eyebrow { font-size: 0.9375rem; }
+  .eyebrow-on-dark { color: var(--rs-cyan); }
+  .eyebrow-plain { }
+
+  /* Colour-coded sticky section bar. It sits at the top of its section and
+     pins under the header while that section is on screen, so the visitor
+     always knows which part of the page they are in. */
+  .rs-section-bar {
+    position: sticky;
+    top: var(--rs-header-h);
+    z-index: 30;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+  .rs-section-bar > div { display: flex; align-items: center; min-height: 48px; }
 
   .rule-accent::before {
     content: '';
     display: block;
     inline-size: 40px;
     block-size: 3px;
-    background: var(--rs-color-brand-cyan);
+    background: var(--rs-cyan);
     margin-block-end: var(--rs-space-4);
-    border-radius: var(--rs-radius-full);
   }
 
   .link-underline {
@@ -203,17 +236,9 @@
   html[dir='rtl'] .link-underline { background-position: 100% 100%; }
   .link-underline:hover { background-size: 100% 1px; }
 
-  /* Photography placeholder — modular, diagrammatic, calm (§11.1). */
-  .media-frame {
-    position: relative;
-    overflow: hidden;
-    background-color: theme('colors.navy.800');
-    background-image:
-      linear-gradient(theme('colors.navy.700') 1px, transparent 1px),
-      linear-gradient(90deg, theme('colors.navy.700') 1px, transparent 1px);
-    background-size: 32px 32px;
-    background-position: center;
-  }
+  .media-frame { position: relative; overflow: hidden; background-color: theme('colors.navy.800'); }
+
+  .num { font-variant-numeric: tabular-nums; }
 }
 
 /* ─── Persian type ramp ────────────────────────────────────────────────────
@@ -226,12 +251,12 @@
    selector — the document renders lang="fa-IR", so html[lang='fa'] would
    never match. */
 html[lang^='fa'] .text-display {
-  font-size: clamp(2rem, 1.3rem + 2.9vw, 3.25rem);
-  line-height: 1.35;
+  font-size: clamp(2.125rem, 1.25rem + 3.6vw, 4rem);
+  line-height: 1.4;
   letter-spacing: 0;
 }
 html[lang^='fa'] .text-h1 {
-  font-size: clamp(1.7rem, 1.35rem + 1.7vw, 2.4rem);
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
   line-height: 1.4;
   letter-spacing: 0;
 }
@@ -292,19 +317,9 @@ html[lang^='fa'] .text-sm { font-size: 1rem; line-height: 1.7; }
   animation-delay: var(--rs-draw-delay, 0ms);
 }
 
-/* Blueprint grid — the shared substrate of the visual language (§20). */
-.rs-blueprint {
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-.rs-blueprint-light {
-  background-image:
-    linear-gradient(to right, rgba(22, 33, 62, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(22, 33, 62, 0.045) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
+/* The blueprint grid of v1 is retired: the class stays as a no-op so old
+   call sites compile, and dark panels read as flat, quiet navy. */
+.rs-blueprint, .rs-blueprint-light { background-image: none; }
 
 /* ── More motion (all transform / opacity, all off under reduced motion) ── */
 
@@ -367,3 +382,283 @@ html[lang^='fa'] .text-sm { font-size: 1rem; line-height: 1.7; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   .rs-draw { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
 }
+
+
+/* ── v3.1 polish: light shell, motion ───────────────────────────────────── */
+
+/* Light sticky bar over content. */
+.rs-bar {
+  background-color: rgb(var(--c-paper) / 0.88);
+  -webkit-backdrop-filter: saturate(1.5) blur(16px);
+  backdrop-filter: saturate(1.5) blur(16px);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .rs-bar { background-color: rgb(var(--c-paper)); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* Soft hero field: fog with a cyan glow on the figure side. */
+.rs-hero-field {
+  background:
+    radial-gradient(60% 70% at 85% 40%, rgb(0 176 240 / 0.14), transparent 70%),
+    radial-gradient(40% 50% at 10% 100%, rgb(79 79 196 / 0.07), transparent 70%),
+    rgb(var(--c-sunken));
+}
+html[dir='rtl'] .rs-hero-field {
+  background:
+    radial-gradient(60% 70% at 15% 40%, rgb(0 176 240 / 0.14), transparent 70%),
+    radial-gradient(40% 50% at 90% 100%, rgb(79 79 196 / 0.07), transparent 70%),
+    rgb(var(--c-sunken));
+}
+.rs-tint { background-color: var(--rs-tint); }
+
+/* The hero figure floats gently — the one ambient motion on the page. */
+@keyframes rs-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.rs-float { animation: rs-float 7s ease-in-out infinite; }
+
+/* Cards: a small lift and an icon that leans forward on hover. */
+.rs-card {
+  transition: transform 220ms var(--rs-ease-standard), box-shadow 220ms var(--rs-ease-standard);
+}
+.rs-card:hover { transform: translateY(-4px); }
+.rs-card .rs-card-icon { transition: transform 220ms var(--rs-ease-standard), background-color 220ms; }
+.rs-card:hover .rs-card-icon { transform: scale(1.08) rotate(-4deg); }
+
+/* Icon chip used across cards and lists. */
+.rs-icon-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  inline-size: 44px; block-size: 44px; flex: none;
+  border-radius: 999px;
+  background: rgb(0 176 240 / 0.12);
+  color: rgb(var(--c-action));
+}
+
+/* Arrow that nudges forward on hover of its group. */
+.group:hover .rs-nudge { transform: translateX(3px); }
+html[dir='rtl'] .group:hover .rs-nudge { transform: translateX(-3px); }
+.rs-nudge { transition: transform 200ms var(--rs-ease-standard); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-float { animation: none; }
+  .rs-card:hover, .rs-card:hover .rs-card-icon, .group:hover .rs-nudge { transform: none; }
+}
+
+/* Homepage statement — the studio-style opener. Light weight at a very large
+   size; Persian is set a step smaller with more leading. */
+.text-hero {
+  font-size: clamp(2.75rem, 1.2rem + 6.8vw, 7rem);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+html[lang^='fa'] .text-hero {
+  font-size: clamp(2.5rem, 1.2rem + 5.4vw, 5.75rem);
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   Studio direction (v4)
+
+   White sheet, black type, IBM Plex Sans Light for statements and IBM Plex
+   Mono for every label. Ornament is limited to square brackets and corner
+   marks. The homepage opens on a fixed full-bleed reel that the sheet slides
+   over. Everything below is prefixed `bk-`.
+   ═════════════════════════════════════════════════════════════════════════ */
+:root {
+  --bk-gutter: 16px;
+  /* Company profile palette: Retail Cyan, Executive Navy, Retail Fog. */
+  --bk-ink: #16213e;
+  --bk-body: #4a5266;
+  --bk-muted: #586076;
+  --bk-accent: #00b0f0;
+  --bk-band: #f1f2f5;
+  --bk-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --bk-nav-h: 37px;
+}
+@media (min-width: 768px) { :root { --bk-gutter: 30px; } }
+
+.bk-wrap { padding-inline: var(--bk-gutter); }
+
+/* Type */
+.bk-mono {
+  font-family: var(--font-mono), monospace;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+html[lang^='fa'] .bk-mono {
+  font-family: var(--font-fa), Tahoma, sans-serif;
+  font-size: 15px;
+  line-height: 1.3;
+  text-transform: none;
+}
+.bk-display {
+  font-family: var(--font-latin), Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(30px, 1.2rem + 2.6vw, 56px);
+  line-height: 1.14;
+  letter-spacing: 0.1px;
+  color: var(--bk-ink);
+}
+html[lang^='fa'] .bk-display {
+  font-family: var(--font-fa), Tahoma, sans-serif;
+  font-size: clamp(25px, 1.05rem + 2.1vw, 46px);
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+.bk-title {
+  font-family: var(--font-latin), Arial, sans-serif;
+  font-weight: 300;
+  font-size: clamp(24px, 1.1rem + 0.9vw, 32px);
+  line-height: 1.15;
+  letter-spacing: 0.1px;
+  color: var(--bk-ink);
+}
+html[lang^='fa'] .bk-title {
+  font-family: var(--font-fa), Tahoma, sans-serif;
+  font-size: clamp(21px, 1rem + 0.7vw, 28px);
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+.bk-sub {
+  font-family: var(--font-latin), Arial, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--bk-ink);
+}
+html[lang^='fa'] .bk-sub { font-family: var(--font-fa), Tahoma, sans-serif; font-size: 16px; line-height: 1.6; }
+.bk-body { font-size: 16px; line-height: 1.5; color: var(--bk-body); }
+
+/* Brackets — `[ LABEL ]`. In nav they appear on hover; on buttons they sit
+   open and spread on hover. Flex order flips with dir, and the bracket
+   glyphs mirror in RTL, so the pair always reads as an enclosure. */
+.bk-brackets { display: inline-flex; align-items: center; gap: 2px; color: var(--bk-ink); }
+.bk-brackets .bk-b { display: inline-block; color: var(--bk-accent); transition: transform 320ms var(--bk-ease), opacity 220ms var(--bk-ease); }
+.bk-nav-item .bk-b { opacity: 0; }
+.bk-nav-item .bk-b-l { transform: translateX(-6px); }
+.bk-nav-item .bk-b-r { transform: translateX(6px); }
+html[dir='rtl'] .bk-nav-item .bk-b-l { transform: translateX(6px); }
+html[dir='rtl'] .bk-nav-item .bk-b-r { transform: translateX(-6px); }
+.bk-nav-item:hover .bk-b,
+.bk-nav-item:focus-visible .bk-b,
+.bk-nav-item[aria-current='page'] .bk-b { opacity: 1; transform: none; }
+.bk-btn:hover .bk-b-l, .bk-btn:focus-visible .bk-b-l { transform: translateX(-5px); }
+.bk-btn:hover .bk-b-r, .bk-btn:focus-visible .bk-b-r { transform: translateX(5px); }
+html[dir='rtl'] .bk-btn:hover .bk-b-l, html[dir='rtl'] .bk-btn:focus-visible .bk-b-l { transform: translateX(5px); }
+html[dir='rtl'] .bk-btn:hover .bk-b-r, html[dir='rtl'] .bk-btn:focus-visible .bk-b-r { transform: translateX(-5px); }
+
+/* Sheet that slides over the fixed reel. */
+.bk-sheet { position: relative; z-index: 10; background: #fff; }
+body:has(.bk-hero) .bk-header { margin-top: 100vh; margin-top: 100svh; }
+
+/* ── Hero reel ─────────────────────────────────────────────────────────── */
+.bk-hero { position: fixed; inset: 0; z-index: 0; background: var(--bk-ink); overflow: hidden; }
+.bk-hero video, .bk-hero img.bk-hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bk-hero-empty {
+  position: absolute; inset: -20%;
+  background:
+    radial-gradient(40% 50% at 30% 40%, rgba(0, 176, 240, 0.45), transparent 70%),
+    radial-gradient(35% 45% at 70% 60%, rgba(0, 114, 163, 0.45), transparent 70%),
+    radial-gradient(30% 40% at 55% 25%, rgba(255, 255, 255, 0.10), transparent 70%);
+  filter: blur(30px);
+  animation: bk-drift 18s ease-in-out infinite alternate;
+}
+@keyframes bk-drift {
+  from { transform: translate3d(-4%, -2%, 0) scale(1); }
+  to   { transform: translate3d(4%, 3%, 0) scale(1.08); }
+}
+.bk-corner { position: absolute; width: 14px; height: 14px; color: #fff; }
+.bk-hero .bk-corner.tl { top: 18px; left: 14px; }
+.bk-hero .bk-corner.tr { top: 18px; right: 14px; transform: scaleX(-1); }
+.bk-hero .bk-corner.bl { bottom: 18px; left: 14px; transform: scaleY(-1); }
+.bk-hero .bk-corner.br { bottom: 18px; right: 14px; transform: scale(-1, -1); }
+
+.bk-hero-logo {
+  position: absolute; inset: 0; margin: auto;
+  width: min(350px, 62vw); height: fit-content;
+  color: #fff;
+  animation: bk-logo-out 700ms var(--bk-ease) 3400ms forwards;
+}
+.bk-hero-logo .frame { stroke-dasharray: 1; stroke-dashoffset: 1; animation: bk-draw 1300ms var(--bk-ease) 250ms forwards; }
+.bk-hero-logo .word { opacity: 0; transform: translateY(18px); animation: bk-word 900ms var(--bk-ease) forwards; }
+.bk-hero-logo .word.w1 { animation-delay: 900ms; }
+.bk-hero-logo .word.w2 { animation-delay: 1100ms; }
+@keyframes bk-draw { to { stroke-dashoffset: 0; } }
+@keyframes bk-word { to { opacity: 1; transform: none; } }
+@keyframes bk-logo-out { to { opacity: 0; transform: scale(0.96); } }
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.bk-header { position: sticky; top: 0; z-index: 50; background: #fff; }
+
+/* ── Marquee ───────────────────────────────────────────────────────────── */
+.bk-marquee { display: flex; overflow: hidden; background: var(--bk-band); padding-block: 64px; }
+.bk-marquee-track {
+  display: flex; flex-shrink: 0; align-items: center; min-width: 100%;
+  animation: bk-marquee var(--bk-marquee-d, 40s) linear infinite;
+}
+html[dir='rtl'] .bk-marquee-track { animation-name: bk-marquee-rtl; }
+.bk-marquee:hover .bk-marquee-track { animation-play-state: paused; }
+@keyframes bk-marquee { to { transform: translateX(-100%); } }
+@keyframes bk-marquee-rtl { to { transform: translateX(100%); } }
+
+/* ── Work grid ─────────────────────────────────────────────────────────── */
+.bk-card-media { position: relative; overflow: hidden; aspect-ratio: 3 / 2; background: var(--bk-band); }
+.bk-card-media > img, .bk-card-media > video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 900ms var(--bk-ease);
+}
+.bk-card:hover .bk-card-media > img, .bk-card:hover .bk-card-media > video { transform: scale(1.03); }
+.bk-card-over {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 24px;
+  background: rgba(0, 176, 240, 0.92); color: #fff; opacity: 0;
+  transition: opacity 450ms var(--bk-ease);
+}
+.bk-card:hover .bk-card-over, .bk-card:focus-visible .bk-card-over { opacity: 1; }
+.bk-card-over > * { transform: translateY(10px); transition: transform 600ms var(--bk-ease); }
+.bk-card:hover .bk-card-over > *, .bk-card:focus-visible .bk-card-over > * { transform: none; }
+.bk-card-cap { position: absolute; inset-inline-start: 16px; bottom: 16px; z-index: 1; }
+
+/* ── Digit roll ────────────────────────────────────────────────────────── */
+.bk-num {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(64px, 3rem + 4.4vw, 115px);
+  line-height: 1;
+  color: var(--bk-ink);
+}
+html[lang^='fa'] .bk-num { font-family: var(--font-fa), Tahoma, sans-serif; font-weight: 300; line-height: 1.15; }
+.bk-digit { display: inline-block; overflow: hidden; vertical-align: top; }
+.bk-digit > span { display: inline-block; transform: translateY(105%); opacity: 0; transition: transform 900ms var(--bk-ease), opacity 400ms var(--bk-ease); transition-delay: var(--d, 0ms); }
+[data-in='true'] .bk-digit > span { transform: none; opacity: 1; }
+
+/* ── Contact band — turns black as it reaches the middle of the screen ── */
+.bk-contact { transition: background-color 700ms var(--bk-ease), color 700ms var(--bk-ease); background: #fff; color: var(--bk-ink); }
+.bk-contact .bk-title, .bk-contact .bk-mono { color: inherit; transition: color 700ms var(--bk-ease); }
+/* Closes on Retail Cyan, like the profile's last page. */
+.bk-contact[data-dark='true'] { background: var(--bk-accent); color: #fff; }
+.bk-contact .bk-row { border-top: 1px solid currentColor; border-color: rgb(22 33 62 / 0.25); transition: border-color 700ms var(--bk-ease); }
+.bk-contact[data-dark='true'] .bk-row { border-color: rgb(255 255 255 / 0.55); }
+.bk-contact .bk-row:last-child { border-bottom: 1px solid rgb(22 33 62 / 0.25); }
+.bk-contact[data-dark='true'] .bk-row:last-child { border-bottom-color: rgb(255 255 255 / 0.55); }
+.bk-row .bk-arrow { transition: transform 450ms var(--bk-ease); }
+.bk-row:hover .bk-arrow { transform: translate(4px, -4px); }
+html[dir='rtl'] .bk-row:hover .bk-arrow { transform: translate(-4px, -4px); }
+.bk-caret { display: inline-block; width: 0.6ch; animation: bk-blink 900ms steps(1) infinite; }
+@keyframes bk-blink { 50% { opacity: 0; } }
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+.bk-footer a { transition: opacity 200ms var(--bk-ease); }
+.bk-footer a:hover { opacity: 0.55; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-hero-empty, .bk-marquee-track, .bk-caret { animation: none; }
+  .bk-hero-logo, .bk-hero-logo .frame, .bk-hero-logo .word { animation-duration: 1ms; animation-delay: 0ms; }
+  .bk-digit > span { transition: none; }
+}
+/* The reel must open dark; the page fade would wash it grey. */
+.animate-page:has(.bk-hero) { animation: none; }
+/* Supplied logo artwork on the reel: no stroke to draw, so it rises in. */
+.bk-hero-logo-img { opacity: 0; transform: translateY(18px); animation: bk-word 1000ms var(--bk-ease) 300ms forwards, bk-logo-out 700ms var(--bk-ease) 3400ms forwards; }

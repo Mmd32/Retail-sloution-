@@ -26,13 +26,13 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
                 id={`phase-tab-${p.key}`}
                 onClick={() => setActive(i)}
                 className={`w-full rounded-card border p-4 text-start transition-colors ${
-                  isActive ? 'border-cyan bg-callout-info' : 'border-line bg-white hover:border-cyan-200'
+                  isActive ? 'border-cyan bg-callout-info' : 'border-line bg-surface hover:border-cyan-200'
                 }`}
               >
                 <span className={`text-sm font-semibold ${isActive ? 'text-functional' : 'text-ink-faint'}`}>
                   0{i + 1}
                 </span>
-                <span className="mt-1 block font-semibold text-navy">{p.name[locale]}</span>
+                <span className="mt-1 block font-semibold text-ink">{p.name[locale]}</span>
               </button>
             </li>
           );
@@ -44,11 +44,11 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
         id={`phase-panel-${phase.key}`}
         role="tabpanel"
         aria-labelledby={`phase-tab-${phase.key}`}
-        className="mt-8 rounded-feature border border-line bg-white p-8"
+        className="mt-8 rounded-feature border border-line bg-surface p-8"
       >
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-3xl font-bold text-cyan">0{active + 1}</span>
-          <h3 className="text-h2 text-navy">{phase.name[locale]}</h3>
+          <span className="num text-3xl font-medium text-functional">0{active + 1}</span>
+          <h3 className="text-h2 text-ink">{phase.name[locale]}</h3>
         </div>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-2">
@@ -71,7 +71,7 @@ export function MethodologyExplorer({ locale }: { locale: Locale }) {
             <Field label={u('typicalOutputs', locale)}>
               <div className="flex flex-wrap gap-2">
                 {phase.outputs[locale].map((o, i) => (
-                  <span key={i} className="rounded-full bg-surface-muted px-3 py-1.5 text-sm text-navy">{o}</span>
+                  <span key={i} className="rounded-full bg-surface-muted px-3 py-1.5 text-sm text-ink">{o}</span>
                 ))}
               </div>
             </Field>

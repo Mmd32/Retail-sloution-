@@ -91,11 +91,11 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
   if (phase === 'intro') {
     return (
       <Card>
-        <h2 className="text-h2 text-navy">{assessmentMeta.title[locale]}</h2>
+        <h2 className="text-h2 text-ink">{assessmentMeta.title[locale]}</h2>
         <p className="mt-4 leading-relaxed text-ink-muted">{assessmentMeta.intro[locale]}</p>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           {dimensions.map((d) => (
-            <div key={d.key} className="rounded-control border border-line bg-surface-muted px-4 py-3 text-sm text-navy">
+            <div key={d.key} className="rounded-control border border-line bg-surface-muted px-4 py-3 text-sm text-ink">
               {d.name[locale]}
             </div>
           ))}
@@ -132,14 +132,14 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <h2 className="text-h3 text-navy md:text-2xl">{currentDim.name[locale]}</h2>
+        <h2 className="text-h3 text-ink md:text-2xl">{currentDim.name[locale]}</h2>
 
         <div className="mt-6 space-y-6">
           {currentDim.questions.map((q, qi) => {
             const qKey = `${currentDim.key}-${qi}`;
             return (
               <fieldset key={qKey} className="rounded-card border border-line p-5">
-                <legend className="px-1 text-base font-medium text-navy">{q[locale]}</legend>
+                <legend className="px-1 text-base font-medium text-ink">{q[locale]}</legend>
                 <div className="mt-3 grid gap-2 sm:grid-cols-5">
                   {answerScale.map((opt) => {
                     const selected = answers[qKey] === opt.value;
@@ -147,7 +147,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
                       <label
                         key={opt.value}
                         className={`cursor-pointer rounded-control border p-3 text-center text-xs transition-colors ${
-                          selected ? 'border-cyan bg-callout-info text-navy' : 'border-line hover:border-cyan-300 text-ink-muted'
+                          selected ? 'border-cyan bg-callout-info text-ink' : 'border-line hover:border-cyan-300 text-ink-muted'
                         }`}
                       >
                         <input
@@ -171,7 +171,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
         <div className="mt-8 flex items-center justify-between gap-4">
           <button
             onClick={() => (dimIndex === 0 ? setPhase('intro') : setDimIndex((i) => i - 1))}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted hover:text-navy"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted hover:text-ink"
           >
             <Back className="h-4 w-4" aria-hidden /> {u('previous', locale)}
           </button>
@@ -193,7 +193,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
         </p>
         <div className="mt-4 flex flex-col items-center">
           <Gauge value={overall} locale={locale} />
-          <p className="mt-4 text-h2 text-navy">{level.label[locale]}</p>
+          <p className="mt-4 text-h2 text-ink">{level.label[locale]}</p>
           <p className="mt-2 max-w-md text-center text-ink-muted">{level.description[locale]}</p>
         </div>
 
@@ -204,9 +204,9 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
               <Bar key={d.key} label={d.name[locale]} value={scores[d.key] ?? 0} locale={locale} />
             ))}
           </div>
-          <div className="absolute inset-0 flex flex-col items-center justify-center rounded-card bg-white/60">
+          <div className="absolute inset-0 flex flex-col items-center justify-center rounded-card bg-surface/60">
             <Lock className="h-6 w-6 text-functional" aria-hidden />
-            <p className="mt-2 max-w-sm text-center text-sm text-navy">{assessmentLeadFields.intro[locale]}</p>
+            <p className="mt-2 max-w-sm text-center text-sm text-ink">{assessmentLeadFields.intro[locale]}</p>
           </div>
         </div>
 
@@ -218,7 +218,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
           />
           {/* Reveal full result client-side after submission via a light bridge. */}
           <div className="mt-4 text-center">
-            <button onClick={() => setPhase('result')} className="text-sm font-medium text-functional hover:text-navy">
+            <button onClick={() => setPhase('result')} className="text-sm font-medium text-functional hover:text-ink">
               {u('getFullResult', locale)} →
             </button>
           </div>
@@ -234,12 +234,12 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
       <div className="flex flex-col items-center">
         <p className="text-sm font-semibold uppercase tracking-wide text-functional">{u('overallScore', locale)}</p>
         <Gauge value={overall} locale={locale} />
-        <p className="mt-3 text-h2 text-navy">{level.label[locale]}</p>
+        <p className="mt-3 text-h2 text-ink">{level.label[locale]}</p>
         <p className="mt-2 max-w-md text-center text-ink-muted">{level.description[locale]}</p>
       </div>
 
       <div className="mt-10">
-        <h3 className="text-h3 text-navy">{u('dimensionBreakdown', locale)}</h3>
+        <h3 className="text-h3 text-ink">{u('dimensionBreakdown', locale)}</h3>
         <div className="mt-4 space-y-3">
           {dimensions.map((d) => (
             <Bar key={d.key} label={d.name[locale]} value={scores[d.key] ?? 0} locale={locale} />
@@ -248,7 +248,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
       </div>
 
       <div className="mt-10 rounded-card border border-cyan-200 bg-callout-info p-6">
-        <h3 className="text-h3 text-navy">{u('preliminaryRecommendation', locale)}</h3>
+        <h3 className="text-h3 text-ink">{u('preliminaryRecommendation', locale)}</h3>
         {recommendedService ? (
           <p className="mt-2 text-ink">
             {locale === 'fa'
@@ -286,7 +286,7 @@ export function AssessmentFlow({ locale }: { locale: Locale }) {
             setDimIndex(0);
             setPhase('intro');
           }}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted hover:text-navy"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted hover:text-ink"
         >
           <RotateCcw className="h-4 w-4" aria-hidden /> {u('restart', locale)}
         </button>
@@ -316,7 +316,7 @@ function computeScores(answers: Record<string, number>): Record<string, number> 
 }
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <div className="mx-auto max-w-3xl rounded-feature border border-line bg-white p-6 shadow-card md:p-10">{children}</div>;
+  return <div className="mx-auto max-w-3xl rounded-feature border border-line bg-surface p-6 shadow-card md:p-10">{children}</div>;
 }
 
 function Disclaimer({ locale }: { locale: Locale }) {
@@ -349,7 +349,7 @@ function Gauge({ value, locale }: { value: number; locale: Locale }) {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-display text-3xl font-bold text-navy">{formatNumber(value, locale)}</span>
+        <span className="num text-3xl font-medium text-ink">{formatNumber(value, locale)}</span>
         <span className="text-xs text-ink-faint">/ {formatNumber(100, locale)}</span>
       </div>
     </div>
@@ -360,7 +360,7 @@ function Bar({ label, value, locale }: { label: string; value: number; locale: L
   return (
     <div>
       <div className="flex items-center justify-between text-sm">
-        <span className="text-navy">{label}</span>
+        <span className="text-ink">{label}</span>
         <span className="font-medium text-ink-muted">{formatNumber(value, locale)}</span>
       </div>
       <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-line">

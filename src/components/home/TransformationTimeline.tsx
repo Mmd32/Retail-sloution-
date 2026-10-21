@@ -50,7 +50,7 @@ export function TransformationTimeline({ locale }: { locale: Locale }) {
           <ol className="relative space-y-6 ps-8">
             {/* track + fill */}
             <span
-              className="absolute inset-y-1 start-[7px] w-px bg-white/15"
+              className="absolute inset-y-1 start-[7px] w-px bg-surface/15"
               aria-hidden
             />
             <span
@@ -135,7 +135,7 @@ export function TransformationTimeline({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="mt-7 rounded-card border border-white/10 bg-white/5 p-5">
+            <div className="mt-7 rounded-card border border-white/10 bg-surface/5 p-5">
               <p className="text-xs font-semibold uppercase tracking-label text-navy-300">
                 {locale === 'fa' ? 'نقش تیم مشتری' : 'The client team’s role'}
               </p>

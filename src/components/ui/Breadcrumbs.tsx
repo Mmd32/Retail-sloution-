@@ -13,9 +13,12 @@ export function Breadcrumbs({
   locale,
   items,
   onDark,
+  inline,
 }: {
   locale: Locale;
   items: Crumb[];
+  /** Render bare (no bar) in light-theme colours, for use inside a light hero. */
+  inline?: boolean;
   /** Render bare (no bar) in light-on-navy colours, for use inside a hero. */
   onDark?: boolean;
 }) {
@@ -23,9 +26,9 @@ export function Breadcrumbs({
   const all: Crumb[] = [{ label: u('home', locale), path: '/' }, ...items];
 
   return (
-    <nav aria-label="Breadcrumb" className={onDark ? undefined : 'border-b border-line bg-surface'}>
-      <div className={onDark ? undefined : 'container-x'}>
-        <ol className={cn('flex flex-wrap items-center gap-1 text-sm', onDark ? 'text-navy-200' : 'py-3 text-ink-muted')}>
+    <nav aria-label="Breadcrumb" className={onDark || inline ? undefined : 'border-b border-line bg-surface'}>
+      <div className={onDark || inline ? undefined : 'container-x'}>
+        <ol className={cn('flex flex-wrap items-center gap-1 text-sm', onDark ? 'text-[#C9CED8]' : inline ? 'text-ink-muted' : 'py-3 text-ink-muted')}>
           {all.map((item, i) => {
             const isLast = i === all.length - 1;
             return (
@@ -39,7 +42,7 @@ export function Breadcrumbs({
                     {item.label}
                   </span>
                 )}
-                {!isLast && <Chevron className={cn('h-4 w-4', onDark ? 'text-navy-300' : 'text-ink-faint')} aria-hidden />}
+                {!isLast && <Chevron className={cn('h-4 w-4', onDark ? 'text-[#868EA0]' : 'text-ink-faint')} aria-hidden />}
               </li>
             );
           })}

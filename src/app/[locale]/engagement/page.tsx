@@ -36,11 +36,11 @@ export default function EngagementPage({ params }: { params: { locale: string } 
           <ol className="space-y-6">
             {engagementStages.map((stage, i) => (
               <li key={stage.key} className="relative flex gap-6">
-                <span className="z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-navy font-display text-lg font-bold text-white">
+                <span className="z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink num text-lg font-medium text-paper">
                   {i + 1}
                 </span>
-                <div className="flex-1 rounded-card border border-line bg-white p-6">
-                  <h2 className="text-h3 text-navy">{stage.name[locale]}</h2>
+                <div className="flex-1 rounded-card border border-line bg-surface p-6">
+                  <h2 className="text-h3 text-ink">{stage.name[locale]}</h2>
                   <p className="mt-2 leading-relaxed text-ink-muted">{stage.description[locale]}</p>
                 </div>
               </li>

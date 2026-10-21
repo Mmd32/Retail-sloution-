@@ -93,7 +93,7 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
     return (
       <div className="rounded-card border border-cyan-200 bg-callout-info p-8 text-center">
         <CheckCircle2 className="mx-auto h-10 w-10 text-functional" aria-hidden />
-        <h3 className="mt-4 text-h3 text-navy">{u('formSuccessTitle', locale)}</h3>
+        <h3 className="mt-4 text-h3 text-ink">{u('formSuccessTitle', locale)}</h3>
         <p className="mt-2 text-ink-muted">{u('formSuccessBody', locale)}</p>
       </div>
     );
@@ -133,9 +133,9 @@ export function LeadForm({ locale, type, serviceSlug, assessment, compact }: Pro
     });
   }
 
-  const label = 'mb-1.5 block text-label text-navy';
+  const label = 'mb-1.5 block text-label text-ink';
   const input =
-    'w-full rounded-control border border-line bg-white px-3.5 h-12 text-navy outline-none transition-colors duration-standard ease-standard focus:border-cyan';
+    'w-full rounded-control border border-line bg-surface px-3.5 h-12 text-ink outline-none transition-colors duration-standard ease-standard focus:border-cyan';
   const optional = <span className="text-ink-faint">{` ${u('optional', locale)}`}</span>;
 
   return (

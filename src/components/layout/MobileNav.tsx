@@ -43,7 +43,7 @@ function Group({
         <Link
           href={localePath(locale, href)}
           onClick={onClose}
-          className="flex min-h-[52px] flex-1 items-center text-start text-lg font-semibold text-navy"
+          className="flex min-h-[52px] flex-1 items-center text-start text-lg font-semibold text-ink"
         >
           {title}
         </Link>
@@ -114,18 +114,18 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
   return (
     <div
       ref={panelRef}
-      className="fixed inset-0 z-[95] flex flex-col bg-white lg:hidden"
+      className="fixed inset-0 z-[95] flex flex-col bg-paper xl:hidden"
       role="dialog"
       aria-modal="true"
       aria-label={u('menu', locale)}
     >
       <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-5">
-        <span className="font-display font-bold text-navy">{u('menu', locale)}</span>
+        <span className="font-display font-bold text-ink">{u('menu', locale)}</span>
         <button
           onClick={onClose}
           aria-label={u('close', locale)}
           autoFocus
-          className="inline-flex h-11 w-11 items-center justify-center rounded-control text-navy"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-control text-ink"
         >
           <X className="h-6 w-6" />
         </button>
@@ -157,7 +157,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
               className={sub}
             >
               {s.eyebrow[locale]}{' '}
-              <span className="ms-2 font-display text-xs font-bold text-functional">{s.abbr}</span>
+              <span className="num ms-2 text-xs text-ink-faint">{s.abbr}</span>
             </Link>
           ))}
           <div className="pt-2">
@@ -195,7 +195,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
             aria-current={isActive(link.href) ? 'page' : undefined}
             className={cn(
               'flex min-h-[52px] items-center border-b border-line text-lg font-semibold',
-              isActive(link.href) ? 'text-functional' : 'text-navy',
+              isActive(link.href) ? 'text-functional' : 'text-ink',
             )}
           >
             {link.label[locale]}
@@ -217,7 +217,7 @@ export function MobileNav({ locale, onClose }: { locale: Locale; onClose: () => 
       </div>
 
       {/* Pinned CTA — always reachable, never scrolled past. */}
-      <div className="shrink-0 border-t border-line bg-white px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
+      <div className="shrink-0 border-t border-line bg-surface px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
         <ButtonLink
           href={localePath(locale, '/contact')}
           size="lg"

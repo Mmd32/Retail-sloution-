@@ -9,7 +9,11 @@ export interface NavLink {
 /**
  * Primary navigation (§2).
  *
- * Six entries, deliberately. The previous seven-item bar mixed audience-facing
+ * Four entries plus the persistent "Book a meeting" button, following the
+ * retail-design studios this site benchmarks against (About / Work / Services /
+ * News). Industries and the company profile live in the footer.
+ *
+ * (History) Six entries, deliberately. The previous seven-item bar mixed audience-facing
  * categories ("Solutions") with internal org structure ("Team", "Capabilities")
  * and forced a decision the visitor has no basis to make. Now:
  *
@@ -21,12 +25,10 @@ export interface NavLink {
  *   - Methodology / Engagement / Assessment move into the mega menu and footer.
  */
 export const primaryNav: NavLink[] = [
-  { href: '/solutions', label: { fa: 'راهکارها', en: 'Solutions' } },
-  { href: '/industries', label: { fa: 'صنایع', en: 'Industries' } },
-  { href: '/case-studies', label: { fa: 'نمونه کارها', en: 'Selected work' } },
+  { href: '/solutions', label: { fa: 'چه کار می‌کنیم', en: 'What we do' } },
+  { href: '/case-studies', label: { fa: 'نمونه کارها', en: 'Work' } },
   { href: '/insights', label: { fa: 'بینش‌ها', en: 'Insights' } },
   { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
-  { href: '/company-profile', label: { fa: 'پروفایل شرکت', en: 'Company Profile' } },
 ];
 
 /**
@@ -102,7 +104,7 @@ export const solutionsExtraLinks: NavLink[] = [
 /** Links demoted from the header to the footer (§2, §18). */
 export const companyLinks: NavLink[] = [
   { href: '/about', label: { fa: 'درباره ما', en: 'About' } },
-  { href: '/company-profile', label: { fa: 'پروفایل شرکت', en: 'Company Profile' } },
+  { href: '/company-profile', label: { fa: 'پروفایل شرکت', en: 'Company profile' } },
   { href: '/methodology', label: { fa: 'متدولوژی', en: 'Methodology' } },
   { href: '/engagement', label: { fa: 'مدل همکاری', en: 'Engagement Model' } },
   { href: '/contact', label: { fa: 'تماس', en: 'Contact' } },

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { inter, vazirmatn } from '../fonts';
+import { plexSans, plexMono, plexArabic } from '../fonts';
 import '../globals.css';
 import { locales, isLocale, localeDirection, localeHtmlLang, type Locale } from '@/i18n/config';
 import { Header } from '@/components/layout/Header';
+import { findBrandLogo } from '@/lib/media';
 import { Footer } from '@/components/layout/Footer';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { LocaleMemory } from '@/components/layout/LocaleMemory';
@@ -34,11 +35,16 @@ export default function LocaleLayout({
   const dir = localeDirection[locale];
 
   return (
-    <html lang={localeHtmlLang[locale]} dir={dir} className={`${inter.variable} ${vazirmatn.variable}`}>
-      <body className="min-h-screen bg-surface antialiased">
+    <html
+      lang={localeHtmlLang[locale]}
+      dir={dir}
+      data-theme="light"
+      className={`${plexSans.variable} ${plexMono.variable} ${plexArabic.variable}`}
+    >
+      <body className="min-h-screen bg-paper antialiased">
         <SkipLink label={u('skipToContent', locale)} />
         <LocaleMemory locale={locale} />
-        <Header locale={locale} />
+        <Header locale={locale} logoSrc={findBrandLogo('logo')} />
         <main id="main" tabIndex={-1}>
           {children}
         </main>

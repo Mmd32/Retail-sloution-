@@ -75,8 +75,14 @@ export async function persistLead(input: LeadInput): Promise<StoredLead> {
     createdAt: new Date().toISOString(),
   };
 
-  // Source-of-truth local store (always).
-  await saveLocal(lead);
+  // Local file store. Serverless hosts (Vercel) have a read-only disk, so a
+  // failed write must not fail the submission — the remote channels below
+  // are the durable store there (see docs/DEPLOYMENT.md).
+  try {
+    await saveLocal(lead);
+  } catch (err) {
+    console.warn('[leads] local store unavailable, relying on remote channels:', (err as Error).message);
+  }
 
   // Best-effort integrations (any subset).
   await Promise.allSettled([

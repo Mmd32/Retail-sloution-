@@ -6,6 +6,9 @@ import type { Config } from 'tailwindcss';
  * Every value below is taken from the approved system. Do not introduce raw
  * values in components; add a token here instead (see §13.4 Token governance).
  */
+/** A colour stored as RGB channels in a CSS variable, so `/alpha` still works. */
+const v = (name: string) => `rgb(var(--c-${name}) / <alpha-value>)`;
+
 const config: Config = {
   content: [
     './src/app/**/*.{ts,tsx}',
@@ -40,18 +43,26 @@ const config: Config = {
           800: '#16213E',
           900: '#0F172C',
         },
-        fog: '#F1F2F5', // Retail Fog — background, section separation
-        nude: '#F4EEE6', // Warm nude — alternating mid-page bands
+        /* Surfaces are CSS variables (globals.css) so light/dark swap in one
+           place. `fog` and `nude` are kept as aliases of the sunken band. */
+        paper: v('paper'),
+        sunken: v('sunken'),
+        fog: v('sunken'),
+        nude: v('sunken'),
 
         /* §5.3 Extended palette */
         functional: {
-          DEFAULT: '#00709A', // Functional Blue — links, focus, accessible emphasis (darkened: 4.8:1 on the nude band)
-          hover: '#005A80',
+          DEFAULT: v('action'), // links, focus, primary buttons
+          hover: v('action-hover'),
         },
-        capability: '#18B6A4', // Capability Teal
-        decision: '#F2B544', // Decision Amber
-        human: '#E85D75', // Human Coral
-        insight: '#5B5BD6', // Insight Violet
+        'on-action': v('on-action'),
+        capability: '#18B6A4',
+        decision: '#F2B544',
+        human: '#E85D75',
+        insight: '#5B5BD6',
+
+        /* Studio direction */
+        cream: '#FEFBE3',
 
         /* §5.4 Semantic */
         success: '#2D9D78',
@@ -61,34 +72,33 @@ const config: Config = {
 
         /* Callout surfaces §14.4 */
         callout: {
-          info: '#D9F5FF',
-          attention: '#FFF5DE',
-          success: '#E8F7F1',
-          critical: '#FDECEF',
+          info: v('callout-info'),
+          attention: v('callout-attention'),
+          success: v('callout-success'),
+          critical: v('callout-critical'),
         },
 
-        /* Text + surfaces */
+        /* Text + surfaces — all theme-aware */
         ink: {
-          DEFAULT: '#16213E', // text.primary
-          muted: '#3F4B6B', // was #4C5878 — body copy in cards read too pale
-          /* Clears 4.5:1 on white, Fog and the nude band (§25). */
-          faint: '#5A6482',
+          DEFAULT: v('ink'),
+          muted: v('ink-2'),
+          faint: v('ink-3'),
         },
         line: {
-          DEFAULT: '#E2E5EC',
-          strong: '#C9CEDA',
+          DEFAULT: v('line'),
+          strong: v('line-strong'),
         },
         surface: {
-          DEFAULT: '#FFFFFF',
-          muted: '#F7F3EC', // warm tint — sits between white and the nude band
+          DEFAULT: v('surface'),
+          muted: v('surface-muted'),
         },
       },
 
       fontFamily: {
-        /* §6.1 — Inter for Latin, IRANSansX→Vazirmatn for Persian */
         sans: ['var(--font-latin)', 'Arial', 'Helvetica', 'sans-serif'],
-        fa: ['IRANSansX', 'var(--font-fa)', 'IRANYekan', 'sans-serif'],
+        fa: ['var(--font-fa)', 'Tahoma', 'sans-serif'],
         display: ['var(--font-latin)', 'Arial', 'Helvetica', 'sans-serif'],
+        mono: ['var(--font-mono)', 'var(--font-fa)', 'monospace'],
       },
 
       /**
@@ -103,15 +113,15 @@ const config: Config = {
         sm: ['0.9375rem', { lineHeight: '1.5rem' }], // 15/24 (was 14/20)
         label: ['0.9375rem', { lineHeight: '1.5rem', fontWeight: '500' }], // 15/24 Medium (was 14/20)
         body: ['clamp(1rem, 0.9rem + 0.5vw, 1.125rem)', { lineHeight: '1.667' }], // 16→18 / 30
-        h3: ['clamp(1.375rem, 1.3rem + 0.35vw, 1.5rem)', { lineHeight: '1.333', fontWeight: '600' }], // 22→24 / 32
-        h2: ['clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem)', { lineHeight: '1.222', fontWeight: '700' }], // 28→36 / 44
-        h1: ['clamp(2.25rem, 1.85rem + 1.7vw, 3rem)', { lineHeight: '1.167', fontWeight: '700' }], // 36→48 / 56
-        display: ['clamp(2.5rem, 1.5rem + 4.2vw, 4rem)', { lineHeight: '1.125', fontWeight: '700' }], // 40→64 / 72
+        h3: ['clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem)', { lineHeight: '1.35', fontWeight: '400' }], // 20→24
+        h2: ['clamp(1.875rem, 1.45rem + 1.7vw, 2.75rem)', { lineHeight: '1.2', fontWeight: '300', letterSpacing: '-0.01em' }], // 30→44, light
+        h1: ['clamp(2.25rem, 1.7rem + 2.2vw, 3.5rem)', { lineHeight: '1.15', fontWeight: '300', letterSpacing: '-0.015em' }], // 36→56, light
+        display: ['clamp(2.5rem, 1.5rem + 4vw, 4.5rem)', { lineHeight: '1.08', fontWeight: '300', letterSpacing: '-0.02em' }], // 40→72, light
       },
 
       /* §7.2 Maximum widths */
       maxWidth: {
-        container: '1200px',
+        container: '1280px',
         reading: '760px',
       },
 
@@ -129,18 +139,18 @@ const config: Config = {
 
       /* §8.1 Radius */
       borderRadius: {
-        control: '8px',
-        button: '12px',
-        card: '16px',
-        feature: '24px',
+        control: '4px',
+        button: '999px', // pill
+        card: '8px',
+        feature: '8px',
         full: '999px',
       },
 
       /* §8.2 Elevation */
       boxShadow: {
-        card: '0 4px 16px rgba(22, 33, 62, 0.08)',
-        popover: '0 12px 32px rgba(22, 33, 62, 0.14)',
-        modal: '0 24px 64px rgba(22, 33, 62, 0.20)',
+        card: '0 1px 2px rgb(var(--c-shadow) / 0.06), 0 8px 24px -12px rgb(var(--c-shadow) / 0.18)',
+        popover: '0 2px 4px rgb(var(--c-shadow) / 0.06), 0 24px 48px -16px rgb(var(--c-shadow) / 0.28)',
+        modal: '0 32px 80px -16px rgb(var(--c-shadow) / 0.40)',
       },
 
       /* §17 Motion. Four tiers, matched to what is moving:

@@ -74,7 +74,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
       }}
     >
       <div className="container-x pt-[8vh]">
-        <div className="mx-auto max-w-2xl overflow-hidden rounded-card bg-white shadow-popover">
+        <div className="mx-auto max-w-2xl overflow-hidden rounded-card bg-surface shadow-popover">
           <div className="flex items-center gap-3 border-b border-line px-5">
             <Search className="h-5 w-5 text-ink-muted" aria-hidden />
             <input
@@ -82,10 +82,10 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={u('searchPlaceholder', locale)}
-              className="h-14 flex-1 bg-transparent text-navy outline-none placeholder:text-ink-faint"
+              className="h-14 flex-1 bg-transparent text-ink outline-none placeholder:text-ink-faint"
               aria-label={u('search', locale)}
             />
-            <button onClick={onClose} aria-label={u('close', locale)} className="p-2 text-ink-muted hover:text-navy">
+            <button onClick={onClose} aria-label={u('close', locale)} className="p-2 text-ink-muted hover:text-ink">
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -93,7 +93,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
           <div className="flex flex-wrap gap-2 border-b border-line px-5 py-3">
             <button
               onClick={() => setFilter(null)}
-              className={`inline-flex min-h-[44px] items-center rounded-full px-4 text-label font-medium ${filter === null ? 'bg-navy text-white' : 'bg-surface-muted text-ink-muted hover:text-navy'}`}
+              className={`inline-flex min-h-[44px] items-center rounded-full px-4 text-label font-medium ${filter === null ? 'bg-ink text-paper' : 'bg-surface-muted text-ink-muted hover:text-ink'}`}
             >
               {locale === 'fa' ? 'همه' : 'All'}
             </button>
@@ -101,7 +101,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`inline-flex min-h-[44px] items-center rounded-full px-4 text-label font-medium ${filter === f ? 'bg-navy text-white' : 'bg-surface-muted text-ink-muted hover:text-navy'}`}
+                className={`inline-flex min-h-[44px] items-center rounded-full px-4 text-label font-medium ${filter === f ? 'bg-ink text-paper' : 'bg-surface-muted text-ink-muted hover:text-ink'}`}
               >
                 {typeLabels[f][locale]}
               </button>
@@ -119,7 +119,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                     key={s.href}
                     href={localePath(locale, s.href)}
                     onClick={onClose}
-                    className="block rounded-control px-3 py-2 text-sm text-navy hover:bg-surface-muted"
+                    className="block rounded-control px-3 py-2 text-sm text-ink hover:bg-surface-muted"
                   >
                     {s.label[locale]}
                   </Link>
@@ -136,7 +136,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                       key={s.href}
                       href={localePath(locale, s.href)}
                       onClick={onClose}
-                      className="inline-flex min-h-[44px] items-center rounded-full bg-surface-muted px-4 text-label text-navy hover:bg-callout-info"
+                      className="inline-flex min-h-[44px] items-center rounded-full bg-surface-muted px-4 text-label text-ink hover:bg-callout-info"
                     >
                       {s.label[locale]}
                     </Link>
@@ -156,7 +156,7 @@ export function SearchDialog({ locale, open, onClose }: { locale: Locale; open: 
                 className="flex items-start justify-between gap-3 rounded-control px-3 py-2.5 hover:bg-surface-muted"
               >
                 <span>
-                  <span className="block text-sm font-medium text-navy">{d.title[locale]}</span>
+                  <span className="block text-sm font-medium text-ink">{d.title[locale]}</span>
                   <span className="mt-0.5 block text-xs text-ink-muted line-clamp-1">{d.description[locale]}</span>
                 </span>
                 <span className="mt-0.5 shrink-0 rounded-control bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">

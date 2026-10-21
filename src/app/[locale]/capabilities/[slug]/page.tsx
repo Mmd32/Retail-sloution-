@@ -53,11 +53,11 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <Eyebrow>{u('overview', locale)}</Eyebrow>
-            <p className="mt-4 text-xl leading-relaxed text-navy">{cap.detail[locale]}</p>
+            <p className="mt-4 text-xl leading-relaxed text-ink">{cap.detail[locale]}</p>
 
             {relatedServices.length > 0 && (
               <div className="mt-12">
-                <h2 className="rule-accent text-h2 text-navy">{u('relatedSolutions', locale)}</h2>
+                <h2 className="rule-accent text-h2 text-ink">{u('relatedSolutions', locale)}</h2>
                 <div className="mt-4 grid gap-4 sm:grid-cols-3">
                   {relatedServices.map((s) => (
                     <Link
@@ -65,7 +65,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
                       href={localePath(locale, `/solutions/${s.slug}`)}
                       className="rounded-card border border-line p-5 transition-colors hover:border-cyan-300"
                     >
-                      <p className="font-display text-h3 text-navy">{s.abbr}</p>
+                      <p className="font-display text-h3 text-ink">{s.abbr}</p>
                       <p className="mt-1 text-sm text-ink-muted">{s.fullName[locale]}</p>
                     </Link>
                   ))}
@@ -84,7 +84,7 @@ export default function CapabilityPage({ params }: { params: { locale: string; s
                   <Link
                     key={i.slug}
                     href={localePath(locale, `/industries#${i.slug}`)}
-                    className="inline-flex min-h-[44px] items-center rounded-full border border-line px-4 text-label text-navy hover:border-cyan"
+                    className="inline-flex min-h-[44px] items-center rounded-full border border-line px-4 text-label text-ink hover:border-cyan"
                   >
                     {i.name[locale]}
                   </Link>

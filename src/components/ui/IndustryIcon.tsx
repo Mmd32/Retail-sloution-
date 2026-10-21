@@ -17,7 +17,7 @@ export function IndustryIcon({ slug, className }: { slug: string; className?: st
   return (
     <span
       className={cn(
-        'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-card bg-navy-50 text-functional',
+        'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-card bg-sunken text-functional',
         className,
       )}
       aria-hidden

@@ -53,13 +53,13 @@ export default function InsightPage({ params }: { params: { locale: string; slug
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ReadingProgress targetId="insight-article" />
       <article id="insight-article">
-        <header className="rs-blueprint bg-navy">
-          <div className="container-x py-8 md:py-12">
+        <header className="rs-hero-field border-b border-line">
+          <div className="container-x pb-12 pt-6 md:pb-16 md:pt-8">
             <div className="mx-auto max-w-3xl">
               <div className="mb-6">
                 <Breadcrumbs
                   locale={locale}
-                  onDark
+                  inline
                   items={[
                   { label: locale === 'fa' ? 'بینش‌ها' : 'Insights', path: '/insights' },
                   { label: insight.title[locale] },
@@ -70,11 +70,11 @@ export default function InsightPage({ params }: { params: { locale: string; slug
                 <span className="rounded-control bg-callout-info px-2.5 py-1 font-medium text-functional">
                   {insightTypeLabels[insight.type][locale]}
                 </span>
-                <span className="text-navy-200">{insight.topic[locale]}</span>
+                <span className="text-ink-muted">{insight.topic[locale]}</span>
               </div>
-              <h1 className="mt-5 text-3xl font-bold leading-tight text-white md:text-4xl">{insight.title[locale]}</h1>
-              <p className="mt-5 text-body text-navy-200">{insight.summary[locale]}</p>
-              <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-navy-200">
+              <h1 className="text-h1 mt-6 text-ink">{insight.title[locale]}</h1>
+              <p className="mt-5 text-body text-ink-muted">{insight.summary[locale]}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-5 border-t border-line pt-5 text-sm text-ink-muted">
                 <span className="inline-flex items-center gap-1.5">
                   <User className="h-4 w-4" aria-hidden /> {insight.author[locale]}
                 </span>
@@ -92,23 +92,23 @@ export default function InsightPage({ params }: { params: { locale: string; slug
         <div className="container-x py-14">
           <div className="mx-auto max-w-prose">
             {insight.body.map((p, i) => (
-              <p key={i} className="mb-6 text-lg leading-relaxed text-ink">{p[locale]}</p>
+              <p key={i} className="mb-6 text-[1.125rem] leading-[1.75] text-ink">{p[locale]}</p>
             ))}
           </div>
         </div>
       </article>
 
       <Section tone="muted">
-        <h2 className="text-h2 text-navy">{u('relatedInsights', locale)}</h2>
+        <h2 className="text-h2 text-ink">{u('relatedInsights', locale)}</h2>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {related.map((n) => (
             <Link
               key={n.slug}
               href={localePath(locale, `/insights/${n.slug}`)}
-              className="group rounded-card border border-line bg-white p-6 transition-colors hover:border-cyan-300"
+              className="group rounded-card border border-line bg-surface p-6 transition-colors hover:border-cyan-300"
             >
               <span className="text-xs font-semibold uppercase tracking-wide text-functional">{n.topic[locale]}</span>
-              <h3 className="mt-3 text-h3 text-navy group-hover:text-functional">{n.title[locale]}</h3>
+              <h3 className="mt-3 text-h3 text-ink group-hover:text-functional">{n.title[locale]}</h3>
             </Link>
           ))}
         </div>

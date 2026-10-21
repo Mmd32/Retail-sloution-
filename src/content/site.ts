@@ -61,36 +61,36 @@ export const coreBelief = {
 
 export const industryProblem = {
   headline: {
-    fa: 'این چالش‌ها را می‌شناسیم و برای هرکدام راه‌حل داریم.',
-    en: 'We know these challenges — and we have a way through each of them.',
+    fa: 'این حرف‌ها برایتان آشنا نیست؟',
+    en: 'Does any of this sound familiar?',
   } as Localized,
   problems: [
     {
       title: { fa: 'تصمیم‌ها منتظر حضور مالک است', en: 'Decisions wait on the owner' } as Localized,
       body: {
-        fa: 'برند با تجربه و پیگیری شما به اینجا رسیده است؛ اما حالا بسیاری از تصمیم‌ها و کارهای روزمره هنوز به حضور مالک یا چند مدیر کلیدی وابسته است.',
-        en: 'Your brand got here on your experience and drive. Now many decisions and daily tasks still depend on the owner or a few key managers.',
+        fa: 'برند را با تجربه و پیگیری خودتان به اینجا رسانده‌اید. اما حالا هر تصمیمی، از کوچک تا بزرگ، هنوز منتظر شما یا چند مدیر کلیدی می‌ماند.',
+        en: 'You got the brand here on your own experience and drive. But now every decision, big or small, still waits for you or a few key managers.',
       } as Localized,
     },
     {
       title: { fa: 'کیفیت شعب یکسان نیست', en: 'Branches deliver uneven quality' } as Localized,
       body: {
-        fa: 'با اضافه شدن شعب، کیفیتی که مشتری از برند شما انتظار دارد در همه شعب به یک شکل اجرا نمی‌شود.',
-        en: 'As branches are added, the quality customers expect from your brand is not delivered the same way everywhere.',
+        fa: 'هر شعبه جدیدی که باز می‌شود، کمی با بقیه فرق دارد. مشتری‌ای که در یک شعبه عاشق برندتان شده، در شعبه دیگر همان حس را نمی‌گیرد.',
+        en: 'Every new branch turns out a little different. A customer who fell for your brand in one store doesn’t get the same feeling in the next.',
       } as Localized,
     },
     {
       title: { fa: 'رشد، فشار را بیشتر کرده است', en: 'Growth has added pressure' } as Localized,
       body: {
-        fa: 'فروش و تعداد شعب بالا رفته، اما ساختار، فرآیندها و تیم مدیریتی هنوز هم‌پای آن رشد نکرده‌اند.',
-        en: 'Sales and branch count have grown, but structure, processes and the management team have not kept pace.',
+        fa: 'فروش و تعداد شعب بالا رفته، ولی ساختار، فرآیندها و تیم مدیریت هنوز به آن نرسیده‌اند. نتیجه؟ همه خسته‌اند.',
+        en: 'Sales and branch count are up, but structure, processes and the management team haven’t caught up. The result? Everyone is stretched.',
       } as Localized,
     },
     {
       title: { fa: 'تصمیم‌های بزرگ، بدون داده کافی', en: 'Big decisions without enough data' } as Localized,
       body: {
-        fa: 'تجربه مدیران ارزشمند است؛ اما برای تصمیم‌هایی مثل افتتاح شعبه یا سرمایه‌گذاری، داده و معیار روشنی در دسترس نیست.',
-        en: 'Your managers’ experience is valuable, but decisions like opening a branch or investing lack clear data and criteria.',
+        fa: 'تجربه و حس شما ارزشمند است. اما وقتی پای افتتاح شعبه یا یک سرمایه‌گذاری بزرگ وسط است، کاش عدد و معیار روشنی هم روی میز بود.',
+        en: 'Your experience and instinct matter. But when it’s time to open a branch or make a big investment, you’d want clear numbers on the table too.',
       } as Localized,
     },
   ],

@@ -26,8 +26,11 @@ import { localePath, cn } from '@/lib/utils';
 type Variant = 'primary' | 'reverse' | 'brandField';
 
 const palettes: Record<Variant, { frame: string; retail: string; solutions: string }> = {
-  primary: { frame: '#16213E', retail: '#5C6478', solutions: '#00B0F0' },
-  reverse: { frame: '#FFFFFF', retail: '#BFC6D8', solutions: '#00B0F0' },
+  /* Matched to the supplied logo artwork: black frame, grey RETAIL, cyan
+     Solutions. Applied through `style` because CSS variables do not resolve
+     in SVG presentation attributes. */
+  primary: { frame: '#111111', retail: '#6D6E71', solutions: '#1BB5EC' },
+  reverse: { frame: '#FFFFFF', retail: '#FFFFFF', solutions: '#1BB5EC' },
   brandField: { frame: '#16213E', retail: '#16213E', solutions: '#FFFFFF' },
 };
 
@@ -55,10 +58,10 @@ export function LogoMark({
     >
       {/* Open frame — full left edge, top and bottom returns, open at the
           right so the wordmark reads through the opening (§4.1). */}
-      <g fill="none" stroke={c.frame} strokeWidth="30" strokeLinecap="butt">
+      <g fill="none" style={{ stroke: c.frame }} strokeWidth="30" strokeLinecap="butt">
         <path d="M635 190 H115 V830 H635" />
-        <path d="M635 190 V320" />
-        <path d="M635 830 V700" />
+        <path d="M635 190 V350" />
+        <path d="M635 830 V670" />
       </g>
 
       {/* Two-line wordmark, overlapping the frame opening.
@@ -69,24 +72,22 @@ export function LogoMark({
       <text
         x="315"
         y="497"
-        fill={c.retail}
         fontSize="132"
         fontWeight="400"
         textLength="595"
         lengthAdjust="spacing"
-        style={{ fontFamily: 'var(--font-latin), Arial, Helvetica, sans-serif' }}
+        style={{ fill: c.retail, fontFamily: 'var(--font-latin), Arial, Helvetica, sans-serif' }}
       >
         RETAIL
       </text>
       <text
         x="318"
         y="632"
-        fill={c.solutions}
         fontSize="136"
-        fontWeight="300"
+        fontWeight="400"
         textLength="592"
         lengthAdjust="spacing"
-        style={{ fontFamily: 'var(--font-latin), Arial, Helvetica, sans-serif' }}
+        style={{ fill: c.solutions, fontFamily: 'var(--font-latin), Arial, Helvetica, sans-serif' }}
       >
         Solutions
       </text>
@@ -98,13 +99,9 @@ export function LogoMark({
 export function LogoGlyph({ variant = 'primary', className }: { variant?: Variant; className?: string }) {
   const c = palettes[variant];
   return (
-    <svg viewBox="0 0 48 48" className={className} role="img" aria-label="Retail Solutions">
-      <g fill="none" stroke={c.frame} strokeWidth="4.5">
-        <path d="M34 7 H8 V41 H34" />
-        <path d="M34 7 V16" />
-        <path d="M34 41 V32" />
-      </g>
-      <circle cx="34" cy="24" r="4.5" fill={c.solutions} />
+    <svg viewBox="0 0 40 48" className={className} role="img" aria-label="Retail Solutions">
+      {/* The logo's open frame on its own, same proportions as LogoMark. */}
+      <path d="M35 15 V5.5 H5 V42.5 H35 V33" fill="none" style={{ stroke: c.frame }} strokeWidth="2.6" />
     </svg>
   );
 }
@@ -132,6 +129,34 @@ export function Logo({
         variant={onDark ? 'reverse' : 'primary'}
         className={cn('shrink-0 transition-[height,width] duration-standard ease-standard', className)}
       />
+    </Link>
+  );
+}
+
+/**
+ * Horizontal lockup for the dark header: the frame mark beside the name.
+ * The two-line masterbrand needs ~120px of width to stay legible (§4.5); a
+ * 56px bar cannot give it that, so the bar uses mark + name instead.
+ */
+export function LogoWordmark({
+  locale,
+  className,
+  onDark,
+}: {
+  locale: Locale;
+  className?: string;
+  onDark?: boolean;
+}) {
+  return (
+    <Link
+      href={localePath(locale, '/')}
+      className={cn('inline-flex shrink-0 items-center gap-2.5', onDark ? 'text-white' : 'text-ink', className)}
+      aria-label="Retail Solutions — home"
+    >
+      <LogoGlyph variant={onDark ? 'reverse' : 'primary'} className="h-8 w-8" />
+      <span className="whitespace-nowrap text-[1.0625rem] font-semibold tracking-tight" aria-hidden>
+        {locale === 'fa' ? 'ریتیل سلوشنز' : 'Retail Solutions'}
+      </span>
     </Link>
   );
 }
